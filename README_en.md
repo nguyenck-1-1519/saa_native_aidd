@@ -62,7 +62,7 @@ After initialization, set up a git remote pointing to the hands-on repository:
 
 ```sh
 git init    # if the project doesn't have git yet
-git remote add origin https://github.com/sun-asterisk-internal/agentic-coding-hands-on.git
+git remote add origin git@github.com:sun-asterisk-internal/agentic-coding-hands-on.git
 ```
 
 > **Why set the remote?** The MoMorph VSCode Extension needs to identify the repository to display the linked Figma file. Pointing the remote to `sun-asterisk-internal/agentic-coding-hands-on` ensures MoMorph works correctly.

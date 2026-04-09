@@ -62,7 +62,7 @@ Sau khi khởi tạo xong, thiết lập git remote trỏ về repository của 
 
 ```sh
 git init    # nếu project chưa có git
-git remote add origin https://github.com/sun-asterisk-internal/agentic-coding-hands-on.git
+git remote add origin git@github.com:sun-asterisk-internal/agentic-coding-hands-on.git
 ```
 
 > **Tại sao cần đặt remote?** MoMorph VSCode Extension cần nhận diện repository để hiển thị Figma file đã liên kết. Đặt remote trỏ về `sun-asterisk-internal/agentic-coding-hands-on` giúp MoMorph hoạt động chính xác.

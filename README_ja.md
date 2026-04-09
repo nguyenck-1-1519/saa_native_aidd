@@ -62,7 +62,7 @@ cd my-app
 
 ```sh
 git init    # プロジェクトに git がまだない場合
-git remote add origin https://github.com/sun-asterisk-internal/agentic-coding-hands-on.git
+git remote add origin git@github.com:sun-asterisk-internal/agentic-coding-hands-on.git
 ```
 
 > **なぜ remote を設定するのか？** MoMorph VSCode Extension がリポジトリを識別し、連携済みの Figma ファイルを表示するために必要です。remote を `sun-asterisk-internal/agentic-coding-hands-on` に向けることで、MoMorph が正しく動作します。
