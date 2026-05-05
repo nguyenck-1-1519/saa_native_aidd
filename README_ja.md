@@ -56,14 +56,28 @@ cd my-app
 # Xcode を開く → Create New Project → 新しいプロジェクトを作成
 ```
 
-初期化完了後、ハンズオン用リポジトリを指す git remote を設定します:
+初期化完了後、以下のように git remote を設定します:
 
 ```sh
 git init    # プロジェクトに git がまだない場合
-git remote add origin git@github.com:sun-asterisk-internal/agentic-coding-hands-on.git
+
+# origin: あなた個人のフォーク（<your-username> をあなたの GitHub ユーザー名に置き換えてください）
+git remote add origin git@github.com:<your-username>/agentic-coding-hands-on.git
+
+# upstream: ハンズオン用の元リポジトリ
+git remote add upstream git@github.com:sun-asterisk-internal/agentic-coding-hands-on.git
 ```
 
-> **なぜ remote を設定するのか？** MoMorph VSCode Extension がリポジトリを識別し、連携済みの Figma ファイルを表示するために必要です。remote を `sun-asterisk-internal/agentic-coding-hands-on` に向けることで、MoMorph が正しく動作します。
+`git remote -v` で確認すると、以下のようになっていれば正しいです:
+
+```
+origin    git@github.com:<your-username>/agentic-coding-hands-on.git (fetch)
+origin    git@github.com:<your-username>/agentic-coding-hands-on.git (push)
+upstream  git@github.com:sun-asterisk-internal/agentic-coding-hands-on.git (fetch)
+upstream  git@github.com:sun-asterisk-internal/agentic-coding-hands-on.git (push)
+```
+
+> **なぜ remote を設定するのか？** MoMorph VSCode Extension がリポジトリを識別し、連携済みの Figma ファイルを表示するために必要です。`upstream` を `sun-asterisk-internal/agentic-coding-hands-on` に向けることで MoMorph が正しく動作し、`origin` は個人のフォークに向けることで自分のコードを push できます。
 
 ### ステップ 2: MoMorph Web へのサインインと GitHub アカウントの連携
 
@@ -134,7 +148,7 @@ momorph init . --ai cursor
 
 > **注意:** `momorph init` 実行中に `failed to install extension` エラーが表示されても init 自体が成功している場合は、`resources/` ディレクトリに含まれる VSIX ファイルを使用して拡張機能を手動でインストールしてください:
 > ```sh
-> code --install-extension resources/vscode-momorph-0.12.4.vsix
+> code --install-extension resources/vscode-momorph-0.13.0.vsix
 > ```
 > または、こちらの詳細ガイドを参照してください: https://sun-asterisk.enterprise.slack.com/docs/T02CQGZA7MK/F094K2LTV71?focus_section_id=temp:C:USe2e5a076e79fd458c9b713260c
 

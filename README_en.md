@@ -56,14 +56,28 @@ cd my-app
 # Open Xcode → Create New Project → create a new project
 ```
 
-After initialization, set up a git remote pointing to the hands-on repository:
+After initialization, set up git remotes as follows:
 
 ```sh
 git init    # if the project doesn't have git yet
-git remote add origin git@github.com:sun-asterisk-internal/agentic-coding-hands-on.git
+
+# origin: your personal fork (replace <your-username> with your GitHub username)
+git remote add origin git@github.com:<your-username>/agentic-coding-hands-on.git
+
+# upstream: the original hands-on repository
+git remote add upstream git@github.com:sun-asterisk-internal/agentic-coding-hands-on.git
 ```
 
-> **Why set the remote?** The MoMorph VSCode Extension needs to identify the repository to display the linked Figma file. Pointing the remote to `sun-asterisk-internal/agentic-coding-hands-on` ensures MoMorph works correctly.
+Verify with `git remote -v` — the expected output should look like:
+
+```
+origin    git@github.com:<your-username>/agentic-coding-hands-on.git (fetch)
+origin    git@github.com:<your-username>/agentic-coding-hands-on.git (push)
+upstream  git@github.com:sun-asterisk-internal/agentic-coding-hands-on.git (fetch)
+upstream  git@github.com:sun-asterisk-internal/agentic-coding-hands-on.git (push)
+```
+
+> **Why set the remotes?** The MoMorph VSCode Extension needs to identify the repository to display the linked Figma file. The `upstream` remote pointing to `sun-asterisk-internal/agentic-coding-hands-on` ensures MoMorph works correctly, while `origin` points to your personal fork so you can push your own code.
 
 ### Step 2: Sign in to MoMorph Web and connect your GitHub account
 
@@ -134,7 +148,7 @@ This command will:
 
 > **Note:** If you encounter the `failed to install extension` error during `momorph init` but the init process still succeeds, install the extension manually using the VSIX file included in the `resources/` directory:
 > ```sh
-> code --install-extension resources/vscode-momorph-0.12.4.vsix
+> code --install-extension resources/vscode-momorph-0.13.0.vsix
 > ```
 > Or refer to the detailed guide here: https://sun-asterisk.enterprise.slack.com/docs/T02CQGZA7MK/F094K2LTV71?focus_section_id=temp:C:USe2e5a076e79fd458c9b713260c
 
