@@ -35,6 +35,9 @@ You are not limited to any specific tech stack — feel free to use any framewor
 
 1. Visit https://github.com/orgs/sun-asterisk-internal/sso
 2. Complete the SSO sign-in process so your GitHub account can join the `sun-asterisk-internal` organization
+3. Send your GitHub username to **nguyen.huu.kim** or **le.minh.hoang** to be invited to the `sun-asterisk-internal/agentic-coding-hands-on` repository
+
+> **Important:** Without being invited to the repository, you **cannot access the MoMorph MCP** to fetch spec/design data, and **cannot view Figma data on the MoMorph VSCode Extension** in the following steps. Make sure to complete this step before continuing.
 
 ### Step 1: Initialize your project
 

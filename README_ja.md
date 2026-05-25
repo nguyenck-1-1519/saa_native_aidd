@@ -35,6 +35,9 @@ Sun\* 社内向け **Agentic Coding** ハンズオン研修用リポジトリで
 
 1. https://github.com/orgs/sun-asterisk-internal/sso にアクセスします
 2. SSO サインインを完了し、あなたの GitHub アカウントが `sun-asterisk-internal` organization に参加できる状態にします
+3. `sun-asterisk-internal/agentic-coding-hands-on` リポジトリへの招待を受けるため、自分の GitHub ユーザー名を **nguyen.huu.kim** または **le.minh.hoang** に送ってください
+
+> **重要:** リポジトリに招待されていない場合、**MoMorph MCP にアクセスできず** Spec/デザインデータを取得できません。また、後続のステップで **MoMorph VSCode Extension 上の Figma データも表示されません**。次に進む前にこのステップを必ず完了してください。
 
 ### ステップ 1: プロジェクトの初期化
 

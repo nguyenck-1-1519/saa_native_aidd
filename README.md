@@ -35,6 +35,9 @@ Bạn không bị giới hạn về tech stack — có thể tự do sử dụng
 
 1. Truy cập https://github.com/orgs/sun-asterisk-internal/sso
 2. Hoàn tất quá trình đăng nhập SSO để tài khoản GitHub của bạn được tham gia vào organization `sun-asterisk-internal`
+3. Gửi GitHub username của bạn cho **nguyen.huu.kim** hoặc **le.minh.hoang** để được invite vào repository `sun-asterisk-internal/agentic-coding-hands-on`
+
+> **Quan trọng:** Nếu chưa được invite vào repository, bạn sẽ **không truy cập được MoMorph MCP** để lấy spec/design data, và **không xem được dữ liệu Figma trên MoMorph VSCode Extension** ở các bước sau. Hãy hoàn tất bước này trước khi tiếp tục.
 
 ### Bước 1: Khởi tạo project của bạn
 
