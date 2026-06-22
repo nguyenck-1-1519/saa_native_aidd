@@ -1,0 +1,16 @@
+{
+  "@@locale": "en",
+  "appTitle": "SAA 2025",
+  "loginDescription": "Start your journey with SAA 2025. Log in to explore!",
+  "loginButton": "LOGIN With Google",
+  "loginCopyright": "Copyright belongs to Sun* © 2025",
+  "authErrorGeneric": "Login failed. Please try again.",
+  "authErrorNetwork": "Network error. Please check your connection and try again.",
+  "authErrorAccountDisabled": "This account is invalid or has been disabled.",
+  "languageLabel": "Language",
+  "langVi": "VN",
+  "langEn": "EN",
+  "langJa": "JA",
+  "homeWelcome": "Welcome, {name}!",
+  "logout": "Log out"
+}

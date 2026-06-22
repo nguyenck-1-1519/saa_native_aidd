@@ -1,0 +1,8 @@
+{
+  "APP_ENV": "production",
+  "APP_NAME": "SAA 2025",
+  "SUPABASE_URL": "https://your-production-project.supabase.co",
+  "SUPABASE_PUBLISHABLE_KEY": "your_production_publishable_key",
+  "GOOGLE_CLIENT_ID": "your_production_google_web_client_id",
+  "GOOGLE_IOS_CLIENT_ID": "your_production_google_ios_client_id"
+}

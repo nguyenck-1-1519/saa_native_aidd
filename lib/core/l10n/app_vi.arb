@@ -1,0 +1,39 @@
+{
+  "@@locale": "vi",
+  "appTitle": "SAA 2025",
+  "@appTitle": { "description": "Application title" },
+
+  "loginDescription": "Bắt đầu hành trình của bạn cùng SAA 2025. Đăng nhập để khám phá!",
+  "@loginDescription": { "description": "Intro description on the login screen" },
+
+  "loginButton": "LOGIN With Google",
+  "@loginButton": { "description": "Google login CTA (brand label, English in design)" },
+
+  "loginCopyright": "Bản quyền thuộc về Sun* © 2025",
+  "@loginCopyright": { "description": "Copyright notice at bottom of login screen" },
+
+  "authErrorGeneric": "Đăng nhập thất bại. Vui lòng thử lại.",
+  "@authErrorGeneric": { "description": "Generic authentication error" },
+
+  "authErrorNetwork": "Lỗi kết nối mạng. Vui lòng kiểm tra kết nối và thử lại.",
+  "@authErrorNetwork": { "description": "Network error during auth" },
+
+  "authErrorAccountDisabled": "Tài khoản không hợp lệ hoặc đã bị vô hiệu hóa.",
+  "@authErrorAccountDisabled": { "description": "Account disabled/locked error" },
+
+  "languageLabel": "Ngôn ngữ",
+  "@languageLabel": { "description": "Label for language selector" },
+
+  "langVi": "VN",
+  "langEn": "EN",
+  "langJa": "JA",
+
+  "homeWelcome": "Xin chào, {name}!",
+  "@homeWelcome": {
+    "description": "Welcome message on home screen",
+    "placeholders": { "name": { "type": "String" } }
+  },
+
+  "logout": "Đăng xuất",
+  "@logout": { "description": "Logout button label" }
+}

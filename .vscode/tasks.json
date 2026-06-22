@@ -1,0 +1,42 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "supabase: start (local)",
+      "type": "shell",
+      "command": "npx supabase start",
+      "problemMatcher": []
+    },
+    {
+      "label": "supabase: stop",
+      "type": "shell",
+      "command": "npx supabase stop",
+      "problemMatcher": []
+    },
+    {
+      "label": "flutter: pub get",
+      "type": "shell",
+      "command": "fvm flutter pub get",
+      "problemMatcher": []
+    },
+    {
+      "label": "flutter: gen-l10n",
+      "type": "shell",
+      "command": "fvm flutter gen-l10n",
+      "problemMatcher": []
+    },
+    {
+      "label": "flutter: test",
+      "type": "shell",
+      "command": "fvm flutter test",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "flutter: analyze",
+      "type": "shell",
+      "command": "fvm flutter analyze",
+      "problemMatcher": []
+    }
+  ]
+}

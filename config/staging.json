@@ -1,0 +1,8 @@
+{
+  "APP_ENV": "staging",
+  "APP_NAME": "SAA 2025 (Staging)",
+  "SUPABASE_URL": "https://your-staging-project.supabase.co",
+  "SUPABASE_PUBLISHABLE_KEY": "your_staging_publishable_key",
+  "GOOGLE_CLIENT_ID": "your_staging_google_web_client_id",
+  "GOOGLE_IOS_CLIENT_ID": "your_staging_google_ios_client_id"
+}

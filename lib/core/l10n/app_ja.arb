@@ -1,0 +1,16 @@
+{
+  "@@locale": "ja",
+  "appTitle": "SAA 2025",
+  "loginDescription": "SAA 2025 で旅を始めましょう。ログインして探索しよう！",
+  "loginButton": "LOGIN With Google",
+  "loginCopyright": "著作権は Sun* © 2025 に帰属します",
+  "authErrorGeneric": "ログインに失敗しました。もう一度お試しください。",
+  "authErrorNetwork": "ネットワークエラーです。接続を確認してもう一度お試しください。",
+  "authErrorAccountDisabled": "このアカウントは無効か、利用できません。",
+  "languageLabel": "言語",
+  "langVi": "VN",
+  "langEn": "EN",
+  "langJa": "JA",
+  "homeWelcome": "ようこそ、{name} さん！",
+  "logout": "ログアウト"
+}
