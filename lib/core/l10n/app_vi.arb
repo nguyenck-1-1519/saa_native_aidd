@@ -35,5 +35,59 @@
   },
 
   "logout": "Đăng xuất",
-  "@logout": { "description": "Logout button label" }
+  "@logout": { "description": "Logout button label" },
+
+  "homeNavSaa2025": "SAA 2025",
+  "@homeNavSaa2025": { "description": "Bottom nav tab label: Home / SAA 2025" },
+
+  "homeNavAwards": "Awards",
+  "@homeNavAwards": { "description": "Bottom nav tab label: Awards" },
+
+  "homeNavKudos": "Kudos",
+  "@homeNavKudos": { "description": "Bottom nav tab label: Kudos" },
+
+  "homeNavProfile": "Profile",
+  "@homeNavProfile": { "description": "Bottom nav tab label: Profile" },
+
+  "homeComingSoon": "Coming soon",
+  "@homeComingSoon": { "description": "Text shown on hero before event date" },
+
+  "homeEventEnded": "Sự kiện đã diễn ra",
+  "@homeEventEnded": { "description": "Text shown on hero after event has elapsed" },
+
+  "homeAboutAward": "ABOUT AWARD",
+  "@homeAboutAward": { "description": "Hero button navigating to Awards overview" },
+
+  "homeAboutKudos": "ABOUT KUDOS",
+  "@homeAboutKudos": { "description": "Hero button navigating to Kudos overview" },
+
+  "homeAwardsSectionTitle": "Sun* Annual Awards 2025",
+  "@homeAwardsSectionTitle": { "description": "Awards section heading" },
+
+  "homeAwardsSectionSubtitle": "Hệ thống giải thưởng",
+  "@homeAwardsSectionSubtitle": { "description": "Awards section sub-heading" },
+
+  "homeAwardsEmpty": "Chưa có giải thưởng nào.",
+  "@homeAwardsEmpty": { "description": "Awards list empty state message" },
+
+  "homeAwardsError": "Không thể tải danh sách giải thưởng.",
+  "@homeAwardsError": { "description": "Awards list error state message" },
+
+  "homeAwardsRetry": "Thử lại",
+  "@homeAwardsRetry": { "description": "Retry button label for awards error state" },
+
+  "homeAwardsDetail": "Chi tiết",
+  "@homeAwardsDetail": { "description": "Award card detail button label" },
+
+  "homeKudosBadge": "ĐIỂM MỚI CỦA SAA 2025",
+  "@homeKudosBadge": { "description": "Kudos section highlight badge text" },
+
+  "homeKudosDescription": "Sun* Kudos là phong trào ghi nhận lẫn nhau trong nội bộ Sun*. Hãy gửi lời cảm ơn và ghi nhận đồng nghiệp của bạn!",
+  "@homeKudosDescription": { "description": "Kudos section description paragraph" },
+
+  "homeKudosDetail": "Chi tiết",
+  "@homeKudosDetail": { "description": "Kudos section detail button label" },
+
+  "placeholderNotImplemented": "Chưa triển khai",
+  "@placeholderNotImplemented": { "description": "Generic placeholder screen message" }
 }

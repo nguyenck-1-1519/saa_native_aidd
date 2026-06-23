@@ -12,5 +12,30 @@
   "langEn": "EN",
   "langJa": "JA",
   "homeWelcome": "Welcome, {name}!",
-  "logout": "Log out"
+  "logout": "Log out",
+
+  "homeNavSaa2025": "SAA 2025",
+  "homeNavAwards": "Awards",
+  "homeNavKudos": "Kudos",
+  "homeNavProfile": "Profile",
+
+  "homeComingSoon": "Coming soon",
+  "homeEventEnded": "Event has ended",
+
+  "homeAboutAward": "ABOUT AWARD",
+  "homeAboutKudos": "ABOUT KUDOS",
+
+  "homeAwardsSectionTitle": "Sun* Annual Awards 2025",
+  "homeAwardsSectionSubtitle": "Awards system",
+
+  "homeAwardsEmpty": "No awards available yet.",
+  "homeAwardsError": "Could not load awards.",
+  "homeAwardsRetry": "Retry",
+  "homeAwardsDetail": "Detail",
+
+  "homeKudosBadge": "NEW IN SAA 2025",
+  "homeKudosDescription": "Sun* Kudos is an internal peer-recognition movement at Sun*. Send your thanks and recognize your colleagues!",
+  "homeKudosDetail": "Detail",
+
+  "placeholderNotImplemented": "Not yet implemented"
 }

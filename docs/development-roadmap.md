@@ -1,14 +1,15 @@
 # Roadmap phát triển — SAA 2025
 
-Cập nhật: 2026-06-22
+Cập nhật: 2026-06-23
 
 ## Trạng thái tổng quan
 
 | Phase | Mô tả | Trạng thái |
 |-------|-------|-----------|
 | 01–07 | iOS Login MVP (F001) | ✅ Hoàn thành |
-| 08 | Android — Google OAuth | Chưa bắt đầu |
-| 09+ | Các màn hình SAA tiếp theo | Chưa xác định |
+| 08 | F002 Home Screen (iOS) | ✅ Hoàn thành |
+| 09 | Android — Google OAuth | Chưa bắt đầu |
+| 10+ | Màn hình thật (Awards, Kudos, Profile), API thật, Android Home | Chưa xác định |
 
 ---
 
@@ -42,9 +43,40 @@ Cập nhật: 2026-06-22
 
 ---
 
-## Phase 08 — Android (Google OAuth) — Chưa bắt đầu
+## Phase 08 — F002 Home Screen (iOS) ✅
 
-**Điều kiện tiên quyết:** Phase 01–07 ✅
+**Hoàn thành:** 2026-06-23
+
+### Đã thực hiện
+
+- **Navigation shell:** `StatefulShellRoute` 4 tab (SAA 2025 / Awards / Kudos / Profile); `PlaceholderScreen` dùng chung cho tất cả đích chưa triển khai.
+- **Feature F002 — Home:**
+  - Hero section: key-visual BG, Root Further logo, countdown real-time (DAYS/HOURS/MINUTES) tới 26/12/2025; xử lý elapsed (hiển thị 0, không âm/lỗi).
+  - Awards carousel: cuộn ngang; loading / empty / error + Retry từ stub repository.
+  - Kudos section: feature-flagged (`kudosFeatureFlagProvider`), ẩn hẳn khi tắt.
+  - FAB: pencil → WriteKudo + chống double-tap; S/Kudos → Kudos feed.
+  - Notification bell badge: hiện khi unread > 0.
+  - Auth guard: session hết hạn/401 → Login; 403 → Access Denied placeholder.
+  - i18n: chuỗi Home thêm vào ARB VN/EN/JA; JA flagged cần review người bản ngữ.
+- **Clean Architecture:** `features/home/{domain,data,presentation}`; Riverpod providers.
+- **Assets:** 14 design asset trích từ MoMorph → `assets/images/home/`.
+  - Tồn đọng: 2 asset stand-in (Award_BG_3, Kudos_Background) + FAB icon fallbacks chờ design re-upload.
+- **Tests:** 91 tests, 0 failed (unit + widget; total cộng dồn từ F001+F002).
+
+### Số liệu
+
+| Chỉ số | Giá trị |
+|--------|---------|
+| Test cases (TC) | 32/32 pass |
+| Tổng số tests | 91 |
+| `fvm flutter analyze` | No issues |
+| Platform | iOS-only |
+
+---
+
+## Phase 09 — Android (Google OAuth) — Chưa bắt đầu
+
+**Điều kiện tiên quyết:** Phase 01–08 ✅
 
 ### Việc cần làm
 
@@ -58,9 +90,14 @@ Cập nhật: 2026-06-22
 
 ---
 
-## Phase 09+ — Màn hình SAA tiếp theo — Chưa xác định
+## Phase 10+ — Màn hình thật + API thật — Chưa xác định
 
-Các màn hình nghiệp vụ SAA 2025 sẽ được xác định và spec hóa trong các sprint tiếp theo.
+Ưu tiên tiếp theo (thứ tự gợi ý):
+
+1. Thay `PlaceholderScreen` bằng màn thật: Awards list/detail, Kudos feed/detail, Profile.
+2. Tích hợp API thật cho awards, notifications, Kudos flag (hiện dùng stub).
+3. Android Home + OAuth (tương đương Phase 09 iOS nhưng cho Home).
+4. JA copy review người bản ngữ + re-upload 2 asset tồn đọng.
 
 Kiến trúc hiện tại (`features/{slug}/domain|data|presentation`) sẵn sàng cho feature mới.
 
@@ -70,3 +107,6 @@ Kiến trúc hiện tại (`features/{slug}/domain|data|presentation`) sẵn sà
 
 - Real Google OAuth Client ID/Secret cho môi trường staging/production chưa được cung cấp.
 - Android phase chưa có timeline cụ thể.
+- API thật cho awards / notifications / Kudos feature flag chưa có spec.
+- 2 asset stand-in (Award_BG_3, Kudos_Background) + FAB icon fallbacks chờ design re-upload.
+- JA copy cần review người bản ngữ.

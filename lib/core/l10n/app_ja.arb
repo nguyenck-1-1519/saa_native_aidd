@@ -12,5 +12,44 @@
   "langEn": "EN",
   "langJa": "JA",
   "homeWelcome": "ようこそ、{name} さん！",
-  "logout": "ログアウト"
+  "logout": "ログアウト",
+
+  "homeNavSaa2025": "SAA 2025",
+  "homeNavAwards": "アワード",
+  "@homeNavAwards": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+  "homeNavKudos": "クードス",
+  "@homeNavKudos": { "description": "NEEDS NATIVE REVIEW: machine-translated, brand term" },
+  "homeNavProfile": "プロフィール",
+  "@homeNavProfile": { "description": "NEEDS NATIVE REVIEW: machine-translated" },
+
+  "homeComingSoon": "Coming soon",
+  "homeEventEnded": "イベントは終了しました",
+  "@homeEventEnded": { "description": "NEEDS NATIVE REVIEW: machine-translated" },
+
+  "homeAboutAward": "ABOUT AWARD",
+  "homeAboutKudos": "ABOUT KUDOS",
+
+  "homeAwardsSectionTitle": "Sun* アニュアルアワーズ 2025",
+  "@homeAwardsSectionTitle": { "description": "NEEDS NATIVE REVIEW: machine-translated" },
+  "homeAwardsSectionSubtitle": "表彰制度",
+  "@homeAwardsSectionSubtitle": { "description": "NEEDS NATIVE REVIEW: machine-translated" },
+
+  "homeAwardsEmpty": "まだ受賞歴はありません。",
+  "@homeAwardsEmpty": { "description": "NEEDS NATIVE REVIEW: machine-translated" },
+  "homeAwardsError": "アワードを読み込めませんでした。",
+  "@homeAwardsError": { "description": "NEEDS NATIVE REVIEW: machine-translated" },
+  "homeAwardsRetry": "再試行",
+  "@homeAwardsRetry": { "description": "NEEDS NATIVE REVIEW: machine-translated" },
+  "homeAwardsDetail": "詳細",
+  "@homeAwardsDetail": { "description": "NEEDS NATIVE REVIEW: machine-translated" },
+
+  "homeKudosBadge": "SAA 2025 の新機能",
+  "@homeKudosBadge": { "description": "NEEDS NATIVE REVIEW: machine-translated" },
+  "homeKudosDescription": "Sun* Kudos は Sun* 社内の相互承認運動です。感謝を伝え、同僚を称え合いましょう！",
+  "@homeKudosDescription": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+  "homeKudosDetail": "詳細",
+  "@homeKudosDetail": { "description": "NEEDS NATIVE REVIEW: machine-translated" },
+
+  "placeholderNotImplemented": "未実装",
+  "@placeholderNotImplemented": { "description": "NEEDS NATIVE REVIEW: machine-translated" }
 }

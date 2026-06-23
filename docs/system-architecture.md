@@ -54,7 +54,26 @@ lib/
     │           ├── google_login_button.dart
     │           └── language_selector.dart
     └── home/
-        └── presentation/home_screen.dart           # placeholder MVP
+        ├── domain/
+        │   ├── entities/award.dart
+        │   ├── repositories/awards_repository.dart  # interface (abstract)
+        │   └── usecases/get_awards.dart
+        ├── data/
+        │   ├── models/award_model.dart
+        │   └── repositories/
+        │       ├── awards_repository_impl.dart
+        │       └── stub_awards_repository.dart      # mock data; real API defer
+        └── presentation/
+            ├── providers/home_providers.dart         # awardsProvider, countdownProvider, kudosFeatureFlagProvider
+            ├── screens/
+            │   ├── home_screen.dart                  # hero + countdown + awards + kudos + FAB
+            │   └── placeholder_screen.dart           # shared "chưa triển khai" screen (nhận tên tab)
+            └── widgets/
+                ├── hero_section.dart
+                ├── countdown_widget.dart
+                ├── awards_carousel.dart
+                ├── kudos_section.dart
+                └── notification_badge.dart
 ```
 
 ## 3. Quy tắc phụ thuộc (Dependency Rule)
@@ -87,14 +106,28 @@ Logout
   └─► SignOut usecase → supabase.auth.signOut() → stream emit null → router /login
 ```
 
-## 5. Routing & Auth Guard
+## 5. Routing & Navigation Shell
 
-`go_router` với `redirect` callback:
+`go_router` với `redirect` callback + `StatefulShellRoute` cho bottom navigation 4 tab (F002+):
 
 - `authStateProvider` (StreamProvider) cung cấp `AsyncValue<AuthUser?>`.
 - Đang load → return null (không redirect, giữ nguyên).
 - Có user + đang ở `/login` → redirect `/home`.
 - Không có user + đang ở `/home` → redirect `/login`.
+
+### Navigation Shell (StatefulShellRoute — 4 tab)
+
+```
+/home         → HomeScreen (SAA 2025 tab — active mặc định)
+/awards       → PlaceholderScreen("Awards")
+/kudos        → PlaceholderScreen("Kudos")
+/profile      → PlaceholderScreen("Profile")
+```
+
+`StatefulShellRoute` giữ state từng tab khi switch. `PlaceholderScreen` là widget dùng chung (nhận tên màn) — thay bằng màn thật khi feature sẵn sàng.
+
+Các đích trong Home cũng dùng `PlaceholderScreen`:
+`/search`, `/notifications`, `/awards/:id`, `/kudos/overview`, `/kudos/detail`, `/kudos/write`, `/access-denied`.
 
 ## 6. State Management (Riverpod)
 
@@ -104,6 +137,10 @@ Logout
 | `authStateProvider` | `StreamProvider<AuthUser?>` | Stream trạng thái đăng nhập, drive router |
 | `loginControllerProvider` | `AsyncNotifierProvider<LoginController, void>` | Xử lý login action + loading/error state |
 | `localeControllerProvider` | `NotifierProvider<LocaleController, Locale>` | Ngôn ngữ hiện tại + persist |
+| `awardsRepositoryProvider` | `Provider<AwardsRepository>` | DI: `StubAwardsRepository` (real API defer) |
+| `awardsProvider` | `AsyncNotifierProvider<AwardsNotifier, List<Award>>` | Fetch + loading/empty/error/retry |
+| `countdownProvider` | `StreamProvider<Duration>` | Đếm ngược tới 26/12/2025, cập nhật mỗi giây; elapsed → Duration.zero |
+| `kudosFeatureFlagProvider` | `Provider<bool>` | Ẩn/hiện Kudos section; mặc định `true` |
 
 ## 7. i18n
 
@@ -149,7 +186,16 @@ GOOGLE_IOS_CLIENT_ID=<iOS OAuth client id>
 - Supabase session persist qua cơ chế built-in + `flutter_secure_storage`.
 - Chỉ một phương thức đăng nhập: Google OAuth. Không có email/password.
 
-## 10. Quyết định công nghệ
+## 10. Assets (F002)
+
+14 design asset được trích từ MoMorph: `assets/images/home/` (Keyvisual BG, Root Further logo,
+3× Award card BG, 2× award-name overlays, Kudos Background, Kudos Logo, Pen/Kudos FAB icons,
+header logo, VN flag, dropdown chevron).
+
+**Tồn đọng:** 2 asset stand-in (Award_BG_3, Kudos_Background) + FAB icon fallbacks — chờ
+design re-upload. JA copy cần review người bản ngữ.
+
+## 11. Quyết định công nghệ
 
 | Vấn đề | Lựa chọn | Lý do |
 |--------|----------|-------|
