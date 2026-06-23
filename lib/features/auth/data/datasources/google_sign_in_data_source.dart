@@ -19,7 +19,9 @@ class GoogleSignInDataSource {
     String? iosClientId,
     String? serverClientId,
     GoogleSignIn? googleSignIn,
-  }) : _googleSignIn = googleSignIn ??
+  })  : _hasClientId = (iosClientId?.isNotEmpty ?? false) ||
+            (serverClientId?.isNotEmpty ?? false),
+        _googleSignIn = googleSignIn ??
             GoogleSignIn(
               clientId: iosClientId?.isNotEmpty == true ? iosClientId : null,
               serverClientId:
@@ -28,9 +30,15 @@ class GoogleSignInDataSource {
             );
 
   final GoogleSignIn _googleSignIn;
+  final bool _hasClientId;
 
   /// Runs the interactive sign-in. Throws [AuthCancelled] if the user backs out.
   Future<GoogleTokens> signIn() async {
+    // Guard: calling native GoogleSignIn without a configured client id raises
+    // an uncatchable native exception on iOS. Fail with a domain error instead.
+    if (!_hasClientId) {
+      throw const UnknownFailure('Google Sign-In is not configured');
+    }
     final account = await _googleSignIn.signIn();
     if (account == null) {
       throw const AuthCancelled('User cancelled Google sign-in');

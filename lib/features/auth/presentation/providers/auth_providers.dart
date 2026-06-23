@@ -15,10 +15,12 @@ import '../../data/repositories/auth_repository_impl.dart';
 import '../../data/repositories/fake_auth_repository.dart';
 
 /// The auth repository. Overridden with `FakeAuthRepository` in tests; also
-/// falls back to it for credential-free runs when Supabase was not initialized
-/// (no local config) so the app boots instead of crashing.
+/// falls back to it for credential-free runs — when Supabase was not
+/// initialized OR Google client ids are missing/placeholder — so the app boots
+/// and the Login button works in a demo instead of crashing native Google
+/// Sign-In on iOS.
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
-  if (!SupabaseInit.isInitialized) {
+  if (!SupabaseInit.isInitialized || !Env.hasGoogleConfig) {
     return FakeAuthRepository();
   }
   final supabaseAuth = SupabaseAuthDataSource(supabaseClient);

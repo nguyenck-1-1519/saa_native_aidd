@@ -23,6 +23,15 @@ abstract final class Env {
   static String _resolve(String defineValue, String key) =>
       defineValue.isNotEmpty ? defineValue : (dotenv.env[key] ?? '');
 
+  /// A value is "real" only if it is set AND not a leftover template
+  /// placeholder. Prevents booting the real auth path against bogus config
+  /// (which crashes native Google Sign-In on iOS).
+  static bool _isConfigured(String v) =>
+      v.isNotEmpty &&
+      !v.startsWith('your_') &&
+      !v.contains('YOUR_') &&
+      !v.contains('replace_with');
+
   // --- App flavor ---------------------------------------------------------
   static const String _appEnvRaw =
       String.fromEnvironment('APP_ENV', defaultValue: 'development');
@@ -62,5 +71,9 @@ abstract final class Env {
 
   /// True when the minimum config for live Supabase auth is present.
   static bool get hasSupabaseConfig =>
-      supabaseUrl.isNotEmpty && supabasePublishableKey.isNotEmpty;
+      _isConfigured(supabaseUrl) && _isConfigured(supabasePublishableKey);
+
+  /// True when native Google Sign-In has real (non-placeholder) client ids.
+  static bool get hasGoogleConfig =>
+      _isConfigured(googleIosClientId) && _isConfigured(googleWebClientId);
 }
