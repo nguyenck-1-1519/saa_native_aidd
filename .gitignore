@@ -85,3 +85,6 @@ ios/Flutter/flutter_export_environment.sh
 ios/.symlinks/
 # generated localizations
 lib/core/l10n/app_localizations*.dart
+
+# Flutter tooling
+devtools_options.yaml
