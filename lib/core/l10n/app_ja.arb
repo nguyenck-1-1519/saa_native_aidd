@@ -66,5 +66,95 @@
   "@awardsValueLabel": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
 
   "kudosKvTagline": "表彰と感謝のシステム",
-  "@kudosKvTagline": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" }
+  "@kudosKvTagline": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "kudosHighlightTitle": "ハイライト クードス",
+  "@kudosHighlightTitle": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "kudosSpotlightTitle": "スポットライトボード",
+  "@kudosSpotlightTitle": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "kudosAllTitle": "すべてのクードス",
+  "@kudosAllTitle": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "kudosOpenSecretBox": "シークレットボックスを開く",
+  "@kudosOpenSecretBox": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "kudosRecentGiftsTitle": "最新のギフト受領者 10 名",
+  "@kudosRecentGiftsTitle": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "kudosViewAll": "すべて見る",
+  "@kudosViewAll": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "kudosSendPrompt": "今日、誰にクードスを送りますか？",
+  "@kudosSendPrompt": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "kudosStatReceived": "受け取り",
+  "@kudosStatReceived": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "kudosStatSent": "送り済み",
+  "@kudosStatSent": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "kudosStatHearts": "受け取ったハート",
+  "@kudosStatHearts": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "kudosCopyLink": "リンクをコピー",
+  "@kudosCopyLink": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "kudosViewDetail": "詳細を見る",
+  "@kudosViewDetail": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "writeKudoHeader": "New Kudo",
+  "@writeKudoHeader": { "description": "Brand term — kept in English" },
+
+  "wkRecipient": "受信者",
+  "@wkRecipient": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "wkTitle": "称号",
+  "@wkTitle": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "wkMessage": "メッセージ",
+  "@wkMessage": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "wkHashtag": "+ ハッシュタグ（最大 5 件）",
+  "@wkHashtag": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "wkImage": "+ 画像（最大 5 枚）",
+  "@wkImage": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "wkAnonymous": "匿名で送る",
+  "@wkAnonymous": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "wkCancel": "キャンセル",
+  "@wkCancel": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "wkSend": "送信する",
+  "@wkSend": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "wkCommunityStandards": "コミュニティ基準",
+  "@wkCommunityStandards": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "wkErrorRecipientRequired": "受信者を選択してください。",
+  "@wkErrorRecipientRequired": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "wkErrorRecipientSelf": "自分自身にクードスを送ることはできません。",
+  "@wkErrorRecipientSelf": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "wkErrorTitleRequired": "称号を入力してください。",
+  "@wkErrorTitleRequired": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "wkErrorTitleTooLong": "称号は 100 文字以内にしてください。",
+  "@wkErrorTitleTooLong": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "wkErrorMessageRequired": "メッセージを入力してください。",
+  "@wkErrorMessageRequired": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "wkErrorMessageTooLong": "メッセージは 1000 文字以内にしてください。",
+  "@wkErrorMessageTooLong": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "wkErrorHashtagRequired": "ハッシュタグを 1 つ以上追加してください。",
+  "@wkErrorHashtagRequired": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "wkSuccessMessage": "クードスが正常に送信されました！",
+  "@wkSuccessMessage": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" }
 }

@@ -104,5 +104,95 @@
   "@awardsValueLabel": { "description": "Label for the award prize value row on the Awards screen" },
 
   "kudosKvTagline": "Hệ thống ghi nhận và cảm ơn",
-  "@kudosKvTagline": { "description": "Tagline shown in the Kudos KV banner at the top of the Awards screen (mms_A)" }
+  "@kudosKvTagline": { "description": "Tagline shown in the Kudos KV banner at the top of the Awards screen (mms_A)" },
+
+  "kudosHighlightTitle": "Highlight Kudos",
+  "@kudosHighlightTitle": { "description": "Section heading for the highlight kudos carousel" },
+
+  "kudosSpotlightTitle": "Spotlight Board",
+  "@kudosSpotlightTitle": { "description": "Section heading for the spotlight board" },
+
+  "kudosAllTitle": "TẤT CẢ KUDOS",
+  "@kudosAllTitle": { "description": "Section heading for the all-kudos list block" },
+
+  "kudosOpenSecretBox": "Mở Secret Box",
+  "@kudosOpenSecretBox": { "description": "CTA button label to open the secret box" },
+
+  "kudosRecentGiftsTitle": "10 Sunner nhận quà mới nhất",
+  "@kudosRecentGiftsTitle": { "description": "Section heading for the recent gift recipients list" },
+
+  "kudosViewAll": "Xem tất cả",
+  "@kudosViewAll": { "description": "View-all link label used across kudos sections" },
+
+  "kudosSendPrompt": "Hôm nay, bạn muốn gửi kudos đến ai?",
+  "@kudosSendPrompt": { "description": "Prompt shown above the write-kudo FAB / entry point" },
+
+  "kudosStatReceived": "Đã nhận",
+  "@kudosStatReceived": { "description": "Label for the kudos received stat" },
+
+  "kudosStatSent": "Đã gửi",
+  "@kudosStatSent": { "description": "Label for the kudos sent stat" },
+
+  "kudosStatHearts": "Tim đã nhận",
+  "@kudosStatHearts": { "description": "Label for the hearts received stat" },
+
+  "kudosCopyLink": "Sao chép link",
+  "@kudosCopyLink": { "description": "Copy link action label on a kudo card" },
+
+  "kudosViewDetail": "Xem chi tiết",
+  "@kudosViewDetail": { "description": "View detail action label on a kudo card" },
+
+  "writeKudoHeader": "New Kudo",
+  "@writeKudoHeader": { "description": "Title / app-bar heading on the write-kudo screen" },
+
+  "wkRecipient": "Người nhận",
+  "@wkRecipient": { "description": "Field label for the kudo recipient" },
+
+  "wkTitle": "Danh hiệu",
+  "@wkTitle": { "description": "Field label for the kudo award title" },
+
+  "wkMessage": "Lời nhắn",
+  "@wkMessage": { "description": "Field label for the kudo personal message" },
+
+  "wkHashtag": "+ Hashtag (Tối đa 5)",
+  "@wkHashtag": { "description": "Add-hashtag button label (shows max count)" },
+
+  "wkImage": "+ Hình ảnh (Tối đa 5)",
+  "@wkImage": { "description": "Add-image button label (shows max count)" },
+
+  "wkAnonymous": "Gửi ẩn danh",
+  "@wkAnonymous": { "description": "Toggle label for anonymous kudo sending" },
+
+  "wkCancel": "Huỷ",
+  "@wkCancel": { "description": "Cancel button label on write-kudo screen" },
+
+  "wkSend": "Gửi đi",
+  "@wkSend": { "description": "Submit / send button label on write-kudo screen" },
+
+  "wkCommunityStandards": "Tiêu chuẩn cộng đồng",
+  "@wkCommunityStandards": { "description": "Link label for community standards on write-kudo screen" },
+
+  "wkErrorRecipientRequired": "Vui lòng chọn người nhận.",
+  "@wkErrorRecipientRequired": { "description": "Validation error: recipient is required" },
+
+  "wkErrorRecipientSelf": "Bạn không thể gửi kudos cho chính mình.",
+  "@wkErrorRecipientSelf": { "description": "Validation error: cannot send kudo to self" },
+
+  "wkErrorTitleRequired": "Vui lòng nhập danh hiệu.",
+  "@wkErrorTitleRequired": { "description": "Validation error: title is required" },
+
+  "wkErrorTitleTooLong": "Danh hiệu không được vượt quá 100 ký tự.",
+  "@wkErrorTitleTooLong": { "description": "Validation error: title exceeds 100 chars" },
+
+  "wkErrorMessageRequired": "Vui lòng nhập lời nhắn.",
+  "@wkErrorMessageRequired": { "description": "Validation error: message is required" },
+
+  "wkErrorMessageTooLong": "Lời nhắn không được vượt quá 1000 ký tự.",
+  "@wkErrorMessageTooLong": { "description": "Validation error: message exceeds 1000 chars" },
+
+  "wkErrorHashtagRequired": "Vui lòng thêm ít nhất 1 hashtag.",
+  "@wkErrorHashtagRequired": { "description": "Validation error: at least 1 hashtag required" },
+
+  "wkSuccessMessage": "Kudos đã được gửi thành công!",
+  "@wkSuccessMessage": { "description": "Success snackbar message after submitting a kudo" }
 }
