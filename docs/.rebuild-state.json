@@ -1,0 +1,33 @@
+{
+  "version": "5.0.0",
+  "primary_lang": "en",
+  "translations": {},
+  "last_rebuild_sha": "ed845de5fa182c9677cd1ed47512612ea1c4551c",
+  "last_rebuild_at": "2026-06-24",
+  "core": {
+    "status": "bootstrapped",
+    "sha": "ed845de5fa182c9677cd1ed47512612ea1c4551c",
+    "artifacts": [
+      "docs/system/overview.md",
+      "docs/system/architecture.md",
+      "docs/system/permissions.md",
+      "docs/system/business-rules.md",
+      "docs/generated/route-list.md",
+      "docs/generated/api-map.md",
+      "docs/generated/permissions-matrix.md",
+      "docs/generated/entities.md",
+      "docs/generated/user-stories.md",
+      "docs/generated/feature-list.md",
+      "docs/generated/screen-list.md",
+      "docs/generated/screen-flow.md",
+      "docs/generated/behavior-logic.md"
+    ],
+    "features": ["F001", "F002"]
+  },
+  "feature_specs": {
+    "status": "partial",
+    "note": "F002_Home promoted from takumi spec (docs/features/F002_Home/feature-home.md). Run /tkm:rebuild-spec --feature-specs for the full 4-file-per-feature set."
+  },
+  "flows": { "status": "absent" },
+  "glossary": { "status": "absent" }
+}
