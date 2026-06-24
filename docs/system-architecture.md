@@ -74,22 +74,45 @@ lib/
     │           ├── awards_carousel.dart
     │           ├── kudos_section.dart
     │           └── notification_badge.dart
-    └── awards/
+    ├── awards/
+    │   ├── domain/
+    │   │   ├── entities/award_detail.dart
+    │   │   ├── repositories/awards_detail_repository.dart  # interface (abstract)
+    │   │   └── usecases/get_award_detail.dart
+    │   ├── data/
+    │   │   ├── models/award_detail_model.dart
+    │   │   └── repositories/
+    │   │       └── stub_awards_detail_repository.dart  # 5 awards content from MoMorph; real API defer
+    │   └── presentation/
+    │       ├── providers/awards_providers.dart            # awardsDetailControllerProvider, selectedAwardIdProvider, selectedAwardDetailProvider
+    │       ├── screens/
+    │       │   └── awards_screen.dart                     # Awards tab: dropdown + detail; loading/error/retry
+    │       └── widgets/
+    │           ├── award_dropdown.dart
+    │           └── award_detail_view.dart
+    └── kudos/
         ├── domain/
-        │   ├── entities/award_detail.dart
-        │   ├── repositories/awards_detail_repository.dart  # interface (abstract)
-        │   └── usecases/get_award_detail.dart
+        │   ├── entities/kudo.dart
+        │   ├── repositories/kudos_repository.dart          # interface (abstract)
+        │   └── usecases/
+        │       ├── get_kudos_feed.dart
+        │       └── get_kudos_stats.dart
         ├── data/
-        │   ├── models/award_detail_model.dart
         │   └── repositories/
-        │       └── stub_awards_detail_repository.dart  # 5 awards content from MoMorph; real API defer
+        │       └── stub_kudos_repository.dart              # fake data; real API defer
         └── presentation/
-            ├── providers/awards_providers.dart            # awardsDetailControllerProvider, selectedAwardIdProvider, selectedAwardDetailProvider
+            ├── providers/kudos_providers.dart              # kudosFeedController, kudosStatsProvider, recentRecipientsProvider
             ├── screens/
-            │   └── awards_screen.dart                     # Awards tab: dropdown + detail; loading/error/retry
+            │   ├── kudos_screen.dart                       # Kudos tab: KV banner, send-kudos prompt, highlight carousel, spotlight board, stats + Mở Secret Box, recent recipients, feed cards, view-all
+            │   └── write_kudo_screen.dart                  # New Kudo form: recipient/title/message/hashtag/image/anonymous; local validation; Huỷ/Gửi đi stub submit
             └── widgets/
-                ├── award_dropdown.dart
-                └── award_detail_view.dart
+                ├── kudos_kv_banner.dart
+                ├── kudos_highlight_carousel.dart
+                ├── kudos_spotlight_board.dart
+                ├── kudos_stats_section.dart
+                ├── recent_recipients_row.dart
+                ├── kudos_feed_card.dart
+                └── write_kudo_form.dart
 ```
 
 ## 3. Quy tắc phụ thuộc (Dependency Rule)
@@ -136,18 +159,23 @@ Logout
 ```
 /home         → HomeScreen (SAA 2025 tab — active mặc định)
 /awards       → AwardsScreen (F003 — triển khai đầy đủ)
-/kudos        → PlaceholderScreen("Kudos")
+/kudos        → KudosScreen (F004 — triển khai đầy đủ)
 /profile      → PlaceholderScreen("Profile")
 ```
 
 `StatefulShellRoute` giữ state từng tab khi switch. `PlaceholderScreen` là widget dùng chung (nhận tên màn) — thay bằng màn thật khi feature sẵn sàng.
 
-Các đích trong Home cũng dùng `PlaceholderScreen`:
-`/search`, `/notifications`, `/kudos/overview`, `/kudos/detail`, `/kudos/write`, `/access-denied`.
+Standalone (ngoài shell): `/write-kudo` → `WriteKudoScreen` (F004, push navigation).
 
-**Retired routes (F003):** `/award-detail` và `/about-award` (trước đây là `PlaceholderScreen`) đã bị xóa. Home carousel "Chi tiết" và hero "ABOUT AWARD" giờ deep-link trực tiếp tới `/awards` tab qua `goBranch(1)` với `selectedAwardId` được truyền, giữ nguyên navigation shell.
+Các đích còn dùng `PlaceholderScreen`: `/search`, `/notifications`, `/access-denied`.
 
-**Home → Awards deep-link:** `AwardsCarousel` "Chi tiết" button và hero "ABOUT AWARD" CTA gọi `context.goNamed(Routes.awards)` / `goBranch(1)` và set `selectedAwardIdProvider` để pre-select award tương ứng trên `AwardsScreen`.
+**Retired routes (F003):** `/award-detail` và `/about-award` đã bị xóa. Home carousel "Chi tiết" và hero "ABOUT AWARD" giờ deep-link tới `/awards` qua `goBranch(1)` với `selectedAwardId` được truyền.
+
+**Retired routes (F004):** `/kudos-detail`, `/kudos-feed`, `/about-kudos` đã bị xóa. Các entry point (Home FAB S/Kudos, Home hero "ABOUT KUDOS", Awards "ABOUT KUDOS") gọi `goBranch(2)` (kKudosBranchIndex=2) vào `KudosScreen`.
+
+**Home → Kudos deep-links:** Home FAB pencil → `context.push(Routes.writeKudo)`; FAB S/Kudos + Home/Awards Kudos "Chi tiết" → `goBranch(2)`.
+
+**Home → Awards deep-link:** `AwardsCarousel` "Chi tiết" + hero "ABOUT AWARD" → `goBranch(1)` + set `selectedAwardIdProvider`.
 
 ## 6. State Management (Riverpod)
 
@@ -164,6 +192,10 @@ Các đích trong Home cũng dùng `PlaceholderScreen`:
 | `awardsDetailControllerProvider` | `AsyncNotifierProvider<AwardsDetailController, List<AwardDetail>>` | Fetch 5 awards từ stub repo; loading/error/retry (F003) |
 | `selectedAwardIdProvider` | `StateProvider<String?>` | ID award đang chọn trong dropdown; pre-selectable từ Home deep-link (F003) |
 | `selectedAwardDetailProvider` | `Provider<AwardDetail?>` | Derived: lọc award detail theo `selectedAwardId` (F003) |
+| `kudosRepositoryProvider` | `Provider<KudosRepository>` | DI: `StubKudosRepository` (real API defer) (F004) |
+| `kudosFeedController` | `AsyncNotifierProvider<KudosFeedController, List<Kudo>>` | Fetch feed từ stub repo; loading/error/retry (F004) |
+| `kudosStatsProvider` | `FutureProvider<KudosStats>` | Stats tổng hợp (total kudos, top givers/receivers) (F004) |
+| `recentRecipientsProvider` | `FutureProvider<List<KudoRecipient>>` | Recent recipients row (F004) |
 
 ## 7. i18n
 
@@ -209,7 +241,7 @@ GOOGLE_IOS_CLIENT_ID=<iOS OAuth client id>
 - Supabase session persist qua cơ chế built-in + `flutter_secure_storage`.
 - Chỉ một phương thức đăng nhập: Google OAuth. Không có email/password.
 
-## 10. Assets (F002 + F003)
+## 10. Assets (F002 + F003 + F004)
 
 14 design asset F002 trích từ MoMorph: `assets/images/home/` (Keyvisual BG, Root Further logo,
 3× Award card BG, 2× award-name overlays, Kudos Background, Kudos Logo, Pen/Kudos FAB icons,
@@ -218,9 +250,13 @@ header logo, VN flag, dropdown chevron).
 F003 Awards screen tái sử dụng `HomeHeader` và `KudosSection` widgets từ F002; badge/icon asset
 riêng cho từng award chờ re-upload từ design.
 
+F004 Kudos screen tái sử dụng Kudos Background + Kudos Logo từ F002 assets. Spotlight board và
+icon asset dùng fallback — chờ design asset re-upload.
+
 **Tồn đọng:** 2 asset stand-in (Award_BG_3, Kudos_Background) + FAB icon fallbacks — chờ
-design re-upload. Badge/icon fallbacks cho awards (F003) — chờ re-upload. JA copy cần review
-người bản ngữ. Signature-Creator dual-prize chưa được xác nhận trong spec.
+design re-upload. Badge/icon fallbacks cho awards (F003) — chờ re-upload. Spotlight icons (F004)
+— chờ re-upload. JA copy cần review người bản ngữ. Signature-Creator dual-prize chưa được xác
+nhận trong spec. Submit Kudos (F004) là UI stub — cần real API.
 
 ## 11. Quyết định công nghệ
 

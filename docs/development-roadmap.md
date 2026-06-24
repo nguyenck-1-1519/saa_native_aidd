@@ -9,8 +9,9 @@ Cập nhật: 2026-06-24
 | 01–07 | iOS Login MVP (F001) | ✅ Hoàn thành |
 | 08 | F002 Home Screen (iOS) | ✅ Hoàn thành |
 | 09 | F003 Awards Screen (iOS) | ✅ Hoàn thành |
-| 10 | Android — Google OAuth | Chưa bắt đầu |
-| 11+ | Màn hình thật (Kudos, Profile, Search, Notifications), API thật, Android Home | Chưa xác định |
+| 10 | F004 Kudos Screen (iOS) | ✅ Hoàn thành |
+| 11 | Android — Google OAuth | Chưa bắt đầu |
+| 12+ | API thật (kudos submit/feed), Search/Notifications/Profile screens, Android Home | Chưa xác định |
 
 ---
 
@@ -101,9 +102,33 @@ Cập nhật: 2026-06-24
 
 ---
 
-## Phase 10 — Android (Google OAuth) — Chưa bắt đầu
+## Phase 10 — F004 Kudos Screen (iOS) ✅
 
-**Điều kiện tiên quyết:** Phase 01–09 ✅
+**Hoàn thành:** 2026-06-24
+
+### Đã thực hiện
+
+- **Feature F004 — Kudos tab:** `KudosScreen` thay thế `PlaceholderScreen("Kudos")` tại `/kudos` (shell branch 2).
+- KV banner, send-kudos prompt, highlight carousel, spotlight board, all-kudos stats + Mở Secret Box, recent recipients row, feed cards, view-all.
+- **Feature F004 — Write Kudo:** `WriteKudoScreen` tại `/write-kudo` (standalone push). Form: recipient/title≤100/message≤1000/hashtag 1–5/image≤5 presentational/anonymous; local validation; Huỷ/Gửi đi stub submit.
+- Clean Architecture: `features/kudos/{domain,data,presentation}`; Riverpod providers (`kudosFeedController`, `kudosStatsProvider`, `recentRecipientsProvider`). Stub + fake repos.
+- Route consolidation: `/kudos-detail`, `/kudos-feed`, `/about-kudos` retired → `goBranch(2)`; Home FAB pencil → `push(/write-kudo)`.
+- i18n: 28 l10n keys (VN/EN/JA).
+- **Tests:** 170 tests total (47 mới), 0 failed.
+
+### Số liệu
+
+| Chỉ số | Giá trị |
+|--------|---------|
+| Tổng số tests | 170 |
+| `fvm flutter analyze` | No issues |
+| Platform | iOS-only |
+
+---
+
+## Phase 11 — Android (Google OAuth) — Chưa bắt đầu
+
+**Điều kiện tiên quyết:** Phase 01–10 ✅
 
 ### Việc cần làm
 
@@ -117,14 +142,14 @@ Cập nhật: 2026-06-24
 
 ---
 
-## Phase 11+ — Màn hình thật + API thật — Chưa xác định
+## Phase 12+ — API thật + Màn hình thật + Android — Chưa xác định
 
 Ưu tiên tiếp theo (thứ tự gợi ý):
 
-1. Thay `PlaceholderScreen` bằng màn thật: Kudos feed/detail/write, Profile, Search, Notifications.
-2. Tích hợp API thật cho awards (F003), notifications, Kudos flag (hiện dùng stub).
-3. Android Home + OAuth (tương đương Phase 10 iOS nhưng cho Home).
-4. JA copy review người bản ngữ + re-upload asset tồn đọng (Award_BG_3, Kudos_Background, badge/icon F003).
+1. Tích hợp API thật cho Kudos: submit kudo (F004 Gửi đi stub), kudos feed/stats.
+2. Thay `PlaceholderScreen` bằng màn thật: Profile, Search, Notifications.
+3. Android Home + OAuth (tương đương Phase 11 iOS nhưng cho Home + F002–F004).
+4. JA copy review người bản ngữ + re-upload asset tồn đọng (Award_BG_3, Kudos_Background, badge/icon F003, spotlight icons F004).
 5. Xác nhận Signature-Creator dual-prize logic.
 
 Kiến trúc hiện tại (`features/{slug}/domain|data|presentation`) sẵn sàng cho feature mới.
@@ -135,8 +160,10 @@ Kiến trúc hiện tại (`features/{slug}/domain|data|presentation`) sẵn sà
 
 - Real Google OAuth Client ID/Secret cho môi trường staging/production chưa được cung cấp.
 - Android phase chưa có timeline cụ thể.
-- API thật cho awards / notifications / Kudos feature flag chưa có spec.
+- API thật cho awards / notifications / kudos submit+feed / Kudos feature flag chưa có spec.
 - 2 asset stand-in (Award_BG_3, Kudos_Background) + FAB icon fallbacks chờ design re-upload.
 - Badge/icon asset cho F003 Awards chờ design re-upload.
+- Spotlight icons cho F004 Kudos chờ design re-upload.
 - Signature-Creator dual-prize: xác nhận logic/spec chưa hoàn tất.
 - JA copy cần review người bản ngữ.
+- F004 Gửi đi (submit kudos) là UI stub — cần real API endpoint.

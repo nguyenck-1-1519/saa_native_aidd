@@ -11,6 +11,7 @@ Generated from source. Ground truth: `lib/core/router/app_router.dart`, `lib/fea
 - **F001** — Login feature (`features/auth`)
 - **F002** — Home feature (`features/home`)
 - **F003** — Awards feature (`features/awards`)
+- **F004** — Kudos feature (`features/kudos`)
 
 ---
 
@@ -92,7 +93,7 @@ All backed by `PlaceholderScreen` (`lib/features/placeholder/presentation/placeh
 | ID | Title | Route | Feature | Status |
 |---|---|---|---|---|
 | SCR004 | Awards | `/awards` | F003 | Implemented |
-| SCR005 | Kudos Tab | `/kudos` | F002 | Placeholder |
+| SCR005 | Kudos Tab | `/kudos` | F004 | Implemented |
 | SCR006 | Profile Tab | `/profile` | F002 | Placeholder |
 
 **SCR004 — Awards** (`AwardsScreen`, `lib/features/awards/presentation/screens/awards_screen.dart`):
@@ -101,19 +102,26 @@ Selecting an award loads its full detail view. States: loading / error+retry / c
 Reuses `HomeHeader` + `KudosSection` widgets. Pre-selectable from Home via `selectedAwardIdProvider`.
 5 l10n keys added (VN/EN/JA).
 
+**SCR005 — Kudos Tab** (`KudosScreen`, `lib/features/kudos/presentation/screens/kudos_screen.dart`):
+KV banner, send-kudos prompt, highlight carousel, spotlight board, all-kudos stats + Mở Secret Box,
+recent recipients row, feed cards, view-all. State: `kudosFeedController` (AsyncNotifier), `kudosStatsProvider`, `recentRecipientsProvider`. Stub + fake repos. 28 l10n keys (VN/EN/JA). Entry via shell branch 2 (`kKudosBranchIndex=2`); also reachable via `goBranch(2)` from Home/Awards deep-links.
+
 ### Standalone (outside shell — no bottom nav)
 
 | ID | Title | Route | Navigated from | Feature | Status |
 |---|---|---|---|---|---|
 | SCR007 | Search | `/search` | REG001 header search icon | F002 | Placeholder |
 | SCR008 | Notifications | `/notifications` | REG001 header bell icon | F002 | Placeholder |
-| SCR009 | About Kudos | `/about-kudos` | REG002 hero CTA | F002 | Placeholder |
-| SCR010 | Kudos Detail | `/kudos-detail` | REG004 kudos section "Chi tiết" | F002 | Placeholder |
-| SCR011 | Kudos Feed | `/kudos-feed` | REG005 FAB kudos action | F002 | Placeholder |
-| SCR012 | Write Kudo | `/write-kudo` | REG005 FAB pencil action | F002 | Placeholder |
-| SCR013 | Access Denied | `/access-denied` | Router redirect (403 case) | F001/F002 | Placeholder |
+| SCR009 | Write Kudo | `/write-kudo` | Home FAB pencil | F004 | Implemented |
+| SCR010 | Access Denied | `/access-denied` | Router redirect (403 case) | F001/F002 | Placeholder |
 
-> **Retired (F003):** SCR009-old "Award Detail" (`/award-detail`) and SCR010-old "About Award" (`/about-award`) placeholders removed. Their navigation entry points now deep-link to SCR004 (Awards tab).
+**SCR009 — Write Kudo** (`WriteKudoScreen`, `lib/features/kudos/presentation/screens/write_kudo_screen.dart`):
+New Kudo form: recipient (required), title (≤100 chars), message (≤1000 chars), hashtag (1–5),
+image (≤5, presentational), anonymous toggle. Local validation. Huỷ (pop) + Gửi đi (stub submit — no real API yet). 28 l10n keys shared with KudosScreen.
+
+> **Retired (F003):** SCR009-old "Award Detail" (`/award-detail`) and SCR010-old "About Award" (`/about-award`) placeholders removed. Navigation entry points now deep-link to SCR004 (Awards tab).
+
+> **Retired (F004):** "About Kudos" (`/about-kudos`), "Kudos Detail" (`/kudos-detail`), "Kudos Feed" (`/kudos-feed`) placeholders removed. Navigation entry points now call `goBranch(2)` to SCR005 (Kudos tab).
 
 ---
 
@@ -125,12 +133,9 @@ Reuses `HomeHeader` + `KudosSection` widgets. Pre-selectable from Home via `sele
 | SCR002 | Login | `/login` | F001 | No | Yes |
 | SCR003 | Home | `/home` | F002 | Yes | Yes |
 | SCR004 | Awards | `/awards` | F003 | Yes | Yes |
-| SCR005 | Kudos Tab | `/kudos` | F002 | Yes | Placeholder |
+| SCR005 | Kudos Tab | `/kudos` | F004 | Yes | Yes |
 | SCR006 | Profile Tab | `/profile` | F002 | Yes | Placeholder |
 | SCR007 | Search | `/search` | F002 | No | Placeholder |
 | SCR008 | Notifications | `/notifications` | F002 | No | Placeholder |
-| SCR009 | About Kudos | `/about-kudos` | F002 | No | Placeholder |
-| SCR010 | Kudos Detail | `/kudos-detail` | F002 | No | Placeholder |
-| SCR011 | Kudos Feed | `/kudos-feed` | F002 | No | Placeholder |
-| SCR012 | Write Kudo | `/write-kudo` | F002 | No | Placeholder |
-| SCR013 | Access Denied | `/access-denied` | F001/F002 | No | Placeholder |
+| SCR009 | Write Kudo | `/write-kudo` | F004 | No | Yes |
+| SCR010 | Access Denied | `/access-denied` | F001/F002 | No | Placeholder |
