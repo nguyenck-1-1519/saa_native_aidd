@@ -4,6 +4,22 @@
 
 ---
 
+## [1.3.0+4] — 2026-06-24
+
+### feat: Kudos (F004) — KudosScreen feed tab + WriteKudoScreen form; consolidated kudos routes; Home/Awards deep-link to Kudos tab; 170 tests
+
+**Chi tiết:**
+
+- **F004 — KudosScreen:** `PlaceholderScreen("Kudos")` tại `/kudos` (shell branch 2) thay bằng `KudosScreen` đầy đủ. Sections: KV banner, send-kudos prompt, highlight carousel, spotlight board, all-kudos stats + Mở Secret Box, recent recipients row, feed cards, view-all.
+- **F004 — WriteKudoScreen:** `/write-kudo` (standalone push) — New Kudo form với local validation. Fields: recipient (required), title ≤100, message ≤1000, hashtag 1–5, image ≤5 (presentational), anonymous toggle. Huỷ (pop) + Gửi đi (stub — no real API yet).
+- **Clean Architecture:** `features/kudos/{domain,data,presentation}`; Riverpod providers (`kudosFeedController`, `kudosStatsProvider`, `recentRecipientsProvider`). Stub + fake repos.
+- **Route consolidation:** `/kudos-detail`, `/kudos-feed`, `/about-kudos` retired. All entry points (Home FAB S/Kudos, Home Kudos "Chi tiết", Awards "ABOUT KUDOS") → `goBranch(2)` (kKudosBranchIndex=2). Home FAB pencil → `context.push(Routes.writeKudo)`.
+- **i18n:** 28 l10n keys thêm vào ARB VN/EN/JA.
+- **Tests:** 170 tests (47 mới), 0 failed.
+- **Tồn đọng:** Gửi đi là UI stub; spotlight + icons là fallbacks chờ design asset re-upload.
+
+---
+
 ## [1.2.0+3] — 2026-06-24
 
 ### feat: Awards screen (F003) — 1 screen + dropdown over 5 awards; Home deep-links to it; retired award-detail/about-award placeholders; 123 tests

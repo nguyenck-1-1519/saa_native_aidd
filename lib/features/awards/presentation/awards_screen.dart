@@ -79,7 +79,8 @@ class AwardsScreen extends ConsumerWidget {
                       _AwardsBody(l10n: l10n),
                       const SizedBox(height: 40),
                       KudosSection(
-                        onDetail: () => context.push(Routes.kudosDetail),
+                        onDetail: () => StatefulNavigationShell.of(context)
+                            .goBranch(kKudosBranchIndex),
                       ),
                       const SizedBox(height: 96),
                     ],

@@ -1,6 +1,6 @@
 # Feature List — SAA 2025 Flutter App
 
-> Source: implemented code (F001 auth, F002 Home, F003 Awards). IDs are stable references — do not renumber.
+> Source: implemented code (F001 auth, F002 Home, F003 Awards, F004 Kudos). IDs are stable references — do not renumber.
 
 ---
 
@@ -124,3 +124,40 @@ US012, US013, US014, US015, US016, US017, US018, US019, US020, US021, US022, US0
 | F003.5 | Retired routes | `/award-detail` + `/about-award` placeholders removed; entry points redirected to Awards tab |
 | F003.6 | i18n | 5 l10n keys added to ARB VN/EN/JA |
 | F003.7 | Widget reuse | `HomeHeader` + `KudosSection` from F002 reused in AwardsScreen |
+
+---
+
+## F004 — Kudos
+
+**Purpose:** Kudos tab (feed, stats, spotlight, send) + Write Kudo form. Consolidates all kudos entry points into the shell tab.
+
+**Module:** `lib/features/kudos/`
+
+| Attribute | Value |
+|-----------|-------|
+| Status | Shipped (iOS, 2026-06-24) |
+| Screens | SCR005 Kudos Tab (`/kudos`), SCR009 Write Kudo (`/write-kudo`) |
+| Depends on | F001 (auth guard, l10n), F002 (shell, HomeHeader), F003 (Awards tab linking) |
+
+### Screens (SCR###)
+
+| SCR### | Route | Description |
+|--------|-------|-------------|
+| SCR005 | `/kudos` | Kudos tab — KV banner, send-kudos prompt, highlight carousel, spotlight board, stats + Mở Secret Box, recent recipients, feed cards, view-all |
+| SCR009 | `/write-kudo` | Write Kudo form — recipient/title/message/hashtag/image/anonymous; local validation; stub submit |
+
+### Sub-features
+
+| # | Sub-feature | Description |
+|---|-------------|-------------|
+| F004.1 | KV banner | Kudos key-visual banner with Kudos Logo asset |
+| F004.2 | Send-kudos prompt | CTA prompt card linking to WriteKudoScreen |
+| F004.3 | Highlight carousel | Horizontal carousel of highlighted kudos entries |
+| F004.4 | Spotlight board | Grid/board of spotlight kudos; icon fallbacks pending design asset re-upload |
+| F004.5 | Stats + Secret Box | All-kudos stats summary; "Mở Secret Box" CTA (stub) |
+| F004.6 | Recent recipients | Horizontal row of recent kudo recipients |
+| F004.7 | Feed cards | Scrollable list of kudo feed cards |
+| F004.8 | Write Kudo form | Recipient (required), title ≤100, message ≤1000, hashtag 1–5, image ≤5 (presentational), anonymous toggle; local validation; Huỷ + Gửi đi stub submit |
+| F004.9 | Route consolidation | `/kudos-detail`, `/kudos-feed`, `/about-kudos` retired; all entry points → `goBranch(2)`. Home FAB pencil → `/write-kudo` push |
+| F004.10 | i18n | 28 l10n keys added to ARB VN/EN/JA |
+| F004.11 | Tests | 170 tests total (47 new for F004), 0 failed |

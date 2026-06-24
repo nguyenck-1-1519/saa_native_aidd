@@ -7,6 +7,8 @@ import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/awards/presentation/awards_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
 import '../../features/home/presentation/widgets/home_bottom_nav_bar.dart';
+import '../../features/kudos/presentation/kudos_screen.dart';
+import '../../features/kudos/presentation/write_kudo_screen.dart';
 import '../../features/placeholder/presentation/placeholder_screen.dart';
 
 /// All named route paths in the app.
@@ -26,12 +28,15 @@ abstract final class Routes {
   static const notifications = '/notifications';
   // awardDetail + aboutAward retired: Home links now go directly to the Awards
   // tab via goBranch(1) — no standalone routes needed (F003 Phase 04).
-  static const aboutKudos = '/about-kudos';
-  static const kudosDetail = '/kudos-detail';
-  static const kudosFeed = '/kudos-feed';
+  // aboutKudos + kudosDetail + kudosFeed retired: links now go directly to the
+  // Kudos tab via goBranch(kKudosBranchIndex) — no standalone routes needed (F004 Phase 04).
   static const writeKudo = '/write-kudo';
   static const accessDenied = '/access-denied';
 }
+
+/// Branch index for the Kudos tab in the [StatefulNavigationShell].
+/// Order: 0=Home, 1=Awards, 2=Kudos, 3=Profile (see branches below).
+const int kKudosBranchIndex = 2;
 
 /// App router with an auth-aware redirect and a 4-tab StatefulShellRoute.
 ///
@@ -83,6 +88,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           navigationShell: navigationShell,
         ),
         branches: [
+          // Branch 0 — Home
           StatefulShellBranch(
             routes: [
               GoRoute(
@@ -91,6 +97,7 @@ final routerProvider = Provider<GoRouter>((ref) {
               ),
             ],
           ),
+          // Branch 1 — Awards
           StatefulShellBranch(
             routes: [
               GoRoute(
@@ -99,14 +106,16 @@ final routerProvider = Provider<GoRouter>((ref) {
               ),
             ],
           ),
+          // Branch 2 — Kudos (kKudosBranchIndex = 2)
           StatefulShellBranch(
             routes: [
               GoRoute(
                 path: Routes.kudos,
-                builder: (_, __) => const PlaceholderScreen(title: 'Kudos'),
+                builder: (_, __) => const KudosScreen(),
               ),
             ],
           ),
+          // Branch 3 — Profile
           StatefulShellBranch(
             routes: [
               GoRoute(
@@ -120,7 +129,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
 
       // -----------------------------------------------------------------------
-      // Standalone placeholder destinations (outside shell — no bottom nav)
+      // Standalone destinations (outside shell — no bottom nav)
       // -----------------------------------------------------------------------
       GoRoute(
         path: Routes.search,
@@ -131,23 +140,10 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (_, __) =>
             const PlaceholderScreen(title: 'Notifications'),
       ),
-      GoRoute(
-        path: Routes.aboutKudos,
-        builder: (_, __) =>
-            const PlaceholderScreen(title: 'About Kudos'),
-      ),
-      GoRoute(
-        path: Routes.kudosDetail,
-        builder: (_, __) =>
-            const PlaceholderScreen(title: 'Kudos Detail'),
-      ),
-      GoRoute(
-        path: Routes.kudosFeed,
-        builder: (_, __) => const PlaceholderScreen(title: 'Kudos Feed'),
-      ),
+      // /write-kudo — full-screen push, outside shell so back returns to caller.
       GoRoute(
         path: Routes.writeKudo,
-        builder: (_, __) => const PlaceholderScreen(title: 'Write Kudo'),
+        builder: (_, __) => const WriteKudoScreen(),
       ),
       GoRoute(
         path: Routes.accessDenied,

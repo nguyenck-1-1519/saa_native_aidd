@@ -54,7 +54,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       extendBodyBehindAppBar: true,
       floatingActionButton: HomeFab(
         onPencil: () => _guardedPush(Routes.writeKudo),
-        onKudos: () => _guardedPush(Routes.kudosFeed),
+        onKudos: () =>
+            StatefulNavigationShell.of(context).goBranch(kKudosBranchIndex),
       ),
       body: Stack(
         children: [
@@ -81,7 +82,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           ref.invalidate(selectedAwardIdProvider);
                           StatefulNavigationShell.of(context).goBranch(kAwardsBranchIndex);
                         },
-                        onAboutKudos: () => context.push(Routes.aboutKudos),
+                        onAboutKudos: () => StatefulNavigationShell.of(context)
+                            .goBranch(kKudosBranchIndex),
                       ),
                       const SizedBox(height: 40),
                       const ThemeDescription(),
@@ -111,7 +113,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   padding: const EdgeInsets.fromLTRB(20, 48, 20, 0),
                   child: KudosSection(
                     visible: kudosVisible,
-                    onDetail: () => context.push(Routes.kudosDetail),
+                    onDetail: () => StatefulNavigationShell.of(context)
+                        .goBranch(kKudosBranchIndex),
                   ),
                 ),
               ),

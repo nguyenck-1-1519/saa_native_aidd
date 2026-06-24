@@ -16,6 +16,10 @@ import 'package:saa_2025/features/home/domain/repositories/kudos_config_reposito
 import 'package:saa_2025/features/home/domain/repositories/notification_repository.dart';
 import 'package:saa_2025/features/home/presentation/providers/countdown_controller.dart';
 import 'package:saa_2025/features/home/presentation/providers/home_providers.dart';
+import 'package:saa_2025/features/kudos/presentation/kudos_screen.dart';
+import 'package:saa_2025/features/kudos/presentation/providers/kudos_providers.dart';
+import 'package:saa_2025/features/kudos/data/repositories/fake_kudos_feed_repository.dart';
+import 'package:saa_2025/features/kudos/data/repositories/fake_kudos_stats_repository.dart';
 import 'package:saa_2025/features/placeholder/presentation/placeholder_screen.dart';
 
 // ---------------------------------------------------------------------------
@@ -86,6 +90,11 @@ Widget _buildApp({bool loggedIn = true, List<Override> extra = const []}) {
       // immediately in tests (avoids pumpAndSettle timeout from the 800ms stub).
       awardsDetailRepositoryProvider
           .overrideWithValue(FakeAwardsDetailRepository.empty()),
+      // Override kudos repos so KudosScreen resolves immediately in tests.
+      kudosFeedRepositoryProvider
+          .overrideWithValue(FakeKudosFeedRepository.empty()),
+      kudosStatsRepositoryProvider
+          .overrideWithValue(FakeKudosStatsRepository.data()),
       ...extra,
     ],
     child: Consumer(
@@ -165,25 +174,28 @@ void main() {
       });
     });
 
-    testWidgets('Kudos tab tap shows Kudos placeholder (FUN_017)', (tester) async {
+    testWidgets('Kudos tab tap shows KudosScreen (FUN_017)', (tester) async {
       tester.view.physicalSize = const Size(1170, 2532);
       tester.view.devicePixelRatio = 3;
       addTearDown(tester.view.reset);
 
-      await tester.pumpWidget(_buildApp());
-      await _pumpToHome(tester);
+      await _withOverflowSuppressed(() async {
+        await tester.pumpWidget(_buildApp());
+        await _pumpToHome(tester);
 
-      await tester.tap(find.text('Kudos'));
-      await tester.pumpAndSettle();
+        await tester.tap(find.text('Kudos'));
+        // Bounded pumps — KudosScreen has continuously-animating content.
+        for (var i = 0; i < 10; i++) {
+          await tester.pump(const Duration(milliseconds: 50));
+        }
 
-      final placeholders = tester
-          .widgetList<PlaceholderScreen>(
-            find.byType(PlaceholderScreen, skipOffstage: false),
-          )
-          .where((p) => p.title == 'Kudos')
-          .toList();
-      expect(placeholders, isNotEmpty,
-          reason: 'Kudos tab should show Kudos placeholder');
+        // Kudos tab now shows KudosScreen (F004), not the old placeholder.
+        expect(
+          find.byType(KudosScreen, skipOffstage: false),
+          findsOneWidget,
+          reason: 'Kudos tab should show KudosScreen (F004)',
+        );
+      });
     });
 
     testWidgets('Profile tab tap shows Profile placeholder (FUN_018)',
@@ -271,28 +283,34 @@ void main() {
       });
     });
 
-    testWidgets('ABOUT KUDOS button navigates to About Kudos placeholder (FUN_006)',
+    testWidgets('ABOUT KUDOS button navigates to Kudos tab (FUN_006)',
         (tester) async {
       tester.view.physicalSize = const Size(1170, 2532);
       tester.view.devicePixelRatio = 3;
       addTearDown(tester.view.reset);
 
-      await tester.pumpWidget(_buildApp());
-      await _pumpToHome(tester);
+      await _withOverflowSuppressed(() async {
+        await tester.pumpWidget(_buildApp());
+        await _pumpToHome(tester);
 
-      await tester.ensureVisible(
-        find.text('ABOUT KUDOS', skipOffstage: false).first,
-      );
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('ABOUT KUDOS').first);
-      await tester.pumpAndSettle();
+        await tester.ensureVisible(
+          find.text('ABOUT KUDOS', skipOffstage: false).first,
+        );
+        await tester.pumpAndSettle();
+        await tester.tap(find.text('ABOUT KUDOS').first);
+        // Bounded pumps — KudosScreen has continuously-animating content.
+        for (var i = 0; i < 10; i++) {
+          await tester.pump(const Duration(milliseconds: 50));
+        }
 
-      final placeholders = tester
-          .widgetList<PlaceholderScreen>(find.byType(PlaceholderScreen))
-          .where((p) => p.title == 'About Kudos')
-          .toList();
-      expect(placeholders, isNotEmpty,
-          reason: 'ABOUT KUDOS should navigate to About Kudos placeholder');
+        // ABOUT KUDOS now navigates to the Kudos tab (goBranch(2)) — F004 Phase 04.
+        // The "About Kudos" standalone placeholder is retired.
+        expect(
+          find.byType(KudosScreen, skipOffstage: false),
+          findsOneWidget,
+          reason: 'ABOUT KUDOS should navigate to the Kudos tab (KudosScreen)',
+        );
+      });
     });
 
     testWidgets('search icon navigates to Search placeholder (FUN_007)',
