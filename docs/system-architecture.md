@@ -53,27 +53,43 @@ lib/
     │       └── widgets/
     │           ├── google_login_button.dart
     │           └── language_selector.dart
-    └── home/
+    ├── home/
+    │   ├── domain/
+    │   │   ├── entities/award.dart
+    │   │   ├── repositories/awards_repository.dart  # interface (abstract)
+    │   │   └── usecases/get_awards.dart
+    │   ├── data/
+    │   │   ├── models/award_model.dart
+    │   │   └── repositories/
+    │   │       ├── awards_repository_impl.dart
+    │   │       └── stub_awards_repository.dart      # mock data; real API defer
+    │   └── presentation/
+    │       ├── providers/home_providers.dart         # awardsProvider, countdownProvider, kudosFeatureFlagProvider
+    │       ├── screens/
+    │       │   ├── home_screen.dart                  # hero + countdown + awards + kudos + FAB
+    │       │   └── placeholder_screen.dart           # shared "chưa triển khai" screen (nhận tên tab)
+    │       └── widgets/
+    │           ├── hero_section.dart
+    │           ├── countdown_widget.dart
+    │           ├── awards_carousel.dart
+    │           ├── kudos_section.dart
+    │           └── notification_badge.dart
+    └── awards/
         ├── domain/
-        │   ├── entities/award.dart
-        │   ├── repositories/awards_repository.dart  # interface (abstract)
-        │   └── usecases/get_awards.dart
+        │   ├── entities/award_detail.dart
+        │   ├── repositories/awards_detail_repository.dart  # interface (abstract)
+        │   └── usecases/get_award_detail.dart
         ├── data/
-        │   ├── models/award_model.dart
+        │   ├── models/award_detail_model.dart
         │   └── repositories/
-        │       ├── awards_repository_impl.dart
-        │       └── stub_awards_repository.dart      # mock data; real API defer
+        │       └── stub_awards_detail_repository.dart  # 5 awards content from MoMorph; real API defer
         └── presentation/
-            ├── providers/home_providers.dart         # awardsProvider, countdownProvider, kudosFeatureFlagProvider
+            ├── providers/awards_providers.dart            # awardsDetailControllerProvider, selectedAwardIdProvider, selectedAwardDetailProvider
             ├── screens/
-            │   ├── home_screen.dart                  # hero + countdown + awards + kudos + FAB
-            │   └── placeholder_screen.dart           # shared "chưa triển khai" screen (nhận tên tab)
+            │   └── awards_screen.dart                     # Awards tab: dropdown + detail; loading/error/retry
             └── widgets/
-                ├── hero_section.dart
-                ├── countdown_widget.dart
-                ├── awards_carousel.dart
-                ├── kudos_section.dart
-                └── notification_badge.dart
+                ├── award_dropdown.dart
+                └── award_detail_view.dart
 ```
 
 ## 3. Quy tắc phụ thuộc (Dependency Rule)
@@ -119,7 +135,7 @@ Logout
 
 ```
 /home         → HomeScreen (SAA 2025 tab — active mặc định)
-/awards       → PlaceholderScreen("Awards")
+/awards       → AwardsScreen (F003 — triển khai đầy đủ)
 /kudos        → PlaceholderScreen("Kudos")
 /profile      → PlaceholderScreen("Profile")
 ```
@@ -127,7 +143,11 @@ Logout
 `StatefulShellRoute` giữ state từng tab khi switch. `PlaceholderScreen` là widget dùng chung (nhận tên màn) — thay bằng màn thật khi feature sẵn sàng.
 
 Các đích trong Home cũng dùng `PlaceholderScreen`:
-`/search`, `/notifications`, `/awards/:id`, `/kudos/overview`, `/kudos/detail`, `/kudos/write`, `/access-denied`.
+`/search`, `/notifications`, `/kudos/overview`, `/kudos/detail`, `/kudos/write`, `/access-denied`.
+
+**Retired routes (F003):** `/award-detail` và `/about-award` (trước đây là `PlaceholderScreen`) đã bị xóa. Home carousel "Chi tiết" và hero "ABOUT AWARD" giờ deep-link trực tiếp tới `/awards` tab qua `goBranch(1)` với `selectedAwardId` được truyền, giữ nguyên navigation shell.
+
+**Home → Awards deep-link:** `AwardsCarousel` "Chi tiết" button và hero "ABOUT AWARD" CTA gọi `context.goNamed(Routes.awards)` / `goBranch(1)` và set `selectedAwardIdProvider` để pre-select award tương ứng trên `AwardsScreen`.
 
 ## 6. State Management (Riverpod)
 
@@ -138,9 +158,12 @@ Các đích trong Home cũng dùng `PlaceholderScreen`:
 | `loginControllerProvider` | `AsyncNotifierProvider<LoginController, void>` | Xử lý login action + loading/error state |
 | `localeControllerProvider` | `NotifierProvider<LocaleController, Locale>` | Ngôn ngữ hiện tại + persist |
 | `awardsRepositoryProvider` | `Provider<AwardsRepository>` | DI: `StubAwardsRepository` (real API defer) |
-| `awardsProvider` | `AsyncNotifierProvider<AwardsNotifier, List<Award>>` | Fetch + loading/empty/error/retry |
+| `awardsProvider` | `AsyncNotifierProvider<AwardsNotifier, List<Award>>` | Fetch + loading/empty/error/retry (Home carousel) |
 | `countdownProvider` | `StreamProvider<Duration>` | Đếm ngược tới 26/12/2025, cập nhật mỗi giây; elapsed → Duration.zero |
 | `kudosFeatureFlagProvider` | `Provider<bool>` | Ẩn/hiện Kudos section; mặc định `true` |
+| `awardsDetailControllerProvider` | `AsyncNotifierProvider<AwardsDetailController, List<AwardDetail>>` | Fetch 5 awards từ stub repo; loading/error/retry (F003) |
+| `selectedAwardIdProvider` | `StateProvider<String?>` | ID award đang chọn trong dropdown; pre-selectable từ Home deep-link (F003) |
+| `selectedAwardDetailProvider` | `Provider<AwardDetail?>` | Derived: lọc award detail theo `selectedAwardId` (F003) |
 
 ## 7. i18n
 
@@ -186,14 +209,18 @@ GOOGLE_IOS_CLIENT_ID=<iOS OAuth client id>
 - Supabase session persist qua cơ chế built-in + `flutter_secure_storage`.
 - Chỉ một phương thức đăng nhập: Google OAuth. Không có email/password.
 
-## 10. Assets (F002)
+## 10. Assets (F002 + F003)
 
-14 design asset được trích từ MoMorph: `assets/images/home/` (Keyvisual BG, Root Further logo,
+14 design asset F002 trích từ MoMorph: `assets/images/home/` (Keyvisual BG, Root Further logo,
 3× Award card BG, 2× award-name overlays, Kudos Background, Kudos Logo, Pen/Kudos FAB icons,
 header logo, VN flag, dropdown chevron).
 
+F003 Awards screen tái sử dụng `HomeHeader` và `KudosSection` widgets từ F002; badge/icon asset
+riêng cho từng award chờ re-upload từ design.
+
 **Tồn đọng:** 2 asset stand-in (Award_BG_3, Kudos_Background) + FAB icon fallbacks — chờ
-design re-upload. JA copy cần review người bản ngữ.
+design re-upload. Badge/icon fallbacks cho awards (F003) — chờ re-upload. JA copy cần review
+người bản ngữ. Signature-Creator dual-prize chưa được xác nhận trong spec.
 
 ## 11. Quyết định công nghệ
 

@@ -4,6 +4,24 @@
 
 ---
 
+## [1.2.0+3] — 2026-06-24
+
+### feat: Awards screen (F003) — 1 screen + dropdown over 5 awards; Home deep-links to it; retired award-detail/about-award placeholders; 123 tests
+
+**Chi tiết:**
+
+- **F003 — AwardsScreen:** `PlaceholderScreen("Awards")` tại `/awards` thay bằng `AwardsScreen` đầy đủ.
+- **5 awards:** Top Talent, Top Project Leader, Best Manager, Signature 2025-Creator, MVP (content từ MoMorph, stub repo).
+- **Clean Architecture:** `features/awards/{domain,data,presentation}`; Riverpod providers (`awardsDetailControllerProvider`, `selectedAwardIdProvider`, `selectedAwardDetailProvider`).
+- **States:** loading / error+retry / content. Tái sử dụng `HomeHeader` + `KudosSection` từ F002.
+- **Home deep-link:** carousel "Chi tiết" (award id) + hero "ABOUT AWARD" → `goBranch(1)` + pre-set `selectedAwardIdProvider`; không thay đổi URL.
+- **Retired routes:** `/award-detail` (`Routes.awardDetail`) + `/about-award` (`Routes.aboutAward`) xóa khỏi router.
+- **i18n:** 5 l10n keys thêm vào ARB VN/EN/JA.
+- **Tests:** 123 tests (32 mới), 0 failed.
+- **Tồn đọng:** Signature-Creator dual-prize chưa xác nhận; badge/icon asset chờ re-upload.
+
+---
+
 ## [1.1.0+2] — 2026-06-23
 
 ### feat: Home screen (F002) — countdown, awards carousel, Kudos section, FAB, 4-tab navigation shell, i18n + placeholder navigation; 91 tests

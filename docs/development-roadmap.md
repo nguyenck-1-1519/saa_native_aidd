@@ -1,6 +1,6 @@
 # Roadmap phát triển — SAA 2025
 
-Cập nhật: 2026-06-23
+Cập nhật: 2026-06-24
 
 ## Trạng thái tổng quan
 
@@ -8,8 +8,9 @@ Cập nhật: 2026-06-23
 |-------|-------|-----------|
 | 01–07 | iOS Login MVP (F001) | ✅ Hoàn thành |
 | 08 | F002 Home Screen (iOS) | ✅ Hoàn thành |
-| 09 | Android — Google OAuth | Chưa bắt đầu |
-| 10+ | Màn hình thật (Awards, Kudos, Profile), API thật, Android Home | Chưa xác định |
+| 09 | F003 Awards Screen (iOS) | ✅ Hoàn thành |
+| 10 | Android — Google OAuth | Chưa bắt đầu |
+| 11+ | Màn hình thật (Kudos, Profile, Search, Notifications), API thật, Android Home | Chưa xác định |
 
 ---
 
@@ -74,9 +75,35 @@ Cập nhật: 2026-06-23
 
 ---
 
-## Phase 09 — Android (Google OAuth) — Chưa bắt đầu
+## Phase 09 — F003 Awards Screen (iOS) ✅
 
-**Điều kiện tiên quyết:** Phase 01–08 ✅
+**Hoàn thành:** 2026-06-24
+
+### Đã thực hiện
+
+- **Feature F003 — Awards tab:** `AwardsScreen` thay thế `PlaceholderScreen("Awards")` tại `/awards` (shell branch 1).
+- Dropdown 5 awards: Top Talent, Top Project Leader, Best Manager, Signature 2025-Creator, MVP.
+- Clean Architecture: `features/awards/{domain,data,presentation}`; Riverpod providers (`awardsDetailControllerProvider`, `selectedAwardIdProvider`, `selectedAwardDetailProvider`).
+- Loading / error+retry states. Stub repo với content từ MoMorph.
+- Home deep-link: carousel "Chi tiết" + hero "ABOUT AWARD" → `goBranch(1)` + pre-select award qua `selectedAwardIdProvider`.
+- Retired `/award-detail` + `/about-award` placeholder routes.
+- Widget reuse: `HomeHeader` + `KudosSection` từ F002.
+- i18n: 5 l10n keys (VN/EN/JA).
+- **Tests:** 123 tests, 0 failed (32 mới).
+
+### Số liệu
+
+| Chỉ số | Giá trị |
+|--------|---------|
+| Tổng số tests | 123 |
+| `fvm flutter analyze` | No issues |
+| Platform | iOS-only |
+
+---
+
+## Phase 10 — Android (Google OAuth) — Chưa bắt đầu
+
+**Điều kiện tiên quyết:** Phase 01–09 ✅
 
 ### Việc cần làm
 
@@ -90,14 +117,15 @@ Cập nhật: 2026-06-23
 
 ---
 
-## Phase 10+ — Màn hình thật + API thật — Chưa xác định
+## Phase 11+ — Màn hình thật + API thật — Chưa xác định
 
 Ưu tiên tiếp theo (thứ tự gợi ý):
 
-1. Thay `PlaceholderScreen` bằng màn thật: Awards list/detail, Kudos feed/detail, Profile.
-2. Tích hợp API thật cho awards, notifications, Kudos flag (hiện dùng stub).
-3. Android Home + OAuth (tương đương Phase 09 iOS nhưng cho Home).
-4. JA copy review người bản ngữ + re-upload 2 asset tồn đọng.
+1. Thay `PlaceholderScreen` bằng màn thật: Kudos feed/detail/write, Profile, Search, Notifications.
+2. Tích hợp API thật cho awards (F003), notifications, Kudos flag (hiện dùng stub).
+3. Android Home + OAuth (tương đương Phase 10 iOS nhưng cho Home).
+4. JA copy review người bản ngữ + re-upload asset tồn đọng (Award_BG_3, Kudos_Background, badge/icon F003).
+5. Xác nhận Signature-Creator dual-prize logic.
 
 Kiến trúc hiện tại (`features/{slug}/domain|data|presentation`) sẵn sàng cho feature mới.
 
@@ -109,4 +137,6 @@ Kiến trúc hiện tại (`features/{slug}/domain|data|presentation`) sẵn sà
 - Android phase chưa có timeline cụ thể.
 - API thật cho awards / notifications / Kudos feature flag chưa có spec.
 - 2 asset stand-in (Award_BG_3, Kudos_Background) + FAB icon fallbacks chờ design re-upload.
+- Badge/icon asset cho F003 Awards chờ design re-upload.
+- Signature-Creator dual-prize: xác nhận logic/spec chưa hoàn tất.
 - JA copy cần review người bản ngữ.
