@@ -31,7 +31,10 @@ class AwardsCarousel extends StatelessWidget {
   static const double _horizontalPadding = 20;
   static const double _cardWidth = 160;
   static const double _cardItemExtent = 176; // 160 card + 16 gap
-  static const double _listHeight = 298;
+  // Design card is 160×298, but the rendered column (image + name line metrics
+  // + description box + detail button) needs ~308px; give it headroom so the
+  // card Column never overflows.
+  static const double _listHeight = 310;
   static const Color _accentColor = Color(0xFFFFEA9E);
 
   @override
