@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../../../../core/l10n/app_localizations.dart';
 import '../../domain/entities/award_detail.dart';
 import 'award_stat_row.dart';
 
@@ -25,34 +26,33 @@ class AwardDetailBlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 335,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          _badgeImage(),
-          const SizedBox(height: 16),
-          _awardInfoSection(),
-          const SizedBox(height: 16),
-          const Divider(color: _divider, thickness: 1, height: 1),
-          const SizedBox(height: 16),
-          AwardStatRow(
-            icon: Icons.diamond_outlined,
-            label: 'Số lượng giải thưởng',
-            value: award.quantityValue,
-            unit: award.quantityUnit,
-          ),
-          const SizedBox(height: 16),
-          const Divider(color: _divider, thickness: 1, height: 1),
-          const SizedBox(height: 16),
-          AwardStatRow(
-            icon: Icons.flag_outlined,
-            label: 'Giá trị giải thưởng',
-            value: award.prizeValue,
-            unit: award.prizeNote,
-          ),
-        ],
-      ),
+    final l10n = AppLocalizations.of(context);
+    // Full-width (flexes on narrower viewports — no fixed 335 that overflows).
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        _badgeImage(),
+        const SizedBox(height: 16),
+        _awardInfoSection(),
+        const SizedBox(height: 16),
+        const Divider(color: _divider, thickness: 1, height: 1),
+        const SizedBox(height: 16),
+        AwardStatRow(
+          icon: Icons.diamond_outlined,
+          label: l10n.awardsQuantityLabel,
+          value: award.quantityValue,
+          unit: award.quantityUnit,
+        ),
+        const SizedBox(height: 16),
+        const Divider(color: _divider, thickness: 1, height: 1),
+        const SizedBox(height: 16),
+        AwardStatRow(
+          icon: Icons.flag_outlined,
+          label: l10n.awardsValueLabel,
+          value: award.prizeValue,
+          unit: award.prizeNote,
+        ),
+      ],
     );
   }
 
@@ -139,45 +139,42 @@ class AwardDetailBlock extends StatelessWidget {
   // ---------------------------------------------------------------------------
 
   Widget _awardInfoSection() {
-    return SizedBox(
-      width: 335,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // IC Award node had null S3 URL; using emoji_events as visual equivalent.
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Icon(Icons.emoji_events, color: _gold, size: 24),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  award.name,
-                  style: const TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
-                    color: _gold,
-                    height: 20 / 14,
-                  ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // IC Award node had null S3 URL; using emoji_events as visual equivalent.
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Icon(Icons.emoji_events, color: _gold, size: 24),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                award.name,
+                style: const TextStyle(
+                  fontFamily: 'Montserrat',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: _gold,
+                  height: 20 / 14,
                 ),
               ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Text(
-            award.description,
-            style: const TextStyle(
-              fontFamily: 'Montserrat',
-              fontSize: 14,
-              fontWeight: FontWeight.w300,
-              color: _white,
-              height: 20 / 14,
-              letterSpacing: 0.25,
             ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        Text(
+          award.description,
+          style: const TextStyle(
+            fontFamily: 'Montserrat',
+            fontSize: 14,
+            fontWeight: FontWeight.w300,
+            color: _white,
+            height: 20 / 14,
+            letterSpacing: 0.25,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

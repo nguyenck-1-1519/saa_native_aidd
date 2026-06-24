@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/l10n/app_localizations.dart';
 import '../../domain/entities/award_detail.dart';
 import 'award_dropdown.dart';
 
@@ -30,6 +31,7 @@ class AwardHighlightHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return SizedBox(
       width: 335,
       child: Column(
@@ -37,7 +39,7 @@ class AwardHighlightHeader extends StatelessWidget {
         children: [
           // "Sun* Annual Awards 2025" label
           Text(
-            'Sun* Annual Awards 2025',
+            l10n.awardsSectionLabel,
             style: const TextStyle(
               fontFamily: 'Montserrat',
               fontSize: 12,
@@ -50,11 +52,11 @@ class AwardHighlightHeader extends StatelessWidget {
           const Divider(color: _divider, thickness: 1, height: 1),
           const SizedBox(height: 4),
           // Main title — 247×56, Montserrat 22 w500 gold, 2 lines
-          const SizedBox(
+          SizedBox(
             width: 247,
             child: Text(
-              'Hệ thống giải thưởng \nSAA 2025',
-              style: TextStyle(
+              l10n.awardsSystemTitle,
+              style: const TextStyle(
                 fontFamily: 'Montserrat',
                 fontSize: 22,
                 fontWeight: FontWeight.w500,

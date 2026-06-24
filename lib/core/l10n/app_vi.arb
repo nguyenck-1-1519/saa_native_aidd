@@ -89,5 +89,20 @@
   "@homeKudosDetail": { "description": "Kudos section detail button label" },
 
   "placeholderNotImplemented": "Chưa triển khai",
-  "@placeholderNotImplemented": { "description": "Generic placeholder screen message" }
+  "@placeholderNotImplemented": { "description": "Generic placeholder screen message" },
+
+  "awardsSystemTitle": "Hệ thống giải thưởng SAA 2025",
+  "@awardsSystemTitle": { "description": "Awards screen main heading (mms_B highlight title)" },
+
+  "awardsSectionLabel": "Sun* Annual Awards 2025",
+  "@awardsSectionLabel": { "description": "Awards screen section sub-label above the title" },
+
+  "awardsQuantityLabel": "Số lượng giải thưởng",
+  "@awardsQuantityLabel": { "description": "Label for the award quantity row on the Awards screen" },
+
+  "awardsValueLabel": "Giá trị giải thưởng",
+  "@awardsValueLabel": { "description": "Label for the award prize value row on the Awards screen" },
+
+  "kudosKvTagline": "Hệ thống ghi nhận và cảm ơn",
+  "@kudosKvTagline": { "description": "Tagline shown in the Kudos KV banner at the top of the Awards screen (mms_A)" }
 }

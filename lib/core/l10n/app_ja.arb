@@ -51,5 +51,20 @@
   "@homeKudosDetail": { "description": "NEEDS NATIVE REVIEW: machine-translated" },
 
   "placeholderNotImplemented": "未実装",
-  "@placeholderNotImplemented": { "description": "NEEDS NATIVE REVIEW: machine-translated" }
+  "@placeholderNotImplemented": { "description": "NEEDS NATIVE REVIEW: machine-translated" },
+
+  "awardsSystemTitle": "SAA 2025 表彰制度",
+  "@awardsSystemTitle": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "awardsSectionLabel": "Sun* アニュアルアワーズ 2025",
+  "@awardsSectionLabel": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "awardsQuantityLabel": "賞の数量",
+  "@awardsQuantityLabel": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "awardsValueLabel": "賞の価値",
+  "@awardsValueLabel": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "kudosKvTagline": "表彰と感謝のシステム",
+  "@kudosKvTagline": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" }
 }

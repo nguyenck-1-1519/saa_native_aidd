@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/providers/auth_providers.dart';
 import '../../features/auth/presentation/screens/login_screen.dart';
+import '../../features/awards/presentation/awards_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
 import '../../features/home/presentation/widgets/home_bottom_nav_bar.dart';
 import '../../features/placeholder/presentation/placeholder_screen.dart';
@@ -23,8 +24,8 @@ abstract final class Routes {
   // Placeholder destinations — explicit paths, swap without touching call sites.
   static const search = '/search';
   static const notifications = '/notifications';
-  static const awardDetail = '/award-detail';
-  static const aboutAward = '/about-award';
+  // awardDetail + aboutAward retired: Home links now go directly to the Awards
+  // tab via goBranch(1) — no standalone routes needed (F003 Phase 04).
   static const aboutKudos = '/about-kudos';
   static const kudosDetail = '/kudos-detail';
   static const kudosFeed = '/kudos-feed';
@@ -94,7 +95,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: Routes.awards,
-                builder: (_, __) => const PlaceholderScreen(title: 'Awards'),
+                builder: (_, __) => const AwardsScreen(),
               ),
             ],
           ),
@@ -129,15 +130,6 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: Routes.notifications,
         builder: (_, __) =>
             const PlaceholderScreen(title: 'Notifications'),
-      ),
-      GoRoute(
-        path: Routes.awardDetail,
-        builder: (_, __) => const PlaceholderScreen(title: 'Award Detail'),
-      ),
-      GoRoute(
-        path: Routes.aboutAward,
-        builder: (_, __) =>
-            const PlaceholderScreen(title: 'About Award'),
       ),
       GoRoute(
         path: Routes.aboutKudos,

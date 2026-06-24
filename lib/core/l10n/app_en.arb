@@ -37,5 +37,11 @@
   "homeKudosDescription": "Sun* Kudos is an internal peer-recognition movement at Sun*. Send your thanks and recognize your colleagues!",
   "homeKudosDetail": "Detail",
 
-  "placeholderNotImplemented": "Not yet implemented"
+  "placeholderNotImplemented": "Not yet implemented",
+
+  "awardsSystemTitle": "SAA 2025 Awards System",
+  "awardsSectionLabel": "Sun* Annual Awards 2025",
+  "awardsQuantityLabel": "Number of awards",
+  "awardsValueLabel": "Award value",
+  "kudosKvTagline": "Recognition and appreciation system"
 }

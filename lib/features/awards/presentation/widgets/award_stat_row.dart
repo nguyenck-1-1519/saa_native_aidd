@@ -24,18 +24,19 @@ class AwardStatRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 335,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Title row
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Icon(icon, color: _gold, size: 24),
-              const SizedBox(width: 8),
-              Text(
+    // Full-width (sizes to the parent's content width) so it never overflows on
+    // narrower viewports; the unit flexes/ellipsizes for long values.
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Title row
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(icon, color: _gold, size: 24),
+            const SizedBox(width: 8),
+            Flexible(
+              child: Text(
                 label,
                 style: const TextStyle(
                   fontFamily: 'Montserrat',
@@ -45,26 +46,28 @@ class AwardStatRow extends StatelessWidget {
                   height: 20 / 14,
                 ),
               ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          // Value + unit row (baseline-aligned)
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            textBaseline: TextBaseline.alphabetic,
-            children: [
-              Text(
-                '$value ',
-                style: const TextStyle(
-                  fontFamily: 'Montserrat',
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: _white,
-                  height: 24 / 18,
-                  letterSpacing: 0.5,
-                ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        // Value + unit row (baseline-aligned)
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.baseline,
+          textBaseline: TextBaseline.alphabetic,
+          children: [
+            Text(
+              '$value ',
+              style: const TextStyle(
+                fontFamily: 'Montserrat',
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+                color: _white,
+                height: 24 / 18,
+                letterSpacing: 0.5,
               ),
-              Text(
+            ),
+            Flexible(
+              child: Text(
                 unit,
                 style: const TextStyle(
                   fontFamily: 'Montserrat',
@@ -75,10 +78,10 @@ class AwardStatRow extends StatelessWidget {
                   letterSpacing: 0.25,
                 ),
               ),
-            ],
-          ),
-        ],
-      ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

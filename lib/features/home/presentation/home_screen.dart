@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/router/app_router.dart';
+import '../../awards/presentation/providers/awards_providers.dart';
 import 'providers/countdown_controller.dart';
 import 'providers/home_providers.dart';
 import 'widgets/awards_carousel.dart';
@@ -23,6 +24,10 @@ class HomeScreen extends ConsumerStatefulWidget {
   @override
   ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
+
+/// Branch index for the Awards tab in the StatefulNavigationShell.
+/// Order: 0=Home, 1=Awards, 2=Kudos, 3=Profile (see app_router.dart branches).
+const int kAwardsBranchIndex = 1;
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   static const Color _bgColor = Color(0xFF00101A);
@@ -71,7 +76,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       const SizedBox(height: 40),
                       HeroCountdown(
                         countdown: countdown,
-                        onAboutAward: () => context.push(Routes.aboutAward),
+                        onAboutAward: () {
+                          // Reset to the default award (first in list) then switch tab.
+                          ref.invalidate(selectedAwardIdProvider);
+                          StatefulNavigationShell.of(context).goBranch(kAwardsBranchIndex);
+                        },
                         onAboutKudos: () => context.push(Routes.aboutKudos),
                       ),
                       const SizedBox(height: 40),
@@ -89,7 +98,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     hasError: awardsAsync.hasError,
                     onRetry: () =>
                         ref.read(awardsControllerProvider.notifier).refresh(),
-                    onDetail: (_) => context.push(Routes.awardDetail),
+                    onDetail: (id) {
+                      // Set the selected award then switch to the Awards tab.
+                      ref.read(selectedAwardIdProvider.notifier).state = id;
+                      StatefulNavigationShell.of(context).goBranch(kAwardsBranchIndex);
+                    },
                   ),
                 ),
               ),
