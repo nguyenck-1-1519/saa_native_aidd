@@ -1,0 +1,5 @@
+{
+  "APP_ENV": "development",
+  "APP_NAME": "SAA 2025 (Dev)",
+  "_comment": "Development relies on the local gitignored .env for SUPABASE_* and GOOGLE_* values. Run `npx supabase start` and fill .env."
+}

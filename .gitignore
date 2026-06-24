@@ -67,3 +67,24 @@ DerivedData/
 ios/Pods/
 android/.gradle/
 android/build/
+
+# --- Flutter / Dart ---
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+*.iml
+.fvm/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/Generated.xcconfig
+ios/Flutter/flutter_export_environment.sh
+ios/.symlinks/
+# generated localizations
+lib/core/l10n/app_localizations*.dart
+
+# Flutter tooling
+devtools_options.yaml
