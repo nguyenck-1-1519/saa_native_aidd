@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../../../core/router/app_router.dart';
 import '../../domain/entities/kudo.dart';
 import '../providers/kudos_filter_providers.dart';
 import 'kudos_page_view.dart';
@@ -13,8 +11,10 @@ import 'kudos_filter_row.dart';
 ///
 /// Design source: mms_B_Highlight (6885:9084).
 ///
-/// Converted to [ConsumerStatefulWidget] at INT to wire the filter dropdowns
-/// to [feedFilterControllerProvider] / option providers.
+/// Filtering happens IN PLACE: when a hashtag/department filter is active the
+/// carousel shows the filtered list from [allKudosProvider] (reusing the repo
+/// filter logic); with no filter it shows the curated [kudos] highlights passed
+/// in by the feed. Selecting a filter never navigates away.
 class HighlightKudosCarousel extends ConsumerStatefulWidget {
   const HighlightKudosCarousel({super.key, required this.kudos});
 
@@ -29,6 +29,10 @@ class _HighlightKudosCarouselState
     extends ConsumerState<HighlightKudosCarousel> {
   late final PageController _pageController;
   int _currentPage = 0;
+
+  /// Number of cards currently displayed — bounds the prev/next arrows when the
+  /// filtered list is shorter than the full highlight list.
+  int _displayedCount = 0;
 
   static const Color _gold = Color(0xFFFFEA9E);
 
@@ -54,7 +58,7 @@ class _HighlightKudosCarouselState
   }
 
   void _goToNext() {
-    if (_currentPage < widget.kudos.length - 1) {
+    if (_currentPage < _displayedCount - 1) {
       _pageController.nextPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
@@ -69,6 +73,20 @@ class _HighlightKudosCarouselState
     final hashtagsAsync = ref.watch(hashtagOptionsProvider);
     final depsAsync = ref.watch(departmentOptionsProvider);
 
+    // A filter being active swaps the curated highlights for the filtered list
+    // (allKudosProvider reuses the repo's hashtag/department filter) — in place,
+    // no navigation.
+    final hasFilter = filter.hashtag != null || filter.department != null;
+    final cardsAsync = hasFilter
+        ? ref.watch(allKudosProvider)
+        : AsyncData<List<Kudo>>(widget.kudos);
+
+    // Reset the carousel to the first card whenever the filter changes.
+    ref.listen(feedFilterControllerProvider, (_, __) {
+      if (_pageController.hasClients) _pageController.jumpToPage(0);
+      setState(() => _currentPage = 0);
+    });
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -79,28 +97,49 @@ class _HighlightKudosCarouselState
           selectedDepartment: filter.department,
           hashtagOptions: hashtagsAsync.valueOrNull ?? const [],
           departmentOptions: depsAsync.valueOrNull ?? const [],
-          onHashtagChanged: (v) {
-            controller.setHashtag(v);
-            // Navigate to All Kudos to show filtered results
-            context.push(Routes.allKudos);
-          },
-          onDepartmentChanged: (v) {
-            controller.setDepartment(v);
-            context.push(Routes.allKudos);
-          },
+          onHashtagChanged: controller.setHashtag,
+          onDepartmentChanged: controller.setDepartment,
         ),
         const SizedBox(height: 16),
-        if (widget.kudos.isNotEmpty)
-          KudosPageView(
-            kudos: widget.kudos,
-            pageController: _pageController,
-            currentPage: _currentPage,
-            onPageChanged: (i) => setState(() => _currentPage = i),
-            onPrev: _goToPrev,
-            onNext: _goToNext,
-            gold: _gold,
-          ),
+        _buildCards(cardsAsync),
       ],
+    );
+  }
+
+  Widget _buildCards(AsyncValue<List<Kudo>> cardsAsync) {
+    return cardsAsync.when(
+      loading: () => const Padding(
+        padding: EdgeInsets.symmetric(vertical: 40),
+        child: Center(child: CircularProgressIndicator()),
+      ),
+      error: (_, __) => const Padding(
+        padding: EdgeInsets.symmetric(vertical: 24),
+        child: Text(
+          'Không tải được Kudos.',
+          style: TextStyle(fontFamily: 'Montserrat', color: Colors.white70),
+        ),
+      ),
+      data: (kudos) {
+        _displayedCount = kudos.length;
+        if (kudos.isEmpty) {
+          return const Padding(
+            padding: EdgeInsets.symmetric(vertical: 24),
+            child: Text(
+              'Không có Kudo phù hợp bộ lọc.',
+              style: TextStyle(fontFamily: 'Montserrat', color: Colors.white70),
+            ),
+          );
+        }
+        return KudosPageView(
+          kudos: kudos,
+          pageController: _pageController,
+          currentPage: _currentPage.clamp(0, kudos.length - 1),
+          onPageChanged: (i) => setState(() => _currentPage = i),
+          onPrev: _goToPrev,
+          onNext: _goToNext,
+          gold: _gold,
+        );
+      },
     );
   }
 }
@@ -149,4 +188,3 @@ class _HeaderSection extends StatelessWidget {
     );
   }
 }
-

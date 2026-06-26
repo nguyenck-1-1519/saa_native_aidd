@@ -134,38 +134,46 @@ class _FilterPickerSheet extends StatelessWidget {
             ),
           ),
           const Divider(color: Color(0xFF2E3940), height: 1),
-          // "All" option to clear filter
-          ListTile(
-            title: const Text(
-              'Tất cả',
-              style: TextStyle(
-                fontFamily: 'Montserrat',
-                fontSize: 14,
-                color: Colors.white70,
-              ),
-            ),
-            trailing: selected == null
-                ? const Icon(Icons.check, color: _gold, size: 18)
-                : null,
-            onTap: () => onSelected(null),
-          ),
-          ...options.map(
-            (opt) => ListTile(
-              title: Text(
-                opt,
-                style: const TextStyle(
-                  fontFamily: 'Montserrat',
-                  fontSize: 14,
-                  color: Colors.white,
+          // Scrollable so a long option list never overflows the sheet.
+          Flexible(
+            child: ListView(
+              shrinkWrap: true,
+              padding: const EdgeInsets.only(bottom: 8),
+              children: [
+                // "All" option to clear filter
+                ListTile(
+                  title: const Text(
+                    'Tất cả',
+                    style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontSize: 14,
+                      color: Colors.white70,
+                    ),
+                  ),
+                  trailing: selected == null
+                      ? const Icon(Icons.check, color: _gold, size: 18)
+                      : null,
+                  onTap: () => onSelected(null),
                 ),
-              ),
-              trailing: selected == opt
-                  ? const Icon(Icons.check, color: _gold, size: 18)
-                  : null,
-              onTap: () => onSelected(opt),
+                ...options.map(
+                  (opt) => ListTile(
+                    title: Text(
+                      opt,
+                      style: const TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontSize: 14,
+                        color: Colors.white,
+                      ),
+                    ),
+                    trailing: selected == opt
+                        ? const Icon(Icons.check, color: _gold, size: 18)
+                        : null,
+                    onTap: () => onSelected(opt),
+                  ),
+                ),
+              ],
             ),
           ),
-          const SizedBox(height: 8),
         ],
       ),
     );
