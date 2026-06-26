@@ -1,0 +1,21 @@
+{
+  "score": 8,
+  "criticalCount": 0,
+  "decision": "SEALED",
+  "acceptanceCovered": [
+    "profile screen renders self with edit and settings affordances and other without them — verified by profile_screen_test.dart + profile_router_integration_test.dart (isSelf gating)",
+    "awards and recent kudos sections render from composed data — verified by profile_awards_list_test.dart + profile_screen tests (H2 fix)",
+    "the kudos filter changes the visible kudos list — verified by profile_filter_host_test.dart (H1 fix, client-side slice)",
+    "the profile tab route is not shadowed by the other-profile param route — verified by profile_router_integration_test.dart (real GoRouter nav, M1)",
+    "flutter analyze clean and the full test suite green — analyze: No issues found; test: 475 passed"
+  ],
+  "regressionChecked": [
+    "full suite 475 tests pass (F001-F008)",
+    "Profile tab branch-3 swap from PlaceholderScreen has no nav regression; bottom nav intact",
+    "ProfileData composes existing KudosStats/AwardDetail/Kudo (no entity dup); heart formatter k-suffix fixed (H3)"
+  ],
+  "contractStatus": "OK",
+  "refuted": [],
+  "unproven": [],
+  "reachableRegressions": []
+}

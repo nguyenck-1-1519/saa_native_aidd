@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/l10n/app_localizations.dart';
 import '../profile_view_model.dart';
 import 'profile_kudos_card.dart';
 
@@ -42,13 +43,13 @@ class _EmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(vertical: 40),
+    final l = AppLocalizations.of(context);
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 40),
       child: Center(
         child: Text(
-          // TODO(l10n): move to arb
-          'Chưa có kudos nào',
-          style: TextStyle(
+          l.profileKudosEmpty,
+          style: const TextStyle(
             fontFamily: 'Montserrat',
             fontSize: 14,
             fontWeight: FontWeight.w400,

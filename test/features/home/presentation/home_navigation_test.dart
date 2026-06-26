@@ -23,6 +23,9 @@ import 'package:saa_2025/features/kudos/data/repositories/fake_kudos_feed_reposi
 import 'package:saa_2025/features/kudos/data/repositories/fake_kudos_stats_repository.dart';
 import 'package:saa_2025/features/notifications/presentation/notifications_screen.dart';
 import 'package:saa_2025/features/placeholder/presentation/placeholder_screen.dart';
+import 'package:saa_2025/features/profile/data/repositories/fake_profile_repository.dart';
+import 'package:saa_2025/features/profile/presentation/profile_screen.dart';
+import 'package:saa_2025/features/profile/presentation/providers/profile_providers.dart';
 import 'package:saa_2025/features/secret_box/data/repositories/fake_secret_box_repository.dart';
 import 'package:saa_2025/features/secret_box/presentation/providers/secret_box_providers.dart';
 
@@ -99,6 +102,10 @@ Widget _buildApp({bool loggedIn = true, List<Override> extra = const []}) {
       // (kudosStatsProvider now derives box counts from secretBoxStateProvider).
       secretBoxRepositoryProvider
           .overrideWithValue(FakeSecretBoxRepository.empty()),
+      // Override profile repo so SelfProfileRouteWrapper resolves immediately
+      // in tests (avoids pumpAndSettle timeout from the 800ms stub).
+      profileRepositoryProvider
+          .overrideWithValue(FakeProfileRepository.data()),
       ...extra,
     ],
     child: Consumer(
@@ -202,26 +209,26 @@ void main() {
       });
     });
 
-    testWidgets('Profile tab tap shows Profile placeholder (FUN_018)',
+    testWidgets('Profile tab tap shows ProfileScreen (FUN_018)',
         (tester) async {
       tester.view.physicalSize = const Size(1170, 2532);
       tester.view.devicePixelRatio = 3;
       addTearDown(tester.view.reset);
 
-      await tester.pumpWidget(_buildApp());
-      await _pumpToHome(tester);
+      await _withOverflowSuppressed(() async {
+        await tester.pumpWidget(_buildApp());
+        await _pumpToHome(tester);
 
-      await tester.tap(find.text('Profile'));
-      await tester.pumpAndSettle();
+        await tester.tap(find.text('Profile'));
+        await tester.pumpAndSettle();
 
-      final placeholders = tester
-          .widgetList<PlaceholderScreen>(
-            find.byType(PlaceholderScreen, skipOffstage: false),
-          )
-          .where((p) => p.title == 'Profile')
-          .toList();
-      expect(placeholders, isNotEmpty,
-          reason: 'Profile tab should show Profile placeholder');
+        // Profile tab now shows ProfileScreen (F006 INT), not a placeholder.
+        expect(
+          find.byType(ProfileScreen, skipOffstage: false),
+          findsOneWidget,
+          reason: 'Profile tab should show ProfileScreen (F006)',
+        );
+      });
     });
 
     testWidgets('switching tabs and back to Home keeps Home content (FUN_015)',

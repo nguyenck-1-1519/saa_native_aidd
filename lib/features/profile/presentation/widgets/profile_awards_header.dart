@@ -39,7 +39,7 @@ class ProfileAwardsHeader extends StatelessWidget {
             borderRadius: BorderRadius.circular(4),
           ),
           child: const Text(
-            'KUDOS',
+            'KUDOS', // TODO(l10n): move to arb
             style: TextStyle(
               fontFamily: 'Montserrat',
               fontSize: 14,

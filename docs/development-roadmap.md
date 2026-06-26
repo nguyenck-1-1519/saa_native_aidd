@@ -1,6 +1,6 @@
 # Roadmap phát triển — SAA 2025
 
-Cập nhật: 2026-06-26 (F007 Notifications)
+Cập nhật: 2026-06-26 (F006 Profile)
 
 ## Trạng thái tổng quan
 
@@ -14,8 +14,9 @@ Cập nhật: 2026-06-26 (F007 Notifications)
 | 10c | F008 System/Error screens — Access Denied (403) + Not Found (404) | ✅ Hoàn thành |
 | 11 | F005 Secret Box reveal flow (local stub) | ✅ Hoàn thành |
 | 11b | F007 Notifications list + real bell badge (iOS) | ✅ Hoàn thành |
+| 11c | F006 Profile — self + other screens; Profile tab no longer placeholder | ✅ Hoàn thành |
 | 12 | Android — Google OAuth | Chưa bắt đầu |
-| 13+ | API thật (kudos submit/feed/search), Search/Profile screens, Android Home | Chưa xác định |
+| 13+ | API thật (kudos submit/feed/search), Search screen, Android Home | Chưa xác định |
 
 ---
 
@@ -229,6 +230,35 @@ Cập nhật: 2026-06-26 (F007 Notifications)
 
 ---
 
+## Phase 11c — F006 Profile — self + other (iOS) ✅
+
+**Hoàn thành:** 2026-06-26
+
+### Đã thực hiện
+
+- **Profile tab (shell branch 3, `/profile`):** `SelfProfileRouteWrapper` → `ProfileScreen(isSelf: true)` — thay thế `PlaceholderScreen("Profile")`.
+- **Other-profile (`/profile/:userId`, push ngoài shell):** `OtherProfileRouteWrapper` → `ProfileScreen(isSelf: false)`. GoRouter literal-before-param — không shadow.
+- **Single screen, two variants:** `isSelf` gates: self → KudosStats + Secret Box entry + edit button; other → Send-Kudo button + back arrow.
+- **ProfileData COMPOSES:** `AwardDetail` (F003) + `KudosStats` (F004) + `Kudo` (F004) + `ProfileUser` (F006 net-new). Không duplicate entity.
+- **Providers:** `profileProvider` (`FutureProvider.family`, keyed by userId) + `currentUserIdProvider` (từ `authStateProvider`).
+- **ProfileFilterHost:** client-side `KudosFilter{received,sent}` filter trên `recentKudos`.
+- **`onTapUser`:** avatar tap → `push(/profile/:userId)` wired; full detail deferred (pending real backend userId).
+- Local stub (`StubProfileRepository`). i18n vi/en/ja (loading/error keys).
+- **Tests:** 63 mới, tổng suite 475, 0 failed.
+- **Tồn đọng:** Real backend identity, edit-profile submission, settings content, social actions.
+
+> **Note:** với F005–F008 + F006 + F007 hoàn thành, tất cả iOS MoMorph placeholder tabs đã được thay bằng màn thật. Placeholder duy nhất còn lại là Search (`/search`) — không có iOS design (SCR007).
+
+### Số liệu
+
+| Chỉ số | Giá trị |
+|--------|---------|
+| Tổng số tests | 475 |
+| `fvm flutter analyze` | No issues |
+| Platform | iOS-only |
+
+---
+
 ## Phase 12 — Android (Google OAuth) — Chưa bắt đầu
 
 **Điều kiện tiên quyết:** Phase 01–10 ✅
@@ -250,10 +280,11 @@ Cập nhật: 2026-06-26 (F007 Notifications)
 Ưu tiên tiếp theo (thứ tự gợi ý):
 
 1. Tích hợp API thật cho Kudos: submit kudo (F004 Gửi đi stub), kudos feed/stats, recipient search, filters.
-2. Thay `PlaceholderScreen` bằng màn thật: Profile, Search.
-3. Android Home + OAuth (tương đương Phase 12 iOS nhưng cho Home + F002–F004).
-4. JA copy review người bản ngữ + re-upload asset tồn đọng (Award_BG_3, Kudos_Background, badge/icon F003, spotlight icons F004).
-5. Xác nhận Signature-Creator dual-prize logic.
+2. Profile backend identity: thay `StubProfileRepository` bằng real Supabase + edit-profile submission + settings content.
+3. Search screen (`/search`, SCR007): iOS design chưa có — cần thiết kế trước khi implement.
+4. Android Home + OAuth (tương đương Phase 12 iOS nhưng cho Home + F002–F008).
+5. JA copy review người bản ngữ + re-upload asset tồn đọng (Award_BG_3, Kudos_Background, badge/icon F003, spotlight icons F004, profile + system screen illustrations).
+6. Xác nhận Signature-Creator dual-prize logic.
 
 Kiến trúc hiện tại (`features/{slug}/domain|data|presentation`) sẵn sàng cho feature mới.
 
@@ -271,4 +302,6 @@ Kiến trúc hiện tại (`features/{slug}/domain|data|presentation`) sẵn sà
 - JA copy cần review người bản ngữ.
 - F004 Gửi đi (submit kudos) là UI stub — cần real API endpoint.
 - F005 Secret Box: real backend persistence + server reward allocation + sharing flow + art asset S3 export — deferred (local stub shipped).
+- F006 Profile: real backend identity (Supabase userId → ProfileData), edit-profile form submission, settings content, social actions — deferred (local stub shipped).
 - F007 Notifications: real push backend/FCM, read-state persistence (in-memory only), relative-time i18n (vi hardcoded), pagination — all deferred (local stub shipped).
+- Search screen (SCR007, `/search`): no iOS design exists — design required before implementation.

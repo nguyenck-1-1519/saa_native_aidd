@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'profile_view_model.dart';
 import 'widgets/profile_awards_header.dart';
+import 'widgets/profile_awards_list.dart';
 import 'widgets/profile_header_section.dart';
 import 'widgets/profile_icon_collection.dart';
 import 'widgets/profile_kudos_section.dart';
@@ -143,6 +144,12 @@ class ProfileScreen extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(_hPad, 24, _hPad, 0),
                   child: const ProfileAwardsHeader(),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(_hPad, 8, _hPad, 0),
+                  child: ProfileAwardsList(awards: profile.awards),
                 ),
               ),
               SliverToBoxAdapter(

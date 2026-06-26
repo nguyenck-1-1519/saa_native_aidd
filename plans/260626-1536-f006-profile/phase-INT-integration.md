@@ -1,6 +1,8 @@
 # Phase INT — Integration: wrapper, router rewire, other-profile entry
 
-**Single join. blockedBy: A1, B3.** Connects Track A UI to Track B providers + routing.
+**Single join. blockedBy: A1, B3. Status: done.** Connects Track A UI to Track B providers + routing.
+
+Delivered: SelfProfileRouteWrapper + OtherProfileRouteWrapper (map ProfileData → ProfileScreen props, isSelf decision); Routes.profileUser + profileUserPath(id); app_router.dart: branch-3 swap (PlaceholderScreen → SelfProfileRouteWrapper), standalone `/profile/:userId` route (literal-before-param shadow guard); view_kudo_screen kudo-tap scaffold onTapUser callback (deferred to KudoDetail userId backend TODO).
 
 ## Context Links
 - Wrapper pattern: `lib/core/router/kudos_route_wrappers.dart` (`.when` loading/error/data → maps domain → VM)

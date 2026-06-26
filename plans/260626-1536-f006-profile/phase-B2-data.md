@@ -1,6 +1,8 @@
 # Phase B2 — Data: stub repository + mock data
 
-**Track B (logic). blockedBy: B1.**
+**Track B (logic). blockedBy: B1. Status: done.**
+
+Delivered: ProfileMockData (self + other user fixtures with avatars=null, coherent awards/kudos counts); StubProfileRepository (behavior enum, 800ms delay, error throws UnknownFailure). Unknown ids return default other-user (no crash).
 
 ## Context Links
 - Pattern mirror: `lib/features/kudos/data/repositories/stub_kudos_stats_repository.dart`, `lib/features/kudos/data/sources/kudos_mock_data.dart`, `lib/features/awards/data/sources/awards_detail_mock_data.dart`

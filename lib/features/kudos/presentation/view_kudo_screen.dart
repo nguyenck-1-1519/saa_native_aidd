@@ -131,10 +131,20 @@ class ViewKudoScreen extends StatelessWidget {
     super.key,
     required this.kudo,
     this.onCopyLink,
+    this.onTapSender,
+    this.onTapRecipient,
   });
 
   final KudoDetailViewModel kudo;
   final VoidCallback? onCopyLink;
+
+  /// Called when the sender avatar/name is tapped.
+  /// Null when sender is anonymous or userId is unavailable.
+  final VoidCallback? onTapSender;
+
+  /// Called when the recipient avatar/name is tapped.
+  /// Null when userId is unavailable.
+  final VoidCallback? onTapRecipient;
 
   static const Color _bg = Color(0xFF00101A);
 
@@ -164,7 +174,12 @@ class ViewKudoScreen extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
-          child: _KudoDetailCard(kudo: kudo, onCopyLink: onCopyLink),
+          child: _KudoDetailCard(
+            kudo: kudo,
+            onCopyLink: onCopyLink,
+            onTapSender: onTapSender,
+            onTapRecipient: onTapRecipient,
+          ),
         ),
       ),
     );

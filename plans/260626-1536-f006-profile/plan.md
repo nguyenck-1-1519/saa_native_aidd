@@ -1,7 +1,7 @@
 ---
 title: "F006 Profile — self + other (one ProfileScreen, isSelf branch)"
 description: "Build the real Profile tab (branch 3) for the iOS Flutter app: self profile + other-user profile as ONE ProfileScreen with an isSelf branch. Header, stats, awards, recent kudos — composed over local stub data, reusing F003 Awards + F004 Kudos entities. MoMorph two-track."
-status: pending
+status: completed
 priority: P2
 effort: 14h
 branch: main
@@ -9,6 +9,7 @@ work_type: feature
 spec_draft: plans/260626-1536-f006-profile/spec/profile/
 tags: [flutter, profile, momorph, feature]
 created: 2026-06-26
+completed: 2026-06-26
 builds_on: [260624-0839-awards-detail-screen, 260625-2309-kudos-remaining-screens]
 ---
 
@@ -34,12 +35,14 @@ MoMorph two-track: Track A (UI, runtime `momorph-implement-design`) runs paralle
 
 | # | Phase | Track | Status | Depends on |
 |---|-------|-------|--------|------------|
-| B1 | [Domain — entities + repo interface + usecase](phase-B1-domain.md) | B | pending | — |
-| B2 | [Data — stub repository + mock data](phase-B2-data.md) | B | pending | B1 |
-| B3 | [Providers + l10n keys](phase-B3-providers-l10n.md) | B | pending | B2 |
-| A1 | [UI — ProfileScreen (self + other via isSelf)](phase-A1-ui-profile.md) | A | pending | — |
-| INT | [Integration — wrapper, router rewire, other-profile entry](phase-INT-integration.md) | — | pending | A1, B3 |
-| TEST | [Tests — render/stats/awards/kudos/nav/overflow/i18n](phase-TEST-tests.md) | — | pending | INT |
+| B1 | [Domain — entities + repo interface + usecase](phase-B1-domain.md) | B | done | — |
+| B2 | [Data — stub repository + mock data](phase-B2-data.md) | B | done | B1 |
+| B3 | [Providers + l10n keys](phase-B3-providers-l10n.md) | B | done | B2 |
+| A1 | [UI — ProfileScreen (self + other via isSelf)](phase-A1-ui-profile.md) | A | done | — |
+| INT | [Integration — wrapper, router rewire, other-profile entry](phase-INT-integration.md) | — | done | A1, B3 |
+| TEST | [Tests — render/stats/awards/kudos/nav/overflow/i18n](phase-TEST-tests.md) | — | done | INT |
+
+**Completion:** 2026-06-26, 475 tests green (63 profile module + integration). Review DONE_WITH_CONCERNS 7/10 (H1 filter, H2 awards, H3 k-suffix fixed; M1 route-shadow, M2 empty fixture resolved). Next: feat/kudos-remaining-screens → main.
 
 **Track independence (MoMorph rule):** A1 has NO `blocks`/`blockedBy` against B1–B3. Both
 tracks are concurrently runnable. INT is the single join; TEST follows INT.

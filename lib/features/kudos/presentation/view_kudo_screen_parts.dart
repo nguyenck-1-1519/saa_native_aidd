@@ -15,10 +15,17 @@ const Color _kAnonSubtitle = Color(0xFF888888);
 // ── Full detail card ─────────────────────────────────────────────────────────
 
 class _KudoDetailCard extends StatelessWidget {
-  const _KudoDetailCard({required this.kudo, this.onCopyLink});
+  const _KudoDetailCard({
+    required this.kudo,
+    this.onCopyLink,
+    this.onTapSender,
+    this.onTapRecipient,
+  });
 
   final KudoDetailViewModel kudo;
   final VoidCallback? onCopyLink;
+  final VoidCallback? onTapSender;
+  final VoidCallback? onTapRecipient;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +42,11 @@ class _KudoDetailCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           // B.3 — Sender/Recipient highlight row
-          _HighlightRow(kudo: kudo),
+          _HighlightRow(
+            kudo: kudo,
+            onTapSender: onTapSender,
+            onTapRecipient: onTapRecipient,
+          ),
           const SizedBox(height: 10),
           _HorizontalDivider(),
           const SizedBox(height: 10),
@@ -54,9 +65,15 @@ class _KudoDetailCard extends StatelessWidget {
 /// Anonymous branch: sender shows "Anh Hùng Xạ Điêu" + "Người gửi ẩn danh"
 /// subtitle instead of real name/role chip.
 class _HighlightRow extends StatelessWidget {
-  const _HighlightRow({required this.kudo});
+  const _HighlightRow({
+    required this.kudo,
+    this.onTapSender,
+    this.onTapRecipient,
+  });
 
   final KudoDetailViewModel kudo;
+  final VoidCallback? onTapSender;
+  final VoidCallback? onTapRecipient;
 
   @override
   Widget build(BuildContext context) {
@@ -64,28 +81,34 @@ class _HighlightRow extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Expanded(
-          child: kudo.isAnonymous
-              ? _AnonSenderColumn(
-                  displayName: kudo.senderName,
-                  avatarUrl: kudo.senderAvatarUrl,
-                )
-              : _PersonColumn(
-                  name: kudo.senderName,
-                  avatarUrl: kudo.senderAvatarUrl,
-                  heroTag: kudo.senderHeroTag,
-                  subLabel: null,
-                ),
+          child: GestureDetector(
+            onTap: kudo.isAnonymous ? null : onTapSender,
+            child: kudo.isAnonymous
+                ? _AnonSenderColumn(
+                    displayName: kudo.senderName,
+                    avatarUrl: kudo.senderAvatarUrl,
+                  )
+                : _PersonColumn(
+                    name: kudo.senderName,
+                    avatarUrl: kudo.senderAvatarUrl,
+                    heroTag: kudo.senderHeroTag,
+                    subLabel: null,
+                  ),
+          ),
         ),
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 8),
           child: Icon(Icons.arrow_forward, size: 20, color: _kGold),
         ),
         Expanded(
-          child: _PersonColumn(
-            name: kudo.recipientName,
-            avatarUrl: kudo.recipientAvatarUrl,
-            heroTag: kudo.recipientHeroTag,
-            subLabel: kudo.recipientCode,
+          child: GestureDetector(
+            onTap: onTapRecipient,
+            child: _PersonColumn(
+              name: kudo.recipientName,
+              avatarUrl: kudo.recipientAvatarUrl,
+              heroTag: kudo.recipientHeroTag,
+              subLabel: kudo.recipientCode,
+            ),
           ),
         ),
       ],

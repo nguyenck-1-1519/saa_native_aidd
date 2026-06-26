@@ -117,5 +117,18 @@
   "notificationTypeKudos": "Kudos",
   "notificationTypeAward": "Award",
   "notificationTypeSecretBox": "Secret Box",
-  "notificationTypeSystem": "System"
+  "notificationTypeSystem": "System",
+
+  "profileAwardsSection": "Awards",
+  "profileKudosSection": "Kudos",
+  "profileKudosReceived": "Kudos received",
+  "profileKudosSent": "Kudos sent",
+  "profileHeartsReceived": "Hearts received",
+  "profileEditButton": "Edit profile",
+  "profileSettingsButton": "Settings",
+  "profileLoading": "Loading profile...",
+  "profileError": "Could not load profile. Please try again.",
+  "profileRetry": "Retry",
+  "profileAwardsEmpty": "No awards yet.",
+  "profileKudosEmpty": "No kudos received yet."
 }

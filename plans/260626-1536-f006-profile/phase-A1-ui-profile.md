@@ -1,6 +1,8 @@
 # Phase A1 — UI: ProfileScreen (self + other via isSelf)
 
-**Track A (UI). No blockedBy. Runtime: `momorph-implement-design`.**
+**Track A (UI). No blockedBy. Runtime: `momorph-implement-design`. Status: done.**
+
+Delivered: ProfileScreen + 13 widgets (header, stats, awards, recent-kudos, feedback, social sections); isSelf branch routes logic to edit/settings affordances. Pixel-faithful to MoMorph designs; mock data from Figma content. H1 filter fix, H2 awards render, H3 k-suffix resolved.
 
 ## MoMorph refs
 - Profile bản thân (self):  `hSH7L8doXB` → https://momorph.ai/files/9ypp4enmFmdK3YAFJLIu6C/screens/hSH7L8doXB

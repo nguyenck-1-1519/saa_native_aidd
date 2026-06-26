@@ -296,5 +296,41 @@
   "@notificationTypeSecretBox": { "description": "Label for the secret-box notification type (brand term)" },
 
   "notificationTypeSystem": "Hệ thống",
-  "@notificationTypeSystem": { "description": "Label for the system notification type" }
+  "@notificationTypeSystem": { "description": "Label for the system notification type" },
+
+  "profileAwardsSection": "Danh hiệu",
+  "@profileAwardsSection": { "description": "Section heading for the awards block on the Profile screen" },
+
+  "profileKudosSection": "Kudos",
+  "@profileKudosSection": { "description": "Section heading for the recent kudos block on the Profile screen" },
+
+  "profileKudosReceived": "Kudos nhận",
+  "@profileKudosReceived": { "description": "Stat label: kudos received count on Profile screen" },
+
+  "profileKudosSent": "Kudos gửi",
+  "@profileKudosSent": { "description": "Stat label: kudos sent count on Profile screen" },
+
+  "profileHeartsReceived": "Tim nhận được",
+  "@profileHeartsReceived": { "description": "Stat label: hearts received count on Profile screen" },
+
+  "profileEditButton": "Chỉnh sửa hồ sơ",
+  "@profileEditButton": { "description": "Edit profile button label (self profile only)" },
+
+  "profileSettingsButton": "Cài đặt",
+  "@profileSettingsButton": { "description": "Settings button label (self profile only)" },
+
+  "profileLoading": "Đang tải hồ sơ...",
+  "@profileLoading": { "description": "Loading state message on the Profile screen" },
+
+  "profileError": "Không thể tải hồ sơ. Vui lòng thử lại.",
+  "@profileError": { "description": "Error state message on the Profile screen" },
+
+  "profileRetry": "Thử lại",
+  "@profileRetry": { "description": "Retry button label on the Profile error state" },
+
+  "profileAwardsEmpty": "Chưa có danh hiệu nào.",
+  "@profileAwardsEmpty": { "description": "Empty state message when the awards list is empty on Profile screen" },
+
+  "profileKudosEmpty": "Chưa nhận được kudos nào.",
+  "@profileKudosEmpty": { "description": "Empty state message when recent kudos list is empty on Profile screen" }
 }

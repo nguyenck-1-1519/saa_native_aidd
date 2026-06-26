@@ -1,6 +1,8 @@
 # Phase B3 — Providers + l10n keys
 
-**Track B (logic). blockedBy: B2.**
+**Track B (logic). blockedBy: B2. Status: done.**
+
+Delivered: profileRepositoryProvider (DI stub); profileProvider (FutureProvider.family<ProfileData, String>); currentUserIdProvider (derives from authStateProvider); l10n keys (vi/en/ja) for all section labels + loading/error/empty/retry states. gen-l10n succeeded.
 
 ## Context Links
 - Pattern mirror: `lib/features/kudos/presentation/providers/kudos_providers.dart` (Provider DI + FutureProvider)

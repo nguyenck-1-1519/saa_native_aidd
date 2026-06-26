@@ -123,7 +123,12 @@ class _ActionBar extends StatelessWidget {
   String _formatHearts(int count) {
     if (count >= 1000) {
       final k = count / 1000.0;
-      return k.toStringAsFixed(k.truncateToDouble() == k ? 0 : 3).replaceAll('.', ',');
+      // Always append 'k'. Show integer when exact (2000 → "2k"),
+      // 1 decimal when fractional (1500 → "1.5k").
+      final formatted = k == k.truncateToDouble()
+          ? k.toInt().toString()
+          : k.toStringAsFixed(1);
+      return '${formatted}k';
     }
     return count.toString();
   }
@@ -153,9 +158,9 @@ class _ActionBar extends StatelessWidget {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _ActionButton(icon: Icons.chat_bubble_outline, label: 'Bình luận'), // TODO(l10n)
+            _ActionButton(icon: Icons.chat_bubble_outline, label: 'Bình luận'), // TODO(l10n) // TODO(backend)
             const SizedBox(width: 4),
-            _ActionButton(icon: Icons.share_outlined, label: 'Chia sẻ'), // TODO(l10n)
+            _ActionButton(icon: Icons.share_outlined, label: 'Chia sẻ'), // TODO(l10n) // TODO(backend)
           ],
         ),
       ],

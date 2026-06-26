@@ -1,0 +1,32 @@
+{
+  "task": "F006 Profile: build the iOS Profile screen (self + other via isSelf) composing F003 awards + F004 kudos data over local stub, wired to the Profile tab and an other-profile route.",
+  "mode": "auto",
+  "acceptanceCriteria": [
+    "profile screen renders self with edit and settings affordances and other without them",
+    "awards and recent kudos sections render from composed data",
+    "the kudos filter changes the visible kudos list",
+    "the profile tab route is not shadowed by the other-profile param route",
+    "flutter analyze clean and the full test suite green"
+  ],
+  "touchpoints": [
+    "lib/features/profile/domain/entities/profile_data.dart",
+    "lib/features/profile/data/repositories/stub_profile_repository.dart",
+    "lib/features/profile/presentation/providers/profile_providers.dart",
+    "lib/features/profile/presentation/profile_screen.dart",
+    "lib/features/profile/presentation/profile_filter_host.dart",
+    "lib/core/router/profile_route_wrappers.dart",
+    "lib/core/router/app_router.dart"
+  ],
+  "blastRadius": [
+    "Profile bottom-nav tab (branch 3, was PlaceholderScreen)",
+    "go_router /profile + /profile/:userId routing",
+    "kudos view-kudo sender/recipient tap entry",
+    "l10n keys vi/en/ja"
+  ],
+  "contracts": [
+    "branch-3 /profile -> SelfProfileRouteWrapper -> ProfileScreen(isSelf:true)",
+    "/profile/:userId -> OtherProfileRouteWrapper -> ProfileScreen(isSelf:false)",
+    "profileProvider FutureProvider.family<ProfileData,String>; currentUserIdProvider from authStateProvider",
+    "ProfileData composes KudosStats + List<AwardDetail> + List<Kudo> (no dup)"
+  ]
+}

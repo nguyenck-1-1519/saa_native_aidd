@@ -4,6 +4,27 @@
 
 ---
 
+## [1.8.0+9] — 2026-06-26
+
+### feat: F006 Profile — self + other screens (iOS); Profile tab no longer placeholder
+
+**Chi tiết:**
+
+- **SCR017 — SelfProfileScreen:** `/profile` (shell branch 3) — thay `PlaceholderScreen("Profile")`. `SelfProfileRouteWrapper` binds `profileProvider(currentUserId)` + xử lý loading/error. Settings icon + edit-profile button (affordances hiện, submission deferred).
+- **SCR018 — OtherProfileScreen:** `/profile/:userId` — standalone push ngoài shell. `OtherProfileRouteWrapper` nhận `userId` từ path param. Back arrow + Send-Kudo button. `isSelf = false`.
+- **Single screen, two variants:** `ProfileScreen` thuần presentational; `isSelf` gate affordances. Self → KudosStats section + Secret Box entry. Other → Send-Kudo button thay KudosStats.
+- **Module mới:** `lib/features/profile/` — Clean Architecture (domain/data/presentation). `ProfileData` COMPOSE `AwardDetail` (F003) + `KudosStats` (F004) + `Kudo` (F004) — không duplicate entity. `ProfileUser` là entity net-new duy nhất.
+- **Providers:** `profileProvider` (`FutureProvider.family<ProfileData, String>`) — keyed by userId, shared cache. `currentUserIdProvider` derive từ `authStateProvider`.
+- **ProfileFilterHost:** `StatefulWidget` client-side filter `KudosFilter{received,sent}` trên `recentKudos` list.
+- **Routes:** literal `/profile` (shell) trước param `/profile/:userId` (standalone) — không shadow nhau (GoRouter literal-before-param pattern).
+- **`onTapUser`:** sender/recipient avatar → `push(/profile/:userId)` — wired, stable path; full KudoDetail userId deferred (pending real backend).
+- **Local stub:** `StubProfileRepository`; `selfUserId = 'fake-user-id'` khớp `FakeAuthRepository`.
+- **i18n:** loading/error keys vi/en/ja. JA cần review người bản ngữ.
+- **Tests:** 63 mới, tổng suite 475, 0 failed.
+- **Tồn đọng:** Real backend identity, edit-profile submission, settings content, social actions.
+
+---
+
 ## [1.7.0+8] — 2026-06-26
 
 ### feat: F007 Notifications list + real bell badge (iOS)

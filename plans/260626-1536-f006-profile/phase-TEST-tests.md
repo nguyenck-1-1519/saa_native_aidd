@@ -1,6 +1,8 @@
 # Phase TEST — Tests
 
-**blockedBy: INT.** Tester owns `test/**` only (reads impl, never edits it — team rule).
+**blockedBy: INT. Status: done.** Tester owns `test/**` only (reads impl, never edits it — team rule).
+
+Delivered: 63 profile tests (domain/data/provider/widget/overflow/i18n/nav). All green. FakeProfileRepository + unit tests (GetProfile, ProfileData ==/hashCode, StubProfileRepository behavior). Widget tests: self/other affordance delta, header/stats/awards/recent-kudos sections, loading/error/empty states, narrow-width overflow, vi/en/ja l10n. Nav tests: route-shadow guard (/profile vs /profile/:userId), recent-kudo tap → kudoDetail, kudo sender/recipient tap → /profile/:userId. Review DONE_WITH_CONCERNS 7/10; fixed H1 (filter), H2 (awards render), H3 (k-suffix), M1 (route-shadow test), M2 (empty fixture).
 
 ## Context Links
 - Test patterns: `test/features/kudos/` (data + presentation), `ProviderScope(overrides:[...])` with Fake repo

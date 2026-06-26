@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/l10n/app_localizations.dart';
+
 /// Stats block — shown on self-profile only.
 ///
 /// Design node: mms_D.1_Thống kê tổng quat (6885:10358)
@@ -31,6 +33,7 @@ class ProfileStatsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(12),
@@ -44,40 +47,26 @@ class ProfileStatsSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           // D.1.2 — Kudos received
-          _StatRow(
-            // TODO(l10n): move to arb
-            label: 'Số Kudos bạn nhận được',
-            value: '$kudosReceived',
-          ),
+          _StatRow(label: l.profileKudosReceived, value: '$kudosReceived'),
           const SizedBox(height: 12),
           // D.1.3 — Kudos sent
-          _StatRow(
-            // TODO(l10n): move to arb
-            label: 'Số Kudos bạn đã gửi',
-            value: '$kudosSent',
-          ),
+          _StatRow(label: l.profileKudosSent, value: '$kudosSent'),
           const SizedBox(height: 12),
           // D.1.4 — Hearts received
-          _StatRow(
-            // TODO(l10n): move to arb
-            label: 'Số tim bạn nhận được',
-            value: '$heartsReceived',
-          ),
+          _StatRow(label: l.profileHeartsReceived, value: '$heartsReceived'),
           const SizedBox(height: 12),
           // D.1.5 — Divider
           Container(height: 1, color: _divider),
           const SizedBox(height: 12),
           // D.1.6 — Secret box opened
           _StatRow(
-            // TODO(l10n): move to arb
-            label: 'Số Secret Box bạn đã mở',
+            label: 'Số Secret Box bạn đã mở', // TODO(l10n): add arb key when F005 l10n ships
             value: '$secretBoxOpened',
           ),
           const SizedBox(height: 12),
           // D.1.7 — Secret box unopened
           _StatRow(
-            // TODO(l10n): move to arb
-            label: 'Số Secret Box chưa mở',
+            label: 'Số Secret Box chưa mở', // TODO(l10n): add arb key when F005 l10n ships
             value: '$secretBoxUnopened',
           ),
           const SizedBox(height: 16),

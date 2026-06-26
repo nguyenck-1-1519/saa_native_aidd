@@ -21,6 +21,7 @@ Auth redirect guard fires on every navigation event (driven by `authStateProvide
 | 9 | `/kudos/community-standards` | `Routes.communityStandards` | `CommunityStandardsScreen` | Yes (indirect) | F004 — static community standards content. Entry: WriteKudo "Tiêu chuẩn cộng đồng" link. Push navigation (outside shell). |
 | 10 | `/kudos/rules` | `Routes.kudosRules` | `KudosRulesScreen` | Yes (indirect) | F004 — Thể lệ static content. Push navigation (outside shell). |
 | 11 | `/secret-box` | `Routes.secretBox` | `SecretBoxRouteWrapper` → `SecretBoxScreen` | Yes (indirect) | F005 — full-screen Secret Box reveal flow (closed→opening→revealed); entry: KudosScreen "Mở Secret Box". Push navigation (outside shell). |
+| 12 | `/profile/:userId` | `Routes.profileUserPath(userId)` | `OtherProfileRouteWrapper` → `ProfileScreen` | Yes (indirect) | F006 — other-user profile; push navigation (outside shell). Literal `/profile` (shell branch 3) declared above; GoRouter evaluates literal first — no shadow. |
 | — | *(any unknown path)* | *(errorBuilder)* | `NotFoundRouteWrapper` → `NotFoundScreen` | No (error destination) | F008 — 404 Not Found. Fires for any unrecognised route via `GoRouter.errorBuilder`. Auth-aware CTA: logged-in→Home, logged-out→Login. |
 
 > **Retired (F003):** `/award-detail` (`Routes.awardDetail`) and `/about-award` (`Routes.aboutAward`) removed. Home carousel "Chi tiết" and hero "ABOUT AWARD" now navigate via `goBranch(1)` to `/awards` with `selectedAwardIdProvider` pre-set.
@@ -41,13 +42,13 @@ Per-tab state is preserved via `indexedStack`.
 | 0 | `/home` | `Routes.home` | `HomeScreen` | Yes (indirect) | Main home: hero countdown, awards carousel, kudos section, FAB, notification badge. |
 | 1 | `/awards` | `Routes.awards` | `AwardsScreen` | Yes (indirect) | F003 Awards tab — dropdown over 5 awards; loading/error/retry; pre-selectable via Home deep-link. |
 | 2 | `/kudos` | `Routes.kudos` | `KudosScreen` | Yes (indirect) | F004 — Kudos tab: KV banner, send-kudos prompt, highlight carousel, spotlight board, stats + Mở Secret Box, recent recipients, feed cards, view-all. |
-| 3 | `/profile` | `Routes.profile` | `PlaceholderScreen("Profile")` | Yes (indirect) | Placeholder — user profile tab not yet built. |
+| 3 | `/profile` | `Routes.profile` | `SelfProfileRouteWrapper` → `ProfileScreen` | Yes (indirect) | F006 — self profile tab; `isSelf = true`; edit-profile + settings affordances. |
 
 ---
 
 ## Notes
 
-- All placeholder routes use `PlaceholderScreen` (displays "Chưa triển khai"). The route paths are explicit and stable — swapping to a real screen requires only changing the `builder`, not the call sites.
+- One placeholder route remains: `/search` (`PlaceholderScreen("Search")`, SCR007) — no iOS design yet. All other shell tabs and standalone routes are implemented.
 - One parameterized route exists: `/kudos/detail/:id`. Build the full path via `Routes.kudoDetailPath(id)` helper.
 - The `GoRouter` has no named routes — navigation uses path strings from the `Routes` constants class.
 - Award pre-selection from Home uses `selectedAwardIdProvider` (Riverpod `StateProvider`) rather than a route parameter — no URL change needed for deep-link behavior within the shell.

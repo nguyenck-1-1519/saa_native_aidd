@@ -14,6 +14,7 @@ import '../../features/kudos/presentation/write_kudo_screen.dart';
 import '../../features/placeholder/presentation/placeholder_screen.dart';
 import 'kudos_route_wrappers.dart';
 import 'notifications_route_wrapper.dart';
+import 'profile_route_wrappers.dart';
 import 'secret_box_route_wrapper.dart';
 import 'system_route_wrappers.dart';
 
@@ -47,6 +48,19 @@ abstract final class Routes {
 
   // F005 — Secret Box
   static const secretBox = '/secret-box';
+
+  // F006 — Other-profile standalone route.
+  // Namespaced under /profile/:userId.
+  // Route-shadow note: GoRouter matches literal paths before parameterised ones
+  // within the same routes list.  The shell's /profile (branch 3, literal) and
+  // the standalone /profile/:userId (param) are both top-level routes; GoRouter
+  // evaluates them in declaration order and the literal /profile leaf will never
+  // match /profile/abc, so there is no shadow — same pattern as kudoDetail vs
+  // kudoDetail/:id (confirmed in F004 INT).
+  static const _profileUserBase = '/profile';
+
+  /// Returns the full path for another user's profile screen.
+  static String profileUserPath(String userId) => '$_profileUserBase/$userId';
 
   /// Returns the full path for a single-kudo detail screen.
   static String kudoDetailPath(String id) => '$kudoDetail/$id';
@@ -135,13 +149,12 @@ final routerProvider = Provider<GoRouter>((ref) {
               ),
             ],
           ),
-          // Branch 3 — Profile
+          // Branch 3 — Profile (F006 INT: wired to SelfProfileRouteWrapper)
           StatefulShellBranch(
             routes: [
               GoRoute(
                 path: Routes.profile,
-                builder: (_, __) =>
-                    const PlaceholderScreen(title: 'Profile'),
+                builder: (_, __) => const SelfProfileRouteWrapper(),
               ),
             ],
           ),
@@ -205,6 +218,17 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: Routes.secretBox,
         builder: (_, __) => const SecretBoxRouteWrapper(),
+      ),
+
+      // /profile/:userId — other-profile full-screen push, outside shell (F006).
+      // Literal /profile (shell branch 3) is declared above; GoRouter matches
+      // it before this parameterised route — no shadowing (see Routes note).
+      GoRoute(
+        path: '${Routes._profileUserBase}/:userId',
+        builder: (_, state) {
+          final uid = state.pathParameters['userId'] ?? '';
+          return OtherProfileRouteWrapper(userId: uid);
+        },
       ),
 
       // FR5: 403 screen. Auth guard (redirect @89) bounces unauthenticated users

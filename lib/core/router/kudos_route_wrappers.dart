@@ -139,6 +139,13 @@ class ViewKudoRouteWrapper extends ConsumerWidget {
           onCopyLink: detail.linkUrl != null
               ? () => _copyLink(context, detail.linkUrl!)
               : null,
+          // TODO(backend): KudoDetail has no stable sender/recipient userId.
+          // Once the API exposes user IDs, replace null with:
+          //   onTapSender: detail.isAnonymous ? null
+          //       : () => context.push(Routes.profileUserPath(detail.senderId)),
+          //   onTapRecipient: () => context.push(Routes.profileUserPath(detail.recipientId)),
+          onTapSender: null,
+          onTapRecipient: null,
         );
       },
     );

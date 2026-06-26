@@ -1,6 +1,8 @@
 # Phase B1 — Domain: entities + repo interface + usecase
 
-**Track B (logic). No blockedBy. First in the B chain.**
+**Track B (logic). No blockedBy. First in the B chain. Status: done.**
+
+Delivered: ProfileUser (id, name, role, department, avatarUrl, heroLevel, badges); ProfileData (composes ProfileUser + KudosStats + AwardDetail + Kudo reuse); ProfileRepository interface; GetProfile usecase. No Flutter/Riverpod imports.
 
 ## Context Links
 - Spec: plans/260626-1536-f006-profile/spec/profile/profile-spec-draft.md (reuse map + ProfileData shape)

@@ -258,5 +258,41 @@
   "@notificationTypeSecretBox": { "description": "Brand term — kept in English" },
 
   "notificationTypeSystem": "システム",
-  "@notificationTypeSystem": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" }
+  "@notificationTypeSystem": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "profileAwardsSection": "称号",
+  "@profileAwardsSection": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "profileKudosSection": "クードス",
+  "@profileKudosSection": { "description": "NEEDS NATIVE REVIEW: machine-translated, brand term" },
+
+  "profileKudosReceived": "受け取ったクードス",
+  "@profileKudosReceived": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "profileKudosSent": "送ったクードス",
+  "@profileKudosSent": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "profileHeartsReceived": "受け取ったハート",
+  "@profileHeartsReceived": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "profileEditButton": "プロフィールを編集",
+  "@profileEditButton": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "profileSettingsButton": "設定",
+  "@profileSettingsButton": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "profileLoading": "プロフィールを読み込んでいます...",
+  "@profileLoading": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "profileError": "プロフィールを読み込めませんでした。もう一度お試しください。",
+  "@profileError": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "profileRetry": "再試行",
+  "@profileRetry": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "profileAwardsEmpty": "まだ称号はありません。",
+  "@profileAwardsEmpty": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "profileKudosEmpty": "まだクードスを受け取っていません。",
+  "@profileKudosEmpty": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" }
 }
