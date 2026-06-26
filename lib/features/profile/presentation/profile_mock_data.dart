@@ -1,0 +1,116 @@
+/// Figma-sourced mock data for [ProfileScreen].
+///
+/// Design sources:
+///   Self:  https://momorph.ai/files/9ypp4enmFmdK3YAFJLIu6C/screens/hSH7L8doXB
+///   Other: https://momorph.ai/files/9ypp4enmFmdK3YAFJLIu6C/screens/bEpdheM0yU
+library;
+
+import 'profile_view_model.dart';
+
+const ProfileViewModel kMockProfileSelf = ProfileViewModel(
+  name: 'Huỳnh Dương Xuân Nhật',
+  department: 'CEVC3',
+  heroTag: 'Legend Hero',
+  avatarUrl: null,
+  kudosReceived: 5,
+  kudosSent: 25,
+  heartsReceived: 25,
+  secretBoxOpened: 25,
+  secretBoxUnopened: 25,
+  iconBadgeCount: 6,
+  awards: [
+    ProfileAwardView(name: 'REVIVAL', imageUrl: null),
+    ProfileAwardView(name: 'TOUCH OF LIGHT', imageUrl: null),
+    ProfileAwardView(name: 'STAY GOLD', imageUrl: null),
+    ProfileAwardView(name: 'FLOW TO HORIZON', imageUrl: null),
+    ProfileAwardView(name: 'BEYOND THE BOUNDARY', imageUrl: null),
+    ProfileAwardView(name: 'ROOT FUTHER', imageUrl: null),
+  ],
+  selectedFilter: KudosFilter.sent,
+  recentKudos: [
+    ProfileKudoView(
+      id: 'mock-p-001',
+      senderName: 'Huỳnh Dương Xuân...',
+      senderAvatarUrl: null,
+      senderHeroTag: 'Rising Hero',
+      recipientName: 'Dương Xuân Huỳnh...',
+      recipientAvatarUrl: null,
+      recipientHeroTag: 'Legend Hero',
+      postedAt: '10:00 - 10/30/2025',
+      title: 'IDOL GIỚI TRẺ',
+      message: 'Cảm ơn người em bình thường nhưng phi thường :D Cảm ơn sự chăm chỉ, cần mẫn...',
+      hashtags: ['#Dedicated', '#Inspring', '#Dedicated', '#Inspring', '#Dedicated'],
+      imageUrls: ['', '', '', ''],
+      heartCount: 1000,
+    ),
+    ProfileKudoView(
+      id: 'mock-p-002',
+      senderName: 'Huỳnh Dương Xuân...',
+      senderAvatarUrl: null,
+      senderHeroTag: 'Rising Hero',
+      recipientName: 'Dương Xuân Huỳnh...',
+      recipientAvatarUrl: null,
+      recipientHeroTag: 'Legend Hero',
+      postedAt: '10:00 - 10/30/2025',
+      title: 'IDOL GIỚI TRẺ',
+      message: 'Cảm ơn người em bình thường nhưng phi thường :D Cảm ơn sự chăm chỉ, cần mẫn...',
+      hashtags: ['#Dedicated', '#Inspring'],
+      imageUrls: ['', '', '', ''],
+      heartCount: 1000,
+    ),
+    ProfileKudoView(
+      id: 'mock-p-003',
+      senderName: 'Huỳnh Dương Xuân...',
+      senderAvatarUrl: null,
+      senderHeroTag: 'Rising Hero',
+      recipientName: 'Dương Xuân Huỳnh...',
+      recipientAvatarUrl: null,
+      recipientHeroTag: 'Legend Hero',
+      postedAt: '10:00 - 10/30/2025',
+      title: 'IDOL GIỚI TRẺ',
+      message: 'Cảm ơn người em bình thường nhưng phi thường :D',
+      hashtags: ['#Dedicated', '#Inspring', '#Dedicated'],
+      imageUrls: ['', '', '', ''],
+      heartCount: 1000,
+    ),
+  ],
+);
+
+const ProfileViewModel kMockProfileOther = ProfileViewModel(
+  name: 'Huỳnh Dương Xuân Nhật',
+  department: 'CEVC3',
+  heroTag: 'Legend Hero',
+  avatarUrl: null,
+  kudosReceived: 5,
+  kudosSent: 25,
+  heartsReceived: 25,
+  secretBoxOpened: 25,
+  secretBoxUnopened: 25,
+  iconBadgeCount: 6,
+  awards: [
+    ProfileAwardView(name: 'REVIVAL', imageUrl: null),
+    ProfileAwardView(name: 'TOUCH OF LIGHT', imageUrl: null),
+    ProfileAwardView(name: 'STAY GOLD', imageUrl: null),
+    ProfileAwardView(name: 'FLOW TO HORIZON', imageUrl: null),
+    ProfileAwardView(name: 'BEYOND THE BOUNDARY', imageUrl: null),
+    ProfileAwardView(name: 'ROOT FUTHER', imageUrl: null),
+  ],
+  selectedFilter: KudosFilter.received,
+  recentKudos: [
+    ProfileKudoView(
+      id: 'mock-o-001',
+      senderName: 'Huỳnh Dương Xuân...',
+      senderAvatarUrl: null,
+      senderHeroTag: 'Rising Hero',
+      recipientName: 'Dương Xuân Huỳnh...',
+      recipientAvatarUrl: null,
+      recipientHeroTag: 'Legend Hero',
+      postedAt: '10:00 - 10/30/2025',
+      title: 'IDOL GIỚI TRẺ',
+      message: 'Cảm ơn người em bình thường nhưng phi thường :D',
+      hashtags: ['#Dedicated', '#Inspring'],
+      imageUrls: ['', '', '', ''],
+      heartCount: 1000,
+    ),
+  ],
+);
