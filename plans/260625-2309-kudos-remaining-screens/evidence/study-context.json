@@ -1,0 +1,34 @@
+{
+  "task": "F004 Kudos follow-up: build the 5 remaining iOS MoMorph screens (All Kudos, View kudo, View kudo anonymous, Community standards, Rules) and make recipient search and feed hashtag/department filters functional over local stub data.",
+  "mode": "auto",
+  "acceptanceCriteria": [
+    "view kudo detail screen renders and the anonymous variant masks the sender",
+    "all kudos list screen with functional hashtag and department filters",
+    "recipient search functional over stub data and excludes self",
+    "community standards and rules content screens reachable and render static copy",
+    "flutter analyze clean and the full test suite green"
+  ],
+  "touchpoints": [
+    "lib/features/kudos/domain/entities/kudo_detail.dart",
+    "lib/features/kudos/domain/value_objects/hero_tag.dart",
+    "lib/features/kudos/data/sources/kudos_detail_mock_data.dart",
+    "lib/features/kudos/presentation/all_kudos_screen.dart",
+    "lib/features/kudos/presentation/view_kudo_screen.dart",
+    "lib/features/kudos/presentation/community_standards_screen.dart",
+    "lib/features/kudos/presentation/kudos_rules_screen.dart",
+    "lib/features/kudos/presentation/providers/kudos_filter_providers.dart",
+    "lib/core/router/app_router.dart",
+    "lib/core/router/kudos_route_wrappers.dart"
+  ],
+  "blastRadius": [
+    "kudos feed screen navigation and filters",
+    "write kudo form recipient field and community-standards link",
+    "app router kudos routes",
+    "kudos providers and stub repositories"
+  ],
+  "contracts": [
+    "routes /kudos/all /kudos/detail/:id /kudos/community-standards /kudos/rules",
+    "KudosFeedRepository getKudoById/getAllKudos/getHashtags/getDepartments",
+    "WriteKudoRepository searchRecipients"
+  ]
+}

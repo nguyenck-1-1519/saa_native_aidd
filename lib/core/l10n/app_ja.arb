@@ -156,5 +156,44 @@
   "@wkErrorHashtagRequired": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
 
   "wkSuccessMessage": "クードスが正常に送信されました！",
-  "@wkSuccessMessage": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" }
+  "@wkSuccessMessage": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "wkRecipientSearchHint": "Sunner を検索...",
+  "@wkRecipientSearchHint": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "wkRecipientSearchEmpty": "Sunner が見つかりませんでした。",
+  "@wkRecipientSearchEmpty": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "kudosAllScreenTitle": "すべてのクードス",
+  "@kudosAllScreenTitle": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "kudosAllEmpty": "まだクードスはありません。",
+  "@kudosAllEmpty": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "heroTagRisingHero": "Rising Hero",
+  "@heroTagRisingHero": { "description": "Brand term — kept in English" },
+
+  "heroTagLegendHero": "Legend Hero",
+  "@heroTagLegendHero": { "description": "Brand term — kept in English" },
+
+  "heroTagNewHero": "New Hero",
+  "@heroTagNewHero": { "description": "Brand term — kept in English" },
+
+  "heroTagSuperHero": "Super Hero",
+  "@heroTagSuperHero": { "description": "Brand term — kept in English" },
+
+  "kudosDetailCopyLink": "リンクをコピー",
+  "@kudosDetailCopyLink": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "kudosDetailAnonymousSender": "匿名",
+  "@kudosDetailAnonymousSender": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "kudosDetailFilterHashtag": "ハッシュタグ",
+  "@kudosDetailFilterHashtag": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "kudosDetailFilterDepartment": "部署",
+  "@kudosDetailFilterDepartment": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "kudosDetailFilterAll": "すべて",
+  "@kudosDetailFilterAll": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" }
 }

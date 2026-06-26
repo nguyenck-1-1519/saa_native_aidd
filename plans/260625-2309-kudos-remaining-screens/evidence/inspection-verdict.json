@@ -1,0 +1,21 @@
+{
+  "score": 8,
+  "criticalCount": 0,
+  "decision": "SEALED",
+  "acceptanceCovered": [
+    "view kudo detail screen renders and the anonymous variant masks the sender — verified by view_kudo_screen_test.dart (data + anonymous masking tests)",
+    "all kudos list screen with functional hashtag and department filters — verified by all_kudos_screen_test.dart + kudos_filter_provider_test.dart (H1 clear-filter fix tested)",
+    "recipient search functional over stub data and excludes self — verified by kudos_filter_provider_test.dart (debounce, case-insensitive, self-exclusion)",
+    "community standards and rules content screens reachable and render static copy — verified by content_screens_test.dart",
+    "flutter analyze clean and the full test suite green — fvm flutter analyze: No issues found; fvm flutter test: 270 passed"
+  ],
+  "regressionChecked": [
+    "existing F004 kudos feed + write-form tests still green after recipient-field rewire",
+    "home/awards navigation tests green",
+    "full suite 270 tests pass, 0 failures"
+  ],
+  "contractStatus": "OK",
+  "refuted": [],
+  "unproven": [],
+  "reachableRegressions": []
+}

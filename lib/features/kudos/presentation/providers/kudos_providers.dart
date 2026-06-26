@@ -11,10 +11,14 @@ import '../../domain/entities/kudos_stats.dart';
 import '../../domain/repositories/kudos_feed_repository.dart';
 import '../../domain/repositories/kudos_stats_repository.dart';
 import '../../domain/repositories/write_kudo_repository.dart';
+import '../../domain/usecases/get_all_kudos.dart';
+import '../../domain/usecases/get_filter_options.dart';
 import '../../domain/usecases/get_highlight_kudos.dart';
+import '../../domain/usecases/get_kudo_by_id.dart';
 import '../../domain/usecases/get_kudos_feed.dart';
 import '../../domain/usecases/get_kudos_stats.dart';
 import '../../domain/usecases/get_recent_recipients.dart';
+import '../../domain/usecases/search_recipients.dart';
 import '../../domain/usecases/submit_kudo.dart';
 
 // ---------------------------------------------------------------------------
@@ -59,6 +63,22 @@ final getKudosStatsProvider = Provider<GetKudosStats>(
 /// WriteKudoScreen's onSubmit to `ref.read(submitKudoProvider).call(draft)`.
 final submitKudoProvider = Provider<SubmitKudo>(
   (ref) => SubmitKudo(ref.watch(writeKudoRepositoryProvider)),
+);
+
+final getKudoByIdProvider = Provider<GetKudoById>(
+  (ref) => GetKudoById(ref.watch(kudosFeedRepositoryProvider)),
+);
+
+final getAllKudosProvider = Provider<GetAllKudos>(
+  (ref) => GetAllKudos(ref.watch(kudosFeedRepositoryProvider)),
+);
+
+final searchRecipientsProvider = Provider<SearchRecipients>(
+  (ref) => SearchRecipients(ref.watch(writeKudoRepositoryProvider)),
+);
+
+final getFilterOptionsProvider = Provider<GetFilterOptions>(
+  (ref) => GetFilterOptions(ref.watch(kudosFeedRepositoryProvider)),
 );
 
 // ---------------------------------------------------------------------------

@@ -133,7 +133,7 @@ class KudosScreen extends ConsumerWidget {
             padding: const EdgeInsets.fromLTRB(_hPad, 24, _hPad, 0),
             child: AllKudosStats(
               stats: stats,
-              onOpenSecretBox: () => _comingSoon(context),
+              onOpenSecretBox: null, // TODO: Secret Box feature not yet built
             ),
           ),
         ),
@@ -148,23 +148,33 @@ class KudosScreen extends ConsumerWidget {
         sliver: SliverList.separated(
           itemCount: data.feed.length,
           separatorBuilder: (_, __) => const SizedBox(height: 12),
-          itemBuilder: (context, index) => KudosCard(kudo: data.feed[index]),
+          itemBuilder: (context, index) => KudosCard(
+            kudo: data.feed[index],
+            onViewDetail: () =>
+                context.push(Routes.kudoDetailPath(data.feed[index].id)),
+          ),
         ),
       ),
       SliverToBoxAdapter(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(_hPad, 16, _hPad, 80),
-          child: _ViewAllButton(onTap: () => _comingSoon(context)),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _ViewAllButton(
+                onTap: () => context.push(Routes.allKudos),
+              ),
+              const SizedBox(height: 12),
+              _KudosRulesLink(
+                onTap: () => context.push(Routes.kudosRules),
+              ),
+            ],
+          ),
         ),
       ),
     ];
   }
 
-  void _comingSoon(BuildContext context) {
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(const SnackBar(content: Text('Coming soon')));
-  }
 }
 
 class _KeyvisualBackground extends StatelessWidget {
@@ -238,6 +248,34 @@ class _ViewAllButton extends StatelessWidget {
               SizedBox(width: 4),
               Icon(Icons.arrow_forward, size: 20, color: Colors.white),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Minimal "Thể lệ" text link shown below the "View all" button.
+/// Taps open [KudosRulesScreen] via the router.
+class _KudosRulesLink extends StatelessWidget {
+  const _KudosRulesLink({this.onTap});
+
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: GestureDetector(
+        onTap: onTap,
+        child: const Text(
+          'Thể lệ',
+          style: TextStyle(
+            fontFamily: 'Montserrat',
+            fontSize: 13,
+            fontWeight: FontWeight.w400,
+            color: Color(0xFFFFEA9E),
+            decoration: TextDecoration.underline,
+            decorationColor: Color(0xFFFFEA9E),
           ),
         ),
       ),

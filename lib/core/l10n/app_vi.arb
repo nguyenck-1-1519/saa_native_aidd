@@ -194,5 +194,44 @@
   "@wkErrorHashtagRequired": { "description": "Validation error: at least 1 hashtag required" },
 
   "wkSuccessMessage": "Kudos đã được gửi thành công!",
-  "@wkSuccessMessage": { "description": "Success snackbar message after submitting a kudo" }
+  "@wkSuccessMessage": { "description": "Success snackbar message after submitting a kudo" },
+
+  "wkRecipientSearchHint": "Tìm kiếm Sunner...",
+  "@wkRecipientSearchHint": { "description": "Placeholder text in the recipient search field on Write Kudo screen" },
+
+  "wkRecipientSearchEmpty": "Không tìm thấy Sunner nào.",
+  "@wkRecipientSearchEmpty": { "description": "Empty state message when recipient search returns no results" },
+
+  "kudosAllScreenTitle": "Tất cả Kudos",
+  "@kudosAllScreenTitle": { "description": "App-bar / page title for the All Kudos screen" },
+
+  "kudosAllEmpty": "Chưa có kudos nào.",
+  "@kudosAllEmpty": { "description": "Empty state message on the All Kudos screen when list is empty" },
+
+  "heroTagRisingHero": "Rising Hero",
+  "@heroTagRisingHero": { "description": "Display label for the Rising Hero award badge" },
+
+  "heroTagLegendHero": "Legend Hero",
+  "@heroTagLegendHero": { "description": "Display label for the Legend Hero award badge" },
+
+  "heroTagNewHero": "New Hero",
+  "@heroTagNewHero": { "description": "Display label for the New Hero award badge" },
+
+  "heroTagSuperHero": "Super Hero",
+  "@heroTagSuperHero": { "description": "Display label for the Super Hero award badge" },
+
+  "kudosDetailCopyLink": "Sao chép link",
+  "@kudosDetailCopyLink": { "description": "Copy Link action button label on Kudo Detail screen" },
+
+  "kudosDetailAnonymousSender": "Ẩn danh",
+  "@kudosDetailAnonymousSender": { "description": "Sender name placeholder when kudo was sent anonymously" },
+
+  "kudosDetailFilterHashtag": "Hashtag",
+  "@kudosDetailFilterHashtag": { "description": "Label for the hashtag filter dropdown on All Kudos screen" },
+
+  "kudosDetailFilterDepartment": "Bộ phận",
+  "@kudosDetailFilterDepartment": { "description": "Label for the department filter dropdown on All Kudos screen" },
+
+  "kudosDetailFilterAll": "Tất cả",
+  "@kudosDetailFilterAll": { "description": "Option label meaning 'no filter / show all' in filter dropdowns" }
 }

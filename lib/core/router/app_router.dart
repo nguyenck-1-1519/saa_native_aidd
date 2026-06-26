@@ -7,9 +7,12 @@ import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/awards/presentation/awards_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
 import '../../features/home/presentation/widgets/home_bottom_nav_bar.dart';
+import '../../features/kudos/presentation/community_standards_screen.dart';
+import '../../features/kudos/presentation/kudos_rules_screen.dart';
 import '../../features/kudos/presentation/kudos_screen.dart';
 import '../../features/kudos/presentation/write_kudo_screen.dart';
 import '../../features/placeholder/presentation/placeholder_screen.dart';
+import 'kudos_route_wrappers.dart';
 
 /// All named route paths in the app.
 ///
@@ -28,10 +31,19 @@ abstract final class Routes {
   static const notifications = '/notifications';
   // awardDetail + aboutAward retired: Home links now go directly to the Awards
   // tab via goBranch(1) — no standalone routes needed (F003 Phase 04).
-  // aboutKudos + kudosDetail + kudosFeed retired: links now go directly to the
+  // aboutKudos + kudosFeed retired: links now go directly to the
   // Kudos tab via goBranch(kKudosBranchIndex) — no standalone routes needed (F004 Phase 04).
+  // Real detail/list/content routes added in F004 INT (below):
   static const writeKudo = '/write-kudo';
+  static const allKudos = '/kudos/all';
+  // /kudos/detail/:id — use kudoDetailPath(id) helper to build the full path.
+  static const kudoDetail = '/kudos/detail';
+  static const communityStandards = '/kudos/community-standards';
+  static const kudosRules = '/kudos/rules';
   static const accessDenied = '/access-denied';
+
+  /// Returns the full path for a single-kudo detail screen.
+  static String kudoDetailPath(String id) => '$kudoDetail/$id';
 }
 
 /// Branch index for the Kudos tab in the [StatefulNavigationShell].
@@ -145,6 +157,43 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: Routes.writeKudo,
         builder: (_, __) => const WriteKudoScreen(),
       ),
+
+      // -----------------------------------------------------------------------
+      // Kudos content routes — full-screen push, outside shell (F004 INT)
+      // -----------------------------------------------------------------------
+
+      // /kudos/all — AllKudos list (bound to allKudosProvider + filter)
+      GoRoute(
+        path: Routes.allKudos,
+        builder: (_, __) => const AllKudosRouteWrapper(),
+      ),
+
+      // /kudos/detail/:id — single kudo detail (bound to kudoDetailProvider)
+      // NOTE: literal sub-paths (/kudos/all, /kudos/community-standards,
+      // /kudos/rules) are declared in the top-level routes list. GoRouter
+      // matches literals before parameters so there is no shadowing risk.
+      GoRoute(
+        path: '${Routes.kudoDetail}/:id',
+        builder: (_, state) {
+          final id = state.pathParameters['id'] ?? '';
+          return ViewKudoRouteWrapper(id: id);
+        },
+      ),
+
+      // /kudos/community-standards — static content
+      GoRoute(
+        path: Routes.communityStandards,
+        builder: (_, __) => const CommunityStandardsScreen(),
+      ),
+
+      // /kudos/rules — Thể lệ static content
+      GoRoute(
+        path: Routes.kudosRules,
+        builder: (context, _) => KudosRulesScreen(
+          onWriteKudo: () => context.push(Routes.writeKudo),
+        ),
+      ),
+
       GoRoute(
         path: Routes.accessDenied,
         builder: (_, __) =>

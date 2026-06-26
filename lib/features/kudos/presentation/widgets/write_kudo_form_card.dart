@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../domain/entities/kudo_recipient.dart';
 import 'write_kudo_field_row.dart';
 import 'write_kudo_hashtag_input.dart';
 import 'write_kudo_image_section.dart';
 import 'write_kudo_message_section.dart';
+import 'write_kudo_recipient_suggestions.dart';
 
 const Color _kCardBg = Color(0xFFFFF8E1);
 const Color _kBorder = Color(0xFF998C5F);
@@ -37,6 +40,11 @@ class WriteKudoFormCard extends StatelessWidget {
     required this.onAddImage,
     required this.onRemoveImage,
     required this.onToggleAnonymous,
+    // Recipient search (wired at INT)
+    this.onRecipientChanged,
+    this.showRecipientSuggestions = false,
+    this.recipientSuggestionsAsync,
+    this.onSelectRecipient,
     this.onCommunityStandards,
   });
 
@@ -56,6 +64,19 @@ class WriteKudoFormCard extends StatelessWidget {
   final VoidCallback onAddImage;
   final void Function(int index) onRemoveImage;
   final VoidCallback onToggleAnonymous;
+
+  /// Called on every keystroke in the recipient field.
+  final ValueChanged<String>? onRecipientChanged;
+
+  /// Whether to show the suggestions dropdown below the recipient field.
+  final bool showRecipientSuggestions;
+
+  /// AsyncValue from [recipientSearchControllerProvider]; null hides overlay.
+  final AsyncValue<List<KudoRecipient>>? recipientSuggestionsAsync;
+
+  /// Called when the user picks a suggestion row.
+  final ValueChanged<KudoRecipient>? onSelectRecipient;
+
   final VoidCallback? onCommunityStandards;
 
   @override
@@ -83,14 +104,24 @@ class WriteKudoFormCard extends StatelessWidget {
           ),
           const SizedBox(height: 16),
 
-          // Người nhận*
+          // Người nhận* with live search suggestions
           _FieldRow(
             label: 'Người nhận',
-            child: WriteKudoSearchField(
-              controller: recipientCtrl,
-              hint: 'Tìm kiếm',
-              error: recipientError,
-              onChanged: (_) => onClearError('recipient'),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                WriteKudoSearchField(
+                  controller: recipientCtrl,
+                  hint: 'Tìm kiếm',
+                  error: recipientError,
+                  onChanged: onRecipientChanged ?? (_) => onClearError('recipient'),
+                ),
+                if (showRecipientSuggestions && recipientSuggestionsAsync != null)
+                  WriteKudoRecipientSuggestions(
+                    suggestionsAsync: recipientSuggestionsAsync!,
+                    onSelect: onSelectRecipient,
+                  ),
+              ],
             ),
           ),
           const SizedBox(height: 16),

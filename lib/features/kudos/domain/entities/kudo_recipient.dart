@@ -1,13 +1,23 @@
-/// A recent gift recipient shown in the "10 Sunner nhận quà mới nhất" list.
+/// A Sunner that can appear as a recent gift recipient or as a write-kudo
+/// search result.
+///
+/// [role] is used by the recipient search feature (Write Kudo screen) to
+/// narrow results by department/role. Existing usages that only care about
+/// the gift-list view may leave [role] as null.
 class KudoRecipient {
   const KudoRecipient({
     required this.name,
     required this.giftDescription,
+    this.role,
     this.avatarUrl,
   });
 
   final String name;
   final String giftDescription;
+
+  /// Job title / department — used for search filtering; may be null for
+  /// recipients that appear only in the recent-gifts list.
+  final String? role;
   final String? avatarUrl;
 
   @override
@@ -16,8 +26,9 @@ class KudoRecipient {
       other is KudoRecipient &&
           other.name == name &&
           other.giftDescription == giftDescription &&
+          other.role == role &&
           other.avatarUrl == avatarUrl;
 
   @override
-  int get hashCode => Object.hash(name, giftDescription, avatarUrl);
+  int get hashCode => Object.hash(name, giftDescription, role, avatarUrl);
 }

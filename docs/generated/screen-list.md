@@ -115,9 +115,21 @@ recent recipients row, feed cards, view-all. State: `kudosFeedController` (Async
 | SCR009 | Write Kudo | `/write-kudo` | Home FAB pencil | F004 | Implemented |
 | SCR010 | Access Denied | `/access-denied` | Router redirect (403 case) | F001/F002 | Placeholder |
 
-**SCR009 — Write Kudo** (`WriteKudoScreen`, `lib/features/kudos/presentation/screens/write_kudo_screen.dart`):
-New Kudo form: recipient (required), title (≤100 chars), message (≤1000 chars), hashtag (1–5),
+**SCR009 — Write Kudo** (`WriteKudoScreen`, `lib/features/kudos/presentation/write_kudo_screen.dart`):
+New Kudo form: recipient (required, functional debounced search excludes self), title (≤100 chars), message (≤1000 chars), hashtag (1–5),
 image (≤5, presentational), anonymous toggle. Local validation. Huỷ (pop) + Gửi đi (stub submit — no real API yet). 28 l10n keys shared with KudosScreen.
+
+**SCR011 — All Kudos** (`AllKudosScreen` via `AllKudosRouteWrapper`, `lib/features/kudos/presentation/all_kudos_screen.dart`):
+Full list of all kudos. Functional hashtag + department filters (local stub). Entry: KudosScreen "View all Kudos". Standalone (outside shell).
+
+**SCR012 — View Kudo Detail** (`ViewKudoScreen`, `lib/features/kudos/presentation/view_kudo_screen.dart`):
+Single kudo detail. Anonymous variant: hides sender name when `is_anonymous=true`. Entry: feed card "Xem chi tiết". Route: `/kudos/detail/:id`. Standalone (outside shell).
+
+**SCR013 — Community Standards** (`CommunityStandardsScreen`, `lib/features/kudos/presentation/community_standards_screen.dart`):
+Static community standards content screen. Entry: WriteKudo "Tiêu chuẩn cộng đồng" link. Standalone (outside shell).
+
+**SCR014 — Kudos Rules (Thể lệ)** (`KudosRulesScreen`, `lib/features/kudos/presentation/kudos_rules_screen.dart`):
+Static Thể lệ content screen. Standalone (outside shell).
 
 > **Retired (F003):** SCR009-old "Award Detail" (`/award-detail`) and SCR010-old "About Award" (`/about-award`) placeholders removed. Navigation entry points now deep-link to SCR004 (Awards tab).
 
@@ -139,3 +151,7 @@ image (≤5, presentational), anonymous toggle. Local validation. Huỷ (pop) + 
 | SCR008 | Notifications | `/notifications` | F002 | No | Placeholder |
 | SCR009 | Write Kudo | `/write-kudo` | F004 | No | Yes |
 | SCR010 | Access Denied | `/access-denied` | F001/F002 | No | Placeholder |
+| SCR011 | All Kudos | `/kudos/all` | F004 | No | Yes |
+| SCR012 | View Kudo Detail | `/kudos/detail/:id` | F004 | No | Yes |
+| SCR013 | Community Standards | `/kudos/community-standards` | F004 | No | Yes |
+| SCR014 | Kudos Rules (Thể lệ) | `/kudos/rules` | F004 | No | Yes |

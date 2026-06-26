@@ -1,27 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../../core/router/app_router.dart';
 import '../../domain/entities/kudo.dart';
+import '../providers/kudos_filter_providers.dart';
 import 'kudos_page_view.dart';
+import 'kudos_filter_row.dart';
 
 /// Highlight Kudos section: header label, filter dropdowns, and a paginated
 /// card carousel.
 ///
 /// Design source: mms_B_Highlight (6885:9084).
-class HighlightKudosCarousel extends StatefulWidget {
+///
+/// Converted to [ConsumerStatefulWidget] at INT to wire the filter dropdowns
+/// to [feedFilterControllerProvider] / option providers.
+class HighlightKudosCarousel extends ConsumerStatefulWidget {
   const HighlightKudosCarousel({super.key, required this.kudos});
 
   final List<Kudo> kudos;
 
   @override
-  State<HighlightKudosCarousel> createState() => _HighlightKudosCarouselState();
+  ConsumerState<HighlightKudosCarousel> createState() =>
+      _HighlightKudosCarouselState();
 }
 
-class _HighlightKudosCarouselState extends State<HighlightKudosCarousel> {
+class _HighlightKudosCarouselState
+    extends ConsumerState<HighlightKudosCarousel> {
   late final PageController _pageController;
   int _currentPage = 0;
 
   static const Color _gold = Color(0xFFFFEA9E);
-  static const Color _border = Color(0xFF998C5F);
-  static const Color _dropdownBg = Color(0x1AFFEA9E);
 
   @override
   void initState() {
@@ -55,12 +64,31 @@ class _HighlightKudosCarouselState extends State<HighlightKudosCarousel> {
 
   @override
   Widget build(BuildContext context) {
+    final filter = ref.watch(feedFilterControllerProvider);
+    final controller = ref.read(feedFilterControllerProvider.notifier);
+    final hashtagsAsync = ref.watch(hashtagOptionsProvider);
+    final depsAsync = ref.watch(departmentOptionsProvider);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const _HeaderSection(),
         const SizedBox(height: 12),
-        _FilterRow(border: _border, dropdownBg: _dropdownBg),
+        KudosFilterRow(
+          selectedHashtag: filter.hashtag,
+          selectedDepartment: filter.department,
+          hashtagOptions: hashtagsAsync.valueOrNull ?? const [],
+          departmentOptions: depsAsync.valueOrNull ?? const [],
+          onHashtagChanged: (v) {
+            controller.setHashtag(v);
+            // Navigate to All Kudos to show filtered results
+            context.push(Routes.allKudos);
+          },
+          onDepartmentChanged: (v) {
+            controller.setDepartment(v);
+            context.push(Routes.allKudos);
+          },
+        ),
         const SizedBox(height: 16),
         if (widget.kudos.isNotEmpty)
           KudosPageView(
@@ -122,65 +150,3 @@ class _HeaderSection extends StatelessWidget {
   }
 }
 
-// ---------------------------------------------------------------------------
-// Filter row
-// ---------------------------------------------------------------------------
-
-class _FilterRow extends StatelessWidget {
-  const _FilterRow({required this.border, required this.dropdownBg});
-
-  final Color border;
-  final Color dropdownBg;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        _FilterChip(label: 'Hashtag', border: border, bg: dropdownBg),
-        const SizedBox(width: 8),
-        _FilterChip(label: 'Phòng ban', border: border, bg: dropdownBg),
-      ],
-    );
-  }
-}
-
-class _FilterChip extends StatelessWidget {
-  const _FilterChip({
-    required this.label,
-    required this.border,
-    required this.bg,
-  });
-
-  final String label;
-  final Color border;
-  final Color bg;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 40,
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      decoration: BoxDecoration(
-        color: bg,
-        border: Border.all(color: border, width: 1),
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            label,
-            style: const TextStyle(
-              fontFamily: 'Montserrat',
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: Colors.white,
-            ),
-          ),
-          const SizedBox(width: 4),
-          const Icon(Icons.keyboard_arrow_down, size: 24, color: Colors.white),
-        ],
-      ),
-    );
-  }
-}

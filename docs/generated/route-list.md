@@ -16,6 +16,10 @@ Auth redirect guard fires on every navigation event (driven by `authStateProvide
 | 4 | `/notifications` | `Routes.notifications` | `PlaceholderScreen("Notifications")` | Yes (indirect) | Placeholder — feature not yet built. |
 | 5 | `/write-kudo` | `Routes.writeKudo` | `WriteKudoScreen` | Yes (indirect) | F004 — full-screen New Kudo form; recipient/title/message/hashtag/image/anonymous; local validation; stub submit. Push navigation (outside shell). |
 | 6 | `/access-denied` | `Routes.accessDenied` | `PlaceholderScreen("Access Denied")` | No (error destination) | Shown when `AccountDisabled` failure occurs (Supabase 400/403). |
+| 7 | `/kudos/all` | `Routes.allKudos` | `AllKudosRouteWrapper` → `AllKudosScreen` | Yes (indirect) | F004 — all kudos list with functional hashtag + department filters (local stub). Entry: KudosScreen "View all Kudos". Push navigation (outside shell). |
+| 8 | `/kudos/detail/:id` | `Routes.kudoDetail` (helper: `Routes.kudoDetailPath(id)`) | `ViewKudoScreen` | Yes (indirect) | F004 — kudo detail; anonymous variant hides sender. Entry: feed card "Xem chi tiết". Push navigation (outside shell). |
+| 9 | `/kudos/community-standards` | `Routes.communityStandards` | `CommunityStandardsScreen` | Yes (indirect) | F004 — static community standards content. Entry: WriteKudo "Tiêu chuẩn cộng đồng" link. Push navigation (outside shell). |
+| 10 | `/kudos/rules` | `Routes.kudosRules` | `KudosRulesScreen` | Yes (indirect) | F004 — Thể lệ static content. Push navigation (outside shell). |
 
 > **Retired (F003):** `/award-detail` (`Routes.awardDetail`) and `/about-award` (`Routes.aboutAward`) removed. Home carousel "Chi tiết" and hero "ABOUT AWARD" now navigate via `goBranch(1)` to `/awards` with `selectedAwardIdProvider` pre-set.
 
@@ -42,6 +46,6 @@ Per-tab state is preserved via `indexedStack`.
 ## Notes
 
 - All placeholder routes use `PlaceholderScreen` (displays "Chưa triển khai"). The route paths are explicit and stable — swapping to a real screen requires only changing the `builder`, not the call sites.
-- No dynamic/parameterized routes exist (no `:id` segments).
+- One parameterized route exists: `/kudos/detail/:id`. Build the full path via `Routes.kudoDetailPath(id)` helper.
 - The `GoRouter` has no named routes — navigation uses path strings from the `Routes` constants class.
 - Award pre-selection from Home uses `selectedAwardIdProvider` (Riverpod `StateProvider`) rather than a route parameter — no URL change needed for deep-link behavior within the shell.

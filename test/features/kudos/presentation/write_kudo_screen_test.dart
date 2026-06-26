@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:saa_2025/features/kudos/presentation/write_kudo_screen.dart';
 
-/// Pump [WriteKudoScreen] in a bare [MaterialApp] with optional callbacks.
+/// Pump [WriteKudoScreen] in a [ProviderScope] + [MaterialApp] with optional callbacks.
 Future<void> _pump(
   WidgetTester tester, {
   void Function(WriteKudoFormData)? onSubmit,
   VoidCallback? onCancel,
 }) async {
   await tester.pumpWidget(
-    MaterialApp(
-      home: WriteKudoScreen(onSubmit: onSubmit, onCancel: onCancel),
+    ProviderScope(
+      child: MaterialApp(
+        home: WriteKudoScreen(onSubmit: onSubmit, onCancel: onCancel),
+      ),
     ),
   );
 }
@@ -80,7 +83,8 @@ void main() {
       expect(find.text('Vui lòng chọn người nhận'), findsOneWidget);
 
       await _fillRecipient(tester, 'Nguyễn Văn A');
-      await tester.pump();
+      // Wait for the debounce timer (300ms) + extra buffer + any pending frames
+      await tester.pumpAndSettle(const Duration(milliseconds: 500));
 
       expect(find.text('Vui lòng chọn người nhận'), findsNothing);
     });
@@ -175,17 +179,19 @@ void main() {
 
       // Wrap in a Navigator so pop works.
       await tester.pumpWidget(
-        MaterialApp(
-          home: Builder(
-            builder: (ctx) => Scaffold(
-              body: ElevatedButton(
-                onPressed: () => Navigator.push(
-                  ctx,
-                  MaterialPageRoute<void>(
-                    builder: (_) => const WriteKudoScreen(),
+        ProviderScope(
+          child: MaterialApp(
+            home: Builder(
+              builder: (ctx) => Scaffold(
+                body: ElevatedButton(
+                  onPressed: () => Navigator.push(
+                    ctx,
+                    MaterialPageRoute<void>(
+                      builder: (_) => const WriteKudoScreen(),
+                    ),
                   ),
+                  child: const Text('Open'),
                 ),
-                child: const Text('Open'),
               ),
             ),
           ),

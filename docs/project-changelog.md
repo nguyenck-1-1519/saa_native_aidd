@@ -4,6 +4,24 @@
 
 ---
 
+## [1.4.0+5] — 2026-06-26
+
+### feat: F004 Kudos follow-up — 5 remaining screens + functional recipient search & feed filters (local stub); Secret Box carved out as F005
+
+**Chi tiết:**
+
+- **F004 — AllKudosScreen:** `/kudos/all` — full list of all kudos with hashtag + department filters (functional, local stub). Entry: KudosScreen "View all Kudos".
+- **F004 — ViewKudoScreen:** `/kudos/detail/:id` — kudo detail; supports anonymous variant (`is_anonymous=true` → hides sender name). Entry: feed card "Xem chi tiết".
+- **F004 — CommunityStandardsScreen:** `/kudos/community-standards` — static content. Entry: WriteKudo form "Tiêu chuẩn cộng đồng" link.
+- **F004 — KudosRulesScreen:** `/kudos/rules` — Thể lệ static content.
+- **F004 — Functional search & filters:** recipient search (debounced, excludes self) in WriteKudo now wired to local stub `searchRecipients`; hashtag + department filters in feed now functional (local stub).
+- **Domain:** `KudoDetail` entity + `HeroTag` enum added; repo methods `getKudoById`, `getAllKudos`, `getHashtags`, `getDepartments`, `searchRecipients`.
+- **Secret Box:** deferred to future F005 (not in F004 scope).
+- **Tests:** 270 tests (100 mới so với 1.3.0+4), 0 failed.
+- **Tồn đọng:** Tất cả data vẫn là local stub; real backend API, rich-text upload chưa tích hợp.
+
+---
+
 ## [1.3.0+4] — 2026-06-24
 
 ### feat: Kudos (F004) — KudosScreen feed tab + WriteKudoScreen form; consolidated kudos routes; Home/Awards deep-link to Kudos tab; 170 tests

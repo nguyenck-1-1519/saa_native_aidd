@@ -76,5 +76,22 @@
   "wkErrorMessageRequired": "Please enter a message.",
   "wkErrorMessageTooLong": "Message must be 1000 characters or fewer.",
   "wkErrorHashtagRequired": "Please add at least 1 hashtag.",
-  "wkSuccessMessage": "Kudo sent successfully!"
+  "wkSuccessMessage": "Kudo sent successfully!",
+
+  "wkRecipientSearchHint": "Search for a Sunner...",
+  "wkRecipientSearchEmpty": "No Sunners found.",
+
+  "kudosAllScreenTitle": "All Kudos",
+  "kudosAllEmpty": "No kudos yet.",
+
+  "heroTagRisingHero": "Rising Hero",
+  "heroTagLegendHero": "Legend Hero",
+  "heroTagNewHero": "New Hero",
+  "heroTagSuperHero": "Super Hero",
+
+  "kudosDetailCopyLink": "Copy link",
+  "kudosDetailAnonymousSender": "Anonymous",
+  "kudosDetailFilterHashtag": "Hashtag",
+  "kudosDetailFilterDepartment": "Department",
+  "kudosDetailFilterAll": "All"
 }

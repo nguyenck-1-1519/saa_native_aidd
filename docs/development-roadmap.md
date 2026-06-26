@@ -1,6 +1,6 @@
 # Roadmap phát triển — SAA 2025
 
-Cập nhật: 2026-06-24
+Cập nhật: 2026-06-26
 
 ## Trạng thái tổng quan
 
@@ -9,9 +9,11 @@ Cập nhật: 2026-06-24
 | 01–07 | iOS Login MVP (F001) | ✅ Hoàn thành |
 | 08 | F002 Home Screen (iOS) | ✅ Hoàn thành |
 | 09 | F003 Awards Screen (iOS) | ✅ Hoàn thành |
-| 10 | F004 Kudos Screen (iOS) | ✅ Hoàn thành |
-| 11 | Android — Google OAuth | Chưa bắt đầu |
-| 12+ | API thật (kudos submit/feed), Search/Notifications/Profile screens, Android Home | Chưa xác định |
+| 10 | F004 Kudos Screen + WriteKudo (iOS) | ✅ Hoàn thành |
+| 10b | F004 Kudos follow-up: 5 screens + functional search/filters (local stub) | ✅ Hoàn thành |
+| 11 | F005 Secret Box flow | Chưa bắt đầu |
+| 12 | Android — Google OAuth | Chưa bắt đầu |
+| 13+ | API thật (kudos submit/feed/search), Search/Notifications/Profile screens, Android Home | Chưa xác định |
 
 ---
 
@@ -126,7 +128,40 @@ Cập nhật: 2026-06-24
 
 ---
 
-## Phase 11 — Android (Google OAuth) — Chưa bắt đầu
+## Phase 10b — F004 Kudos follow-up: 5 screens + functional search/filters (iOS) ✅
+
+**Hoàn thành:** 2026-06-26
+
+### Đã thực hiện
+
+- **AllKudosScreen** (`/kudos/all`): danh sách toàn bộ kudos với hashtag + department filter hoạt động thực sự (local stub).
+- **ViewKudoScreen** (`/kudos/detail/:id`): chi tiết kudo; biến thể anonymous che tên người gửi.
+- **CommunityStandardsScreen** (`/kudos/community-standards`): màn nội dung tĩnh tiêu chuẩn cộng đồng.
+- **KudosRulesScreen** (`/kudos/rules`): màn nội dung tĩnh Thể lệ.
+- **Functional recipient search:** debounced, loại trừ chính mình, từ local stub `searchRecipients`.
+- **Domain mới:** `KudoDetail` entity + `HeroTag` enum; repo methods `getKudoById`, `getAllKudos`, `getHashtags`, `getDepartments`, `searchRecipients`.
+- **Secret Box:** tách ra thành F005 (không thuộc scope F004).
+- **Tests:** 270 tests total (100 mới), 0 failed.
+
+### Số liệu
+
+| Chỉ số | Giá trị |
+|--------|---------|
+| Tổng số tests | 270 |
+| `fvm flutter analyze` | No issues |
+| Platform | iOS-only |
+
+---
+
+## Phase 11 — F005 Secret Box — Chưa bắt đầu
+
+**Điều kiện tiên quyết:** Phase 10b ✅
+
+Mở Secret Box flow: logic mở hộp, animation, reward reveal. Spec chưa có.
+
+---
+
+## Phase 12 — Android (Google OAuth) — Chưa bắt đầu
 
 **Điều kiện tiên quyết:** Phase 01–10 ✅
 
@@ -142,13 +177,13 @@ Cập nhật: 2026-06-24
 
 ---
 
-## Phase 12+ — API thật + Màn hình thật + Android — Chưa xác định
+## Phase 13+ — API thật + Màn hình thật + Android — Chưa xác định
 
 Ưu tiên tiếp theo (thứ tự gợi ý):
 
-1. Tích hợp API thật cho Kudos: submit kudo (F004 Gửi đi stub), kudos feed/stats.
+1. Tích hợp API thật cho Kudos: submit kudo (F004 Gửi đi stub), kudos feed/stats, recipient search, filters.
 2. Thay `PlaceholderScreen` bằng màn thật: Profile, Search, Notifications.
-3. Android Home + OAuth (tương đương Phase 11 iOS nhưng cho Home + F002–F004).
+3. Android Home + OAuth (tương đương Phase 12 iOS nhưng cho Home + F002–F004).
 4. JA copy review người bản ngữ + re-upload asset tồn đọng (Award_BG_3, Kudos_Background, badge/icon F003, spotlight icons F004).
 5. Xác nhận Signature-Creator dual-prize logic.
 
@@ -160,10 +195,11 @@ Kiến trúc hiện tại (`features/{slug}/domain|data|presentation`) sẵn sà
 
 - Real Google OAuth Client ID/Secret cho môi trường staging/production chưa được cung cấp.
 - Android phase chưa có timeline cụ thể.
-- API thật cho awards / notifications / kudos submit+feed / Kudos feature flag chưa có spec.
+- API thật cho awards / notifications / kudos submit+feed+search+filters / Kudos feature flag chưa có spec.
 - 2 asset stand-in (Award_BG_3, Kudos_Background) + FAB icon fallbacks chờ design re-upload.
 - Badge/icon asset cho F003 Awards chờ design re-upload.
 - Spotlight icons cho F004 Kudos chờ design re-upload.
 - Signature-Creator dual-prize: xác nhận logic/spec chưa hoàn tất.
 - JA copy cần review người bản ngữ.
 - F004 Gửi đi (submit kudos) là UI stub — cần real API endpoint.
+- F005 Secret Box: spec + MoMorph designs chưa có.

@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../core/router/app_router.dart';
+import '../domain/entities/kudo_recipient.dart';
+import 'providers/kudos_filter_providers.dart';
 import 'widgets/write_kudo_action_bar.dart';
 import 'widgets/write_kudo_form_card.dart';
 
 /// Write Kudo form screen — "New Kudo" / "Viết Kudo".
 ///
-/// Self-contained [StatefulWidget] with local form state + validation.
-/// No external providers needed — both callbacks are optional.
+/// [ConsumerStatefulWidget] with local form state + validation.
+/// Connects to [recipientSearchControllerProvider] for live recipient search.
+/// "Tiêu chuẩn cộng đồng" routes to [Routes.communityStandards].
 ///
 /// [onSubmit] fires after valid submission (default: SnackBar "Đã gửi Kudo" + pop).
 /// [onCancel] fires on Huỷ (default: [Navigator.maybePop]).
 ///
 /// Design: [iOS] Sun*Kudos_Viết Kudo_default
 /// MoMorph: https://momorph.ai/files/9ypp4enmFmdK3YAFJLIu6C/screens/7fFAb-K35a
-class WriteKudoScreen extends StatefulWidget {
+class WriteKudoScreen extends ConsumerStatefulWidget {
   const WriteKudoScreen({
     super.key,
     this.onSubmit,
@@ -24,7 +30,7 @@ class WriteKudoScreen extends StatefulWidget {
   final VoidCallback? onCancel;
 
   @override
-  State<WriteKudoScreen> createState() => _WriteKudoScreenState();
+  ConsumerState<WriteKudoScreen> createState() => _WriteKudoScreenState();
 }
 
 /// Immutable snapshot of a validated Write Kudo submission.
@@ -51,7 +57,7 @@ class WriteKudoFormData {
 // ---------------------------------------------------------------------------
 const Color _kBg = Color(0xFF00101A);
 
-class _WriteKudoScreenState extends State<WriteKudoScreen> {
+class _WriteKudoScreenState extends ConsumerState<WriteKudoScreen> {
   final _recipientCtrl = TextEditingController();
   final _titleCtrl = TextEditingController();
   final _messageCtrl = TextEditingController();
@@ -59,6 +65,12 @@ class _WriteKudoScreenState extends State<WriteKudoScreen> {
   final List<String> _hashtags = [];
   int _imageCount = 0;
   bool _isAnonymous = false;
+
+  /// Tracks the selected recipient (from search results).
+  KudoRecipient? _selectedRecipient;
+
+  /// Whether the recipient suggestions overlay is visible.
+  bool _showSuggestions = false;
 
   String? _recipientError;
   String? _titleError;
@@ -76,13 +88,37 @@ class _WriteKudoScreenState extends State<WriteKudoScreen> {
     super.dispose();
   }
 
+  void _onRecipientChanged(String text) {
+    // Trigger debounced search.
+    ref.read(recipientSearchControllerProvider.notifier).query(text);
+    // Show suggestions when user is typing, hide when they cleared the field.
+    setState(() {
+      _showSuggestions = text.isNotEmpty;
+      _selectedRecipient = null; // clear previous selection on new input
+    });
+    if (_submitted) setState(() => _recipientError = null);
+  }
+
+  void _selectRecipient(KudoRecipient recipient) {
+    _recipientCtrl.text = recipient.name;
+    setState(() {
+      _selectedRecipient = recipient;
+      _showSuggestions = false;
+      if (_submitted) _recipientError = null;
+    });
+  }
+
   // ---------------------------------------------------------------------------
   // Validation
   // ---------------------------------------------------------------------------
 
   bool _validate() {
+    // Valid if a recipient was selected from results, or if the text field
+    // has content (fallback for direct text entry).
     final recipientError =
-        _recipientCtrl.text.trim().isEmpty ? 'Vui lòng chọn người nhận' : null;
+        (_selectedRecipient == null && _recipientCtrl.text.trim().isEmpty)
+            ? 'Vui lòng chọn người nhận'
+            : null;
 
     final title = _titleCtrl.text.trim();
     final titleError = title.isEmpty
@@ -94,7 +130,7 @@ class _WriteKudoScreenState extends State<WriteKudoScreen> {
     final message = _messageCtrl.text.trim();
     final messageError = message.isEmpty
         ? 'Vui lòng nhập nội dung lời cám ơn'
-        : _messageCtrl.text.length > 1000
+        : message.length > 1000
             ? 'Nội dung tối đa 1000 ký tự'
             : null;
 
@@ -117,7 +153,7 @@ class _WriteKudoScreenState extends State<WriteKudoScreen> {
   void _clearError(String field) {
     if (!_submitted) return;
     setState(() {
-      if (field == 'recipient') _recipientError = null;
+      // Recipient errors are cleared by _onRecipientChanged / _selectRecipient.
       if (field == 'title') _titleError = null;
       if (field == 'message') _messageError = null;
     });
@@ -213,6 +249,12 @@ class _WriteKudoScreenState extends State<WriteKudoScreen> {
                 messageError: _messageError,
                 hashtagError: _hashtagError,
                 onClearError: _clearError,
+                onRecipientChanged: _onRecipientChanged,
+                showRecipientSuggestions: _showSuggestions,
+                recipientSuggestionsAsync: _showSuggestions
+                    ? ref.watch(recipientSearchControllerProvider)
+                    : null,
+                onSelectRecipient: _selectRecipient,
                 onAddHashtag: _addHashtag,
                 onRemoveHashtag: (i) => setState(() {
                   _hashtags.removeAt(i);
@@ -226,6 +268,8 @@ class _WriteKudoScreenState extends State<WriteKudoScreen> {
                     setState(() => _imageCount = (_imageCount - 1).clamp(0, 5)),
                 onToggleAnonymous: () =>
                     setState(() => _isAnonymous = !_isAnonymous),
+                onCommunityStandards: () =>
+                    context.push(Routes.communityStandards),
               ),
               const SizedBox(height: 16),
               WriteKudoActionBar(

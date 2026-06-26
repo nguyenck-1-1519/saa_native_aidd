@@ -1,7 +1,9 @@
 import '../../../../core/error/failures.dart';
 import '../../domain/entities/kudo.dart';
+import '../../domain/entities/kudo_detail.dart';
 import '../../domain/entities/kudo_recipient.dart';
 import '../../domain/repositories/kudos_feed_repository.dart';
+import '../sources/kudos_detail_mock_data.dart';
 import '../sources/kudos_mock_data.dart';
 
 /// Behavior modes for [StubKudosFeedRepository].
@@ -53,5 +55,79 @@ class StubKudosFeedRepository implements KudosFeedRepository {
       StubKudosFeedBehavior.error =>
         throw const UnknownFailure('Stub: simulated recent recipients fetch error'),
     };
+  }
+
+  @override
+  Future<KudoDetail> getKudoById(String id) async {
+    await Future<void>.delayed(delay);
+    if (behavior == StubKudosFeedBehavior.error) {
+      throw const UnknownFailure('Stub: simulated kudo detail fetch error');
+    }
+    final detail = KudosDetailMockData.details
+        .where((d) => d.id == id)
+        .firstOrNull;
+    if (detail == null) {
+      throw UnknownFailure('Stub: kudo not found for id=$id');
+    }
+    return detail;
+  }
+
+  @override
+  Future<List<Kudo>> getAllKudos({String? hashtag, String? department}) async {
+    await Future<void>.delayed(delay);
+    return switch (behavior) {
+      StubKudosFeedBehavior.error =>
+        throw const UnknownFailure('Stub: simulated getAllKudos error'),
+      StubKudosFeedBehavior.empty => const [],
+      StubKudosFeedBehavior.data => _filterFeed(
+          KudosMockData.feed,
+          hashtag: hashtag,
+          department: department,
+        ),
+    };
+  }
+
+  @override
+  Future<List<String>> getHashtags() async {
+    await Future<void>.delayed(delay);
+    if (behavior == StubKudosFeedBehavior.error) {
+      throw const UnknownFailure('Stub: simulated getHashtags error');
+    }
+    return KudosDetailMockData.hashtags;
+  }
+
+  @override
+  Future<List<String>> getDepartments() async {
+    await Future<void>.delayed(delay);
+    if (behavior == StubKudosFeedBehavior.error) {
+      throw const UnknownFailure('Stub: simulated getDepartments error');
+    }
+    return KudosDetailMockData.departments;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Internal helpers
+  // ---------------------------------------------------------------------------
+
+  List<Kudo> _filterFeed(
+    List<Kudo> all, {
+    String? hashtag,
+    String? department,
+  }) {
+    var result = all;
+    if (hashtag != null && hashtag.isNotEmpty) {
+      result = result
+          .where((k) => k.hashtags.contains(hashtag))
+          .toList();
+    }
+    if (department != null && department.isNotEmpty) {
+      final dep = department.toLowerCase();
+      result = result
+          .where((k) =>
+              k.senderRole.toLowerCase().contains(dep) ||
+              k.recipientRole.toLowerCase().contains(dep))
+          .toList();
+    }
+    return result;
   }
 }
