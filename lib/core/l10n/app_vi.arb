@@ -251,5 +251,23 @@
   "@errorGoHome": { "description": "CTA label for logged-in users on error screens — navigates to home" },
 
   "errorGoLogin": "Về đăng nhập",
-  "@errorGoLogin": { "description": "CTA label for logged-out users on error screens — navigates to login" }
+  "@errorGoLogin": { "description": "CTA label for logged-out users on error screens — navigates to login" },
+
+  "secretBoxTitle": "Secret Box",
+  "@secretBoxTitle": { "description": "App-bar / page title for the Secret Box screen" },
+
+  "secretBoxOpenCta": "Mở hộp quà",
+  "@secretBoxOpenCta": { "description": "CTA button label to open the secret box" },
+
+  "secretBoxOpening": "Đang mở...",
+  "@secretBoxOpening": { "description": "Label shown while the box is opening (opening phase)" },
+
+  "secretBoxRevealedTitle": "Chúc mừng!",
+  "@secretBoxRevealedTitle": { "description": "Heading shown on the reward reveal card" },
+
+  "secretBoxUnopenedLabel": "Secret box chưa mở ",
+  "@secretBoxUnopenedLabel": { "description": "Prefix label before the count of unopened boxes on the closed state panel" },
+
+  "secretBoxNoneLeft": "Bạn không còn secret box nào.",
+  "@secretBoxNoneLeft": { "description": "Message shown when the user has no boxes left to open (FR8)" }
 }

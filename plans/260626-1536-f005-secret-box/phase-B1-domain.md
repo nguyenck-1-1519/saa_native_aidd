@@ -1,6 +1,8 @@
 # Phase B1 — Domain: entities, phase, repository, usecases (Track B)
 
-**Track:** B (logic) · **blockedBy:** none · **Status:** pending
+**Track:** B (logic) · **blockedBy:** none · **Status:** done
+
+**Delivered:** All 6 domain files created; `fvm flutter analyze` clean; immutable entities with `==`/`hashCode`; repository interface and 2 callable usecases. No Flutter imports.
 
 ## Context Links
 - Spec: `spec/secret-box/secret-box.md` (FR1–FR9)

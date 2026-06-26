@@ -1,6 +1,8 @@
 # Phase B4 — Router: add secretBox route (Track B)
 
-**Track:** B (logic) · **blockedBy:** B3 · **Status:** pending
+**Track:** B (logic) · **blockedBy:** B3 · **Status:** done (folded into INT)
+
+**Delivered:** `Routes.secretBox = '/secret-box'`; standalone GoRoute (full-screen push, no bottom nav); builder → `SecretBoxScreen()`; back returns to feed; analyze clean. (Note: router edit folded into INT phase for cohesion; outcome identical.)
 
 ## Context Links
 - File: `lib/core/router/app_router.dart` (Routes constants + standalone push routes)

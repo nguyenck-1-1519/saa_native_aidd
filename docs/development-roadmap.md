@@ -12,7 +12,7 @@ Cập nhật: 2026-06-26
 | 10 | F004 Kudos Screen + WriteKudo (iOS) | ✅ Hoàn thành |
 | 10b | F004 Kudos follow-up: 5 screens + functional search/filters (local stub) | ✅ Hoàn thành |
 | 10c | F008 System/Error screens — Access Denied (403) + Not Found (404) | ✅ Hoàn thành |
-| 11 | F005 Secret Box flow | Chưa bắt đầu |
+| 11 | F005 Secret Box reveal flow (local stub) | ✅ Hoàn thành |
 | 12 | Android — Google OAuth | Chưa bắt đầu |
 | 13+ | API thật (kudos submit/feed/search), Search/Notifications/Profile screens, Android Home | Chưa xác định |
 
@@ -177,11 +177,29 @@ Cập nhật: 2026-06-26
 
 ---
 
-## Phase 11 — F005 Secret Box — Chưa bắt đầu
+## Phase 11 — F005 Secret Box reveal flow (iOS) ✅
 
-**Điều kiện tiên quyết:** Phase 10b ✅
+**Hoàn thành:** 2026-06-26
 
-Mở Secret Box flow: logic mở hộp, animation, reward reveal. Spec chưa có.
+### Đã thực hiện
+
+- **Feature F005 — SecretBoxScreen** (`/secret-box`, push ngoài shell): closed → opening → revealed state machine.
+- 9 MoMorph screenIds (kQk65hSYF2 closed, KUmv414uC9 opening, 7 revealed variants) → 1 screen.
+- Domain: `SecretBoxReward` + `SecretBoxState` + `SecretBoxPhase` enum + repo interface + `GetSecretBoxState` / `OpenSecretBox` usecases. Local stub (in-memory).
+- `SecretBoxController` (Riverpod `Notifier`): double-tap guard, error reset, `ref.invalidate(secretBoxStateProvider)` on success.
+- FR7 stats-sync: `kudosStatsProvider` watch `secretBoxStateProvider` — single source of truth cho feed counter.
+- FR8 none-left: `unopenedCount = 0` → throws; exercisable sau 1 tap từ stub.
+- i18n vi/en/ja. Asset S3 chưa export — Icon fallback.
+- **Tests:** 77 mới, tổng suite 371, 0 failed.
+- **Tồn đọng:** Real backend, server reward allocation, sharing, art asset S3 export.
+
+### Số liệu
+
+| Chỉ số | Giá trị |
+|--------|---------|
+| Tổng số tests | 371 |
+| `fvm flutter analyze` | No issues |
+| Platform | iOS-only |
 
 ---
 
@@ -226,4 +244,4 @@ Kiến trúc hiện tại (`features/{slug}/domain|data|presentation`) sẵn sà
 - Signature-Creator dual-prize: xác nhận logic/spec chưa hoàn tất.
 - JA copy cần review người bản ngữ.
 - F004 Gửi đi (submit kudos) là UI stub — cần real API endpoint.
-- F005 Secret Box: spec + MoMorph designs chưa có.
+- F005 Secret Box: real backend persistence + server reward allocation + sharing flow + art asset S3 export — deferred (local stub shipped).

@@ -51,6 +51,7 @@ flutter:
     - assets/images/home/
     - assets/images/awards/
     - assets/images/kudos/
+    - assets/images/secret_box/
 
   fonts:
     - family: Montserrat

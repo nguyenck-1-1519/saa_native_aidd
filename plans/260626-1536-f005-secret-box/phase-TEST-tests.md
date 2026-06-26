@@ -1,6 +1,8 @@
 # Phase TEST — Tests: open flow, reveal states, entry, no-overflow, i18n
 
-**Track:** — · **blockedBy:** INT · **Status:** pending
+**Track:** — · **blockedBy:** INT · **Status:** done
+
+**Delivered:** 77 tests all green. Unit tests (domain/data/provider): open flow, state machine (closed→opening→revealed), error handling. Widget tests: all 3 phases, none-left (FR8), 375px overflow guard, entry from feed (button enabled + nav). i18n tests: VN default, EN + JA render no Vietnamese leak. Integration: full loop + stats delta. `fvm flutter test` passed; no flakiness.
 
 ## Context Links
 - Pattern refs: existing kudos widget/provider tests under `test/` (375×812 surface convention)

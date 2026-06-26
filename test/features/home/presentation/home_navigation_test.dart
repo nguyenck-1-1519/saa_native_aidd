@@ -21,6 +21,8 @@ import 'package:saa_2025/features/kudos/presentation/providers/kudos_providers.d
 import 'package:saa_2025/features/kudos/data/repositories/fake_kudos_feed_repository.dart';
 import 'package:saa_2025/features/kudos/data/repositories/fake_kudos_stats_repository.dart';
 import 'package:saa_2025/features/placeholder/presentation/placeholder_screen.dart';
+import 'package:saa_2025/features/secret_box/data/repositories/fake_secret_box_repository.dart';
+import 'package:saa_2025/features/secret_box/presentation/providers/secret_box_providers.dart';
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -95,6 +97,10 @@ Widget _buildApp({bool loggedIn = true, List<Override> extra = const []}) {
           .overrideWithValue(FakeKudosFeedRepository.empty()),
       kudosStatsRepositoryProvider
           .overrideWithValue(FakeKudosStatsRepository.data()),
+      // Override secret box repo so kudosStatsProvider resolves immediately
+      // (kudosStatsProvider now derives box counts from secretBoxStateProvider).
+      secretBoxRepositoryProvider
+          .overrideWithValue(FakeSecretBoxRepository.empty()),
       ...extra,
     ],
     child: Consumer(

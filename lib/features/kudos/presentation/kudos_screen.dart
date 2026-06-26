@@ -133,7 +133,7 @@ class KudosScreen extends ConsumerWidget {
             padding: const EdgeInsets.fromLTRB(_hPad, 24, _hPad, 0),
             child: AllKudosStats(
               stats: stats,
-              onOpenSecretBox: null, // TODO: Secret Box feature not yet built
+              onOpenSecretBox: () => context.push(Routes.secretBox),
             ),
           ),
         ),

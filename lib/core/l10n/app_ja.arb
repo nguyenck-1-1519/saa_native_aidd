@@ -213,5 +213,23 @@
   "@errorGoHome": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
 
   "errorGoLogin": "ログイン画面へ戻る",
-  "@errorGoLogin": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" }
+  "@errorGoLogin": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "secretBoxTitle": "Secret Box",
+  "@secretBoxTitle": { "description": "Brand term — kept in English" },
+
+  "secretBoxOpenCta": "ボックスを開く",
+  "@secretBoxOpenCta": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "secretBoxOpening": "開いています...",
+  "@secretBoxOpening": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "secretBoxRevealedTitle": "おめでとうございます！",
+  "@secretBoxRevealedTitle": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "secretBoxUnopenedLabel": "未開封のシークレットボックス ",
+  "@secretBoxUnopenedLabel": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "secretBoxNoneLeft": "シークレットボックスが残っていません。",
+  "@secretBoxNoneLeft": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" }
 }

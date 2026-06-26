@@ -1,6 +1,8 @@
 # Phase B2 — Data: stub repository + mock reward data (Track B)
 
-**Track:** B (logic) · **blockedBy:** B1 · **Status:** pending
+**Track:** B (logic) · **blockedBy:** B1 · **Status:** done
+
+**Delivered:** StubSecretBoxRepository with session-scoped in-memory state (unopened count, reward list); SecretBoxMockData with 7 reward variants from Figma; artificial delay (~600ms); `open()` guards supply, decrements, returns reward; error behavior via Failure. Analyze clean.
 
 ## Context Links
 - Pattern refs: `lib/features/kudos/data/repositories/stub_kudos_stats_repository.dart`,

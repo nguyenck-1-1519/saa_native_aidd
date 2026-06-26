@@ -1,0 +1,33 @@
+{
+  "task": "F005 Secret Box: build the iOS Open-Secret-Box reveal flow (closed -> opening -> revealed) behind the Kudos feed button, with a data-driven reward over local stub data.",
+  "mode": "auto",
+  "acceptanceCriteria": [
+    "open flow transitions closed to opening to revealed and shows the reward",
+    "none-left state shown when no unopened boxes remain",
+    "feed open secret box button navigates to the secret box screen",
+    "feed secret-box stats reflect an open via a single shared source",
+    "flutter analyze clean and the full test suite green"
+  ],
+  "touchpoints": [
+    "lib/features/secret_box/domain/value_objects/secret_box_phase.dart",
+    "lib/features/secret_box/domain/entities/secret_box_reward.dart",
+    "lib/features/secret_box/data/repositories/stub_secret_box_repository.dart",
+    "lib/features/secret_box/presentation/providers/secret_box_providers.dart",
+    "lib/features/secret_box/presentation/secret_box_screen.dart",
+    "lib/core/router/app_router.dart",
+    "lib/core/router/secret_box_route_wrapper.dart",
+    "lib/features/kudos/presentation/kudos_screen.dart",
+    "lib/features/kudos/presentation/providers/kudos_providers.dart"
+  ],
+  "blastRadius": [
+    "kudos feed secret-box button + stats counter",
+    "kudosStatsProvider (now merges secret-box state)",
+    "go_router /secret-box route",
+    "l10n keys vi/en/ja"
+  ],
+  "contracts": [
+    "Routes.secretBox -> SecretBoxScreen via SecretBoxRouteWrapper",
+    "SecretBoxController.open()/reset(); SecretBoxPhase enum",
+    "secretBoxRepositoryProvider single shared source feeding kudosStatsProvider"
+  ]
+}

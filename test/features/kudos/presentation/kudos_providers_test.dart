@@ -5,11 +5,17 @@ import 'package:saa_2025/features/kudos/data/repositories/fake_kudos_feed_reposi
 import 'package:saa_2025/features/kudos/data/repositories/fake_kudos_stats_repository.dart';
 import 'package:saa_2025/features/kudos/data/sources/kudos_mock_data.dart';
 import 'package:saa_2025/features/kudos/presentation/providers/kudos_providers.dart';
+import 'package:saa_2025/features/secret_box/data/repositories/fake_secret_box_repository.dart';
+import 'package:saa_2025/features/secret_box/presentation/providers/secret_box_providers.dart';
 
-/// Builds a [ProviderContainer] with feed and stats repos overridden.
+/// Builds a [ProviderContainer] with feed, stats, and secret-box repos overridden.
+///
+/// [secretBoxState] controls what the fake secret box repo returns.
+/// Defaults to 1 unopened / 0 opened (FakeSecretBoxRepository.empty()).
 ProviderContainer _container({
   FakeKudosFeedRepository? feed,
   FakeKudosStatsRepository? stats,
+  FakeSecretBoxRepository? secretBox,
 }) {
   return ProviderContainer(
     overrides: [
@@ -17,6 +23,9 @@ ProviderContainer _container({
         kudosFeedRepositoryProvider.overrideWithValue(feed),
       if (stats != null)
         kudosStatsRepositoryProvider.overrideWithValue(stats),
+      // Always override to avoid the 800 ms stub timer in tests.
+      secretBoxRepositoryProvider
+          .overrideWithValue(secretBox ?? FakeSecretBoxRepository.empty()),
     ],
   );
 }
@@ -120,21 +129,67 @@ void main() {
   // -------------------------------------------------------------------------
   // kudosStatsProvider
   // -------------------------------------------------------------------------
+  //
+  // kudosStatsProvider now merges kudos base stats (received/sent/hearts) with
+  // live secret-box counts from secretBoxStateProvider (FR7 single source).
+  // secretBoxOpened = openedRewards.length, secretBoxUnopened = unopenedCount.
 
   group('kudosStatsProvider', () {
-    test('resolves to KudosMockData.stats with .data() repo', () async {
+    test(
+        'merges kudos base stats with secret-box counts from shared repo',
+        () async {
+      // FakeSecretBoxRepository.empty() → unopenedCount=1, openedRewards=[].
       final container = _container(
         stats: FakeKudosStatsRepository.data(),
       );
       addTearDown(container.dispose);
 
       final stats = await container.read(kudosStatsProvider.future);
-      expect(stats, equals(KudosMockData.stats));
+
+      // Base kudos stats (received/sent/hearts) come from KudosMockData.
+      expect(stats.received, equals(KudosMockData.stats.received));
+      expect(stats.sent, equals(KudosMockData.stats.sent));
+      expect(stats.heartsReceived, equals(KudosMockData.stats.heartsReceived));
+      // Box counts come from the shared secret box repo (fake: 1 unopened, 0 opened).
+      expect(stats.secretBoxUnopened, equals(1));
+      expect(stats.secretBoxOpened, equals(0));
+    });
+
+    test('reflects custom secret-box repo state in merged counts', () async {
+      // Use a custom fake that returns a specific SecretBoxState.
+      final customBoxRepo = FakeSecretBoxRepository.none();
+      // none() → unopenedCount=0, openedRewards=[].
+      final container = _container(
+        stats: FakeKudosStatsRepository.data(),
+        secretBox: customBoxRepo,
+      );
+      addTearDown(container.dispose);
+
+      final stats = await container.read(kudosStatsProvider.future);
+
+      expect(stats.secretBoxUnopened, equals(0));
+      expect(stats.secretBoxOpened, equals(0));
     });
 
     test('enters error state when stats repo throws', () async {
       final container = _container(
         stats: FakeKudosStatsRepository.error(),
+      );
+      addTearDown(container.dispose);
+
+      await expectLater(
+        container.read(kudosStatsProvider.future),
+        throwsA(anything),
+      );
+
+      final state = container.read(kudosStatsProvider);
+      expect(state.hasError, isTrue);
+    });
+
+    test('enters error state when secret-box repo throws', () async {
+      final container = _container(
+        stats: FakeKudosStatsRepository.data(),
+        secretBox: FakeSecretBoxRepository.error(),
       );
       addTearDown(container.dispose);
 

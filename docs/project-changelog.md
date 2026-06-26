@@ -4,6 +4,25 @@
 
 ---
 
+## [1.6.0+7] — 2026-06-26
+
+### feat: F005 Secret Box — reveal flow (local stub; iOS)
+
+**Chi tiết:**
+
+- **SCR016 — SecretBoxScreen:** `/secret-box` — full-screen reveal flow (push ngoài shell). 9 MoMorph screenIds (kQk65hSYF2 closed, KUmv414uC9 opening, 7 revealed variants) → 1 screen + state machine.
+- **State machine:** `SecretBoxPhase` enum (closed → opening → revealed); `SecretBoxController` (Riverpod `Notifier`) với double-tap guard; error path reset to closed.
+- **Domain:** `SecretBoxReward` + `SecretBoxState` entities + `SecretBoxPhase` enum + `SecretBoxRepository` interface + `GetSecretBoxState` / `OpenSecretBox` usecases. Local stub (`StubSecretBoxRepository`, in-memory).
+- **FR7 stats-sync:** `kudosStatsProvider` watch `secretBoxStateProvider` (single source of truth) — feed counter (secretBoxOpened / secretBoxUnopened) cập nhật ngay sau mỗi lần mở hộp. Không còn desync giữa KudosScreen stats và SecretBoxScreen.
+- **FR8 none-left:** `unopenedCount = 0` → `open()` throws → UI reset to closed; stub khởi tạo 1 box nên path này exercisable sau 1 tap.
+- **Entry:** KudosScreen "Mở Secret Box" button → `context.push(Routes.secretBox)`.
+- **i18n:** labels vi/en/ja. JA cần review người bản ngữ.
+- **Assets:** `SecretBoxReward.assetRef` nullable — box + reward art chưa export S3 → Icon fallback active.
+- **Tests:** 77 mới, tổng suite 371, 0 failed.
+- **Tồn đọng:** Real backend persistence, server reward allocation, sharing flow, art asset S3 export — tất cả deferred.
+
+---
+
 ## [1.5.0+6] — 2026-06-26
 
 ### feat: F008 System/Error screens — Access Denied (403) + Not Found (404)

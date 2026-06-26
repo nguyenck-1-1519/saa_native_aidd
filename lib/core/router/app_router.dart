@@ -13,6 +13,7 @@ import '../../features/kudos/presentation/kudos_screen.dart';
 import '../../features/kudos/presentation/write_kudo_screen.dart';
 import '../../features/placeholder/presentation/placeholder_screen.dart';
 import 'kudos_route_wrappers.dart';
+import 'secret_box_route_wrapper.dart';
 import 'system_route_wrappers.dart';
 
 /// All named route paths in the app.
@@ -42,6 +43,9 @@ abstract final class Routes {
   static const communityStandards = '/kudos/community-standards';
   static const kudosRules = '/kudos/rules';
   static const accessDenied = '/access-denied';
+
+  // F005 — Secret Box
+  static const secretBox = '/secret-box';
 
   /// Returns the full path for a single-kudo detail screen.
   static String kudoDetailPath(String id) => '$kudoDetail/$id';
@@ -195,6 +199,12 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (context, _) => KudosRulesScreen(
           onWriteKudo: () => context.push(Routes.writeKudo),
         ),
+      ),
+
+      // /secret-box — full-screen push, outside shell (F005)
+      GoRoute(
+        path: Routes.secretBox,
+        builder: (_, __) => const SecretBoxRouteWrapper(),
       ),
 
       // FR5: 403 screen. Auth guard (redirect @89) bounces unauthenticated users

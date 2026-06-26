@@ -12,6 +12,7 @@ Generated from source. Ground truth: `lib/core/router/app_router.dart`, `lib/fea
 - **F002** — Home feature (`features/home`)
 - **F003** — Awards feature (`features/awards`)
 - **F004** — Kudos feature (`features/kudos`)
+- **F005** — Secret Box feature (`features/secret_box`)
 - **F008** — System/Error screens (`features/system`)
 
 ---
@@ -138,6 +139,9 @@ Static Thể lệ content screen. Standalone (outside shell).
 **SCR015 — Not Found** (`NotFoundScreen` via `NotFoundRouteWrapper`, `lib/features/system/presentation/not_found_screen.dart`):
 F008 — 404 error screen. Shown for any unrecognised route via `GoRouter.errorBuilder` (no fixed path). Pure widget; auth-aware CTA injected by `system_route_wrappers.dart`. "4[icon]4" layout fallback — robot mascot asset S3 pending. 6 l10n keys shared with SCR010. MoMorph: `sn2mdavs1a`.
 
+**SCR016 — Secret Box** (`SecretBoxScreen` via `SecretBoxRouteWrapper`, `lib/features/secret_box/presentation/secret_box_screen.dart`):
+F005 — full-screen Secret Box reveal flow. State machine: closed → opening → revealed, driven by `SecretBoxController` (`Notifier<SecretBoxUiState>`). 9 MoMorph screenIds (kQk65hSYF2 closed, KUmv414uC9 opening, 7 revealed variants) collapse to 1 screen. On successful open: `secretBoxStateProvider` invalidated → `kudosStatsProvider` recomputes feed counter (FR7 stats-sync). FR8: `unopenedCount = 0` → throws → reset to closed. Local stub (`StubSecretBoxRepository`). Box + reward art assets S3 pending — Icon fallback active. vi/en/ja i18n. Entry: KudosScreen "Mở Secret Box" → `Routes.secretBox`. Push outside shell.
+
 > **Retired (F003):** SCR009-old "Award Detail" (`/award-detail`) and SCR010-old "About Award" (`/about-award`) placeholders removed. Navigation entry points now deep-link to SCR004 (Awards tab).
 
 > **Retired (F004):** "About Kudos" (`/about-kudos`), "Kudos Detail" (`/kudos-detail`), "Kudos Feed" (`/kudos-feed`) placeholders removed. Navigation entry points now call `goBranch(2)` to SCR005 (Kudos tab).
@@ -163,3 +167,4 @@ F008 — 404 error screen. Shown for any unrecognised route via `GoRouter.errorB
 | SCR013 | Community Standards | `/kudos/community-standards` | F004 | No | Yes |
 | SCR014 | Kudos Rules (Thể lệ) | `/kudos/rules` | F004 | No | Yes |
 | SCR015 | Not Found | *(errorBuilder — no fixed path)* | F008 | No | Yes |
+| SCR016 | Secret Box | `/secret-box` | F005 | No | Yes |

@@ -20,6 +20,7 @@ Auth redirect guard fires on every navigation event (driven by `authStateProvide
 | 8 | `/kudos/detail/:id` | `Routes.kudoDetail` (helper: `Routes.kudoDetailPath(id)`) | `ViewKudoScreen` | Yes (indirect) | F004 — kudo detail; anonymous variant hides sender. Entry: feed card "Xem chi tiết". Push navigation (outside shell). |
 | 9 | `/kudos/community-standards` | `Routes.communityStandards` | `CommunityStandardsScreen` | Yes (indirect) | F004 — static community standards content. Entry: WriteKudo "Tiêu chuẩn cộng đồng" link. Push navigation (outside shell). |
 | 10 | `/kudos/rules` | `Routes.kudosRules` | `KudosRulesScreen` | Yes (indirect) | F004 — Thể lệ static content. Push navigation (outside shell). |
+| 11 | `/secret-box` | `Routes.secretBox` | `SecretBoxRouteWrapper` → `SecretBoxScreen` | Yes (indirect) | F005 — full-screen Secret Box reveal flow (closed→opening→revealed); entry: KudosScreen "Mở Secret Box". Push navigation (outside shell). |
 | — | *(any unknown path)* | *(errorBuilder)* | `NotFoundRouteWrapper` → `NotFoundScreen` | No (error destination) | F008 — 404 Not Found. Fires for any unrecognised route via `GoRouter.errorBuilder`. Auth-aware CTA: logged-in→Home, logged-out→Login. |
 
 > **Retired (F003):** `/award-detail` (`Routes.awardDetail`) and `/about-award` (`Routes.aboutAward`) removed. Home carousel "Chi tiết" and hero "ABOUT AWARD" now navigate via `goBranch(1)` to `/awards` with `selectedAwardIdProvider` pre-set.

@@ -1,6 +1,8 @@
 # Phase A1 — UI: SecretBoxScreen (Track A)
 
-**Track:** A (UI) · **blockedBy:** none · **Status:** pending
+**Track:** A (UI) · **blockedBy:** none · **Status:** done
+
+**Delivered:** SecretBoxScreen + 7 presentational widgets (header, box, reward card, closed/opening/revealed UI, none-left state); closed/opening/revealed visual states pixel-faithful to Figma; reveal animation (Flutter built-ins); reward image fallback (null-S3 → styled text / icon); mock data from design content; no overflow at 375px. ConsumerWidget bound to controller at INT.
 
 ## MoMorph refs (fileKey 9ypp4enmFmdK3YAFJLIu6C)
 - Closed: https://momorph.ai/files/9ypp4enmFmdK3YAFJLIu6C/screens/kQk65hSYF2

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../features/secret_box/presentation/providers/secret_box_providers.dart';
 import '../../data/repositories/stub_kudos_feed_repository.dart';
 import '../../data/repositories/stub_kudos_stats_repository.dart';
 import '../../data/repositories/stub_write_kudo_repository.dart';
@@ -154,12 +155,27 @@ final kudosFeedControllerProvider =
 );
 
 // ---------------------------------------------------------------------------
-// Stats provider — FutureProvider (simple, no retry needed for MVP)
+// Stats provider — derives secret-box counts from the SHARED secret box
+// repository (FR7 single source of truth).
+//
+// Fetches kudos stats (received/sent/hearts) from KudosStatsRepository and
+// overrides the secretBoxOpened/secretBoxUnopened fields with live values
+// from secretBoxStateProvider so the feed counter always reflects the real
+// state after a box is opened.
 // ---------------------------------------------------------------------------
 
-final kudosStatsProvider = FutureProvider<KudosStats>(
-  (ref) => ref.watch(getKudosStatsProvider).call(),
-);
+final kudosStatsProvider = FutureProvider<KudosStats>((ref) async {
+  final baseStats = await ref.watch(getKudosStatsProvider).call();
+  final boxState = await ref.watch(secretBoxStateProvider.future);
+
+  return KudosStats(
+    received: baseStats.received,
+    sent: baseStats.sent,
+    heartsReceived: baseStats.heartsReceived,
+    secretBoxOpened: boxState.openedRewards.length,
+    secretBoxUnopened: boxState.unopenedCount,
+  );
+});
 
 // ---------------------------------------------------------------------------
 // Recent recipients — derived from feed controller (DRY: avoids duplicate fetch)

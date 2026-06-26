@@ -1,7 +1,7 @@
 ---
 title: "F005 Secret Box — Open Secret Box reveal flow (Sun* Kudos)"
 description: "Build the iOS Open-Secret-Box flow the Kudos feed stubs as coming-soon: a full-screen SecretBoxScreen with closed → opening → revealed states, a presentational reveal animation, and a data-driven reward. Local stub only. MoMorph two-track."
-status: pending
+status: completed
 priority: P2
 effort: 11h
 branch: main
@@ -9,6 +9,7 @@ work_type: feature
 spec_draft: plans/260626-1536-f005-secret-box/spec/secret-box/
 tags: [flutter, kudos, secret-box, momorph, feature]
 created: 2026-06-26
+completed: 2026-06-26
 builds_on: 260625-2309-kudos-remaining-screens
 ---
 
@@ -33,13 +34,13 @@ N-screenIds=1-screen MoMorph pattern. MoMorph two-track: Track A (UI) runs paral
 
 | # | Phase | Track | Status | Depends on |
 |---|-------|-------|--------|------------|
-| B1 | [Domain: SecretBox entity, reward, phase, repository, usecases](phase-B1-domain.md) | B | pending | — |
-| B2 | [Data: stub repository + mock reward data](phase-B2-data.md) | B | pending | B1 |
-| B3 | [Providers + controller (phase state machine) + l10n keys](phase-B3-providers-l10n.md) | B | pending | B2 |
-| B4 | [Router: add secretBox route + Routes constant](phase-B4-router.md) | B | pending | B3 |
-| A1 | [UI: SecretBoxScreen with closed/opening/revealed states](phase-A1-ui-secret-box.md) | A | pending | — |
-| INT | [Integration: rewire feed button, bind controller, stats sync](phase-INT-integration.md) | A+B | pending | B3,B4,A1 |
-| TEST | [Tests: open flow, reveal states, entry, no-overflow, i18n](phase-TEST-tests.md) | — | pending | INT |
+| B1 | [Domain: SecretBox entity, reward, phase, repository, usecases](phase-B1-domain.md) | B | done | — |
+| B2 | [Data: stub repository + mock reward data](phase-B2-data.md) | B | done | B1 |
+| B3 | [Providers + controller (phase state machine) + l10n keys](phase-B3-providers-l10n.md) | B | done | B2 |
+| B4 | [Router: add secretBox route + Routes constant](phase-B4-router.md) | B | done | B3 |
+| A1 | [UI: SecretBoxScreen with closed/opening/revealed states](phase-A1-ui-secret-box.md) | A | done | — |
+| INT | [Integration: rewire feed button, bind controller, stats sync](phase-INT-integration.md) | A+B | done | B3,B4,A1 |
+| TEST | [Tests: open flow, reveal states, entry, no-overflow, i18n](phase-TEST-tests.md) | — | done | INT |
 
 **Track parallelism (MoMorph rule):** Track A (A1) has NO `blockedBy` on Track B (B1–B4). Both
 run concurrently under `tkm:takumi`. INT is the only join point.
@@ -67,3 +68,20 @@ run concurrently under `tkm:takumi`. INT is the only join point.
 ## Spec
 Draft at `spec/secret-box/secret-box.md` (FR1–FR9 + screen→state map + defer list). Promote to
 `docs/features/F005_SecretBox/` and run `/tkm:rebuild-spec --features F005` after merge.
+
+## Completion Summary (2026-06-26)
+
+**Status:** All phases complete. Module delivered under `lib/features/secret_box/` with full integration into Kudos feed.
+
+**Deliverables:**
+- Domain layer: SecretBoxReward, SecretBoxState, SecretBoxPhase enum, SecretBoxRepository interface, 2 usecases (GetSecretBoxState, OpenSecretBox).
+- Data layer: StubSecretBoxRepository with session-scoped state, SecretBoxMockData with 7 reward variants extracted from Figma design.
+- Presentation: SecretBoxController (state machine: closed→opening→revealed), SecretBoxScreen (7 widgets, animation, closed/opening/revealed + none-left), SecretBoxRouteWrapper (animation-gated reveal), providers (DI, shared repo instance for stats sync).
+- Router: `/secret-box` route added to `app_router.dart` (standalone, full-screen push, back returns to feed).
+- Integration: Feed button rewired to `context.push(Routes.secretBox)`, feed stats synced via shared `secretBoxRepositoryProvider`, stats UI updated on reveal.
+- l10n: VN/EN/JA labels for title, CTAs, "đang mở", reward heading, close, "none left".
+- Tests: 77 unit + widget + integration tests (all green); coverage of open flow, all phases, entry, none-left (FR8), overflow guard (375px), i18n (no hardcoded VN leak).
+
+**QA:** Reviewer approved with 8/10 (APPROVE-WITH-NITS); 3 nits resolved: H1 (catch-all controller reset on error) + M1 (reward names not localized per i18n discipline) + M2 (dead key deleted from ARB).
+
+**Next:** Promote spec to docs, run `tkm:rebuild-spec --features F005`, update roadmap + changelog. Ready to merge to main.

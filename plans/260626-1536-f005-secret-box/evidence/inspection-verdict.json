@@ -1,0 +1,21 @@
+{
+  "score": 9,
+  "criticalCount": 0,
+  "decision": "SEALED",
+  "acceptanceCovered": [
+    "open flow transitions closed to opening to revealed and shows the reward — verified by secret_box_controller_test.dart + secret_box_screen_test.dart",
+    "none-left state shown when no unopened boxes remain — verified by secret_box_screen_test.dart (FR8) + repo open() throws when none left",
+    "feed open secret box button navigates to the secret box screen — verified by secret_box_feed_integration_test.dart",
+    "feed secret-box stats reflect an open via a single shared source — verified by secret_box_stats_sync_test.dart (kudosStatsProvider merges secretBoxStateProvider, no parallel counter)",
+    "flutter analyze clean and the full test suite green — analyze: No issues found; test: 371 passed"
+  ],
+  "regressionChecked": [
+    "full suite 371 tests pass (F001-F008 + F005)",
+    "kudos feed unaffected; kudosStatsProvider merge introduced no provider cycle",
+    "H1 controller no longer stuck on a Dart Error (regression test added); l10n gen-l10n clean vi/en/ja"
+  ],
+  "contractStatus": "OK",
+  "refuted": [],
+  "unproven": [],
+  "reachableRegressions": []
+}

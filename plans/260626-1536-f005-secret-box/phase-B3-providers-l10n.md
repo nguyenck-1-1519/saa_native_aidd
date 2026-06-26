@@ -1,6 +1,8 @@
 # Phase B3 — Providers + phase controller + l10n keys (Track B)
 
-**Track:** B (logic) · **blockedBy:** B2 · **Status:** pending
+**Track:** B (logic) · **blockedBy:** B2 · **Status:** done
+
+**Delivered:** SecretBoxController (StateNotifier: `close → opening → revealed` + error guard) + UiState (`{phase, reward?, errorMessage?}`); shared `secretBoxRepositoryProvider` (singleton, feed stats source); usecase providers (DI); l10n keys (VN/EN/JA) for all static labels; `gen-l10n` succeeds; analyze clean.
 
 ## Context Links
 - Pattern refs: `lib/features/kudos/presentation/providers/kudos_providers.dart`

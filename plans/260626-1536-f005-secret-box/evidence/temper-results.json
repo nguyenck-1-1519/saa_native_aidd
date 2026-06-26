@@ -1,0 +1,18 @@
+{
+  "commands": [
+    {
+      "command": "fvm flutter analyze",
+      "exitCode": 0,
+      "status": "pass",
+      "summary": "No issues found! — analyzer clean after H1/M1/M2 fixes",
+      "ts": "2026-06-26T17:16:00.000Z"
+    },
+    {
+      "command": "fvm flutter test",
+      "exitCode": 0,
+      "status": "pass",
+      "summary": "All tests passed! — 371 tests green incl. 77+ F005 tests (controller Error-recovery + i18n label regression tests added)",
+      "ts": "2026-06-26T17:16:30.000Z"
+    }
+  ]
+}

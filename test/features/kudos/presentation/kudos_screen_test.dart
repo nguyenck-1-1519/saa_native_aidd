@@ -12,6 +12,8 @@ import 'package:saa_2025/features/kudos/presentation/widgets/all_kudos_stats.dar
 import 'package:saa_2025/features/kudos/presentation/widgets/highlight_kudos_carousel.dart';
 import 'package:saa_2025/features/kudos/presentation/widgets/recent_recipients.dart';
 import 'package:saa_2025/features/kudos/presentation/widgets/spotlight_board.dart';
+import 'package:saa_2025/features/secret_box/data/repositories/fake_secret_box_repository.dart';
+import 'package:saa_2025/features/secret_box/presentation/providers/secret_box_providers.dart';
 
 /// Pump a [KudosScreen] in a minimal test harness.
 ///
@@ -26,6 +28,10 @@ Future<void> _pumpKudosScreen(
       overrides: [
         kudosFeedRepositoryProvider.overrideWithValue(feedRepo),
         kudosStatsRepositoryProvider.overrideWithValue(statsRepo),
+        // kudosStatsProvider now derives box counts from secretBoxStateProvider;
+        // override the repo so it resolves immediately without a pending timer.
+        secretBoxRepositoryProvider
+            .overrideWithValue(FakeSecretBoxRepository.empty()),
       ],
       child: MaterialApp(
         localizationsDelegates: AppLocalizations.localizationsDelegates,

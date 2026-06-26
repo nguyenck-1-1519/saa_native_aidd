@@ -1,6 +1,8 @@
 # Phase INT — Integration: wire UI ↔ providers/router, stats sync (Track A+B)
 
-**Track:** A+B (join) · **blockedBy:** B3, B4, A1 · **Status:** pending
+**Track:** A+B (join) · **blockedBy:** B3, B4, A1 · **Status:** done
+
+**Delivered:** Feed button rewired to `context.push(Routes.secretBox)` (now enabled); route builder → real `SecretBoxScreen()`; screen bound to controller (`ConsumerWidget` reads phase/reward, calls `controller.open()`/`reset()`); stats sync via shared `secretBoxRepositoryProvider` (single source: feed derives `secretBoxOpened`/`secretBoxUnopened` from repo state); none-left state handled (FR8); no overflow; analyze clean; full loop QA passed.
 
 ## Context Links
 - Feed entry: `lib/features/kudos/presentation/kudos_screen.dart` (line ~136 `onOpenSecretBox: null`),
