@@ -1,7 +1,9 @@
 # Phase 01 — AccessDeniedScreen UI (Track A)
 
-**Track:** A (UI) · **Status:** pending · **Depends on:** none · runs parallel to Phase 02.
+**Track:** A (UI) · **Status:** done · **Depends on:** none · runs parallel to Phase 02.
 **File ownership:** `lib/features/system/presentation/access_denied_screen.dart` (create).
+
+**Delivered:** 2026-06-26. AccessDeniedScreen built from Figma; pure widget; auth-aware CTA via wrapper.
 
 ## MoMorph refs
 - Access Denied (403): https://momorph.ai/files/9ypp4enmFmdK3YAFJLIu6C/screens/k-7zJk2B7s

@@ -1,12 +1,13 @@
 ---
 title: "F008 System/Error screens (Access Denied + Not Found)"
 description: "Two static iOS error screens (403/404) + go_router errorBuilder & access-denied wiring."
-status: pending
+status: completed
 priority: P2
 effort: 3h
-branch: main
+branch: feat/kudos-remaining-screens
 tags: [flutter, ios, routing, error-screens, presentation, F008]
 created: 2026-06-26
+completed: 2026-06-26
 work_type: feature
 spec_draft: plans/260626-1536-f008-system-screens/spec/system-screens/
 ---
@@ -33,10 +34,10 @@ single-folder pattern for layer-less UI, avoids inventing a `shared/` convention
 ## Phases
 | # | Phase | Track | Status | Depends on | File ownership |
 |---|-------|-------|--------|-----------|----------------|
-| 01 | AccessDeniedScreen UI | A | pending | — | `lib/features/system/presentation/access_denied_screen.dart` |
-| 02 | NotFoundScreen UI | A | pending | — | `lib/features/system/presentation/not_found_screen.dart` |
-| 03 | Routing wiring + i18n (integration) | B | pending | 01, 02 | `lib/core/router/app_router.dart`, `lib/core/l10n/app_*.arb` |
-| 04 | Tests | — | pending | 03 | `test/features/system/**`, `test/core/router/**` |
+| 01 | AccessDeniedScreen UI | A | done | — | `lib/features/system/presentation/access_denied_screen.dart` |
+| 02 | NotFoundScreen UI | A | done | — | `lib/features/system/presentation/not_found_screen.dart` |
+| 03 | Routing wiring + i18n (integration) | B | done | 01, 02 | `lib/core/router/app_router.dart`, `lib/core/l10n/app_*.arb` |
+| 04 | Tests | — | done | 03 | `test/features/system/**`, `test/core/router/**` |
 
 Track A & B are independently runnable by `tkm:takumi`; Phase 03 integrates. To keep file
 ownership clean, Phase 03 owns the router + ARB edits; Phase 01/02 own only their screen file.
@@ -65,5 +66,8 @@ Phase 03 is the only edit to existing files — reverting it restores Placeholde
 `/access-denied` and removes `errorBuilder` (404 falls back to go_router default). Phases
 01/02 add new files only; deleting them is a clean rollback with no cascade.
 
-## Unresolved questions
-See report.
+## Completion Note (2026-06-26)
+
+All phases delivered on schedule. AccessDeniedScreen + NotFoundScreen built from MoMorph designs; system_route_wrappers.dart adds auth-aware CTA logic; router wired (errorBuilder→NotFound, /access-denied→AccessDenied); 6 ARB keys added (vi/en/ja); 35 tests green covering flows, layout, i18n. Reviewer APPROVE-WITH-NITS; H1+M1+L1 fixed. No real 403 source today (future-gated, documented). Code analyzed clean. 306/306 tests passing (includes 271 regressions + 35 F008-specific).
+
+See detailed phase files and reports in this plan directory.

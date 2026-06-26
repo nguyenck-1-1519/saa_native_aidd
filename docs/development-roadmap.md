@@ -11,6 +11,7 @@ Cập nhật: 2026-06-26
 | 09 | F003 Awards Screen (iOS) | ✅ Hoàn thành |
 | 10 | F004 Kudos Screen + WriteKudo (iOS) | ✅ Hoàn thành |
 | 10b | F004 Kudos follow-up: 5 screens + functional search/filters (local stub) | ✅ Hoàn thành |
+| 10c | F008 System/Error screens — Access Denied (403) + Not Found (404) | ✅ Hoàn thành |
 | 11 | F005 Secret Box flow | Chưa bắt đầu |
 | 12 | Android — Google OAuth | Chưa bắt đầu |
 | 13+ | API thật (kudos submit/feed/search), Search/Notifications/Profile screens, Android Home | Chưa xác định |
@@ -148,6 +149,29 @@ Cập nhật: 2026-06-26
 | Chỉ số | Giá trị |
 |--------|---------|
 | Tổng số tests | 270 |
+| `fvm flutter analyze` | No issues |
+| Platform | iOS-only |
+
+---
+
+## Phase 10c — F008 System/Error Screens (iOS) ✅
+
+**Hoàn thành:** 2026-06-26
+
+### Đã thực hiện
+
+- **SCR010 — AccessDeniedScreen** (`/access-denied`): thay `PlaceholderScreen("Access Denied")`. Pure widget; `AccessDeniedRouteWrapper` giải quyết auth-aware CTA.
+- **SCR015 — NotFoundScreen**: hiện qua `GoRouter.errorBuilder` — bắt mọi route không hợp lệ. `NotFoundRouteWrapper` giải quyết auth-aware CTA.
+- **Auth-aware CTA** (`system_route_wrappers.dart`): logged-in → `Routes.home`; logged-out → `Routes.login`. Widget không tự navigate.
+- **i18n:** 6 l10n keys mới (vi/en/ja): `accessDeniedTitle/Message`, `notFoundTitle/Message`, `errorGoHome`, `errorGoLogin`. JA cần review người bản ngữ.
+- **Tests:** 35 mới, tổng suite 306, 0 failed.
+- **Tồn đọng:** Illustration assets (MoMorph S3 chưa export) → Material icon fallback. Nguồn 403 thực tế (permission check) deferred.
+
+### Số liệu
+
+| Chỉ số | Giá trị |
+|--------|---------|
+| Tổng số tests | 306 |
 | `fvm flutter analyze` | No issues |
 | Platform | iOS-only |
 

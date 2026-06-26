@@ -1,8 +1,10 @@
 # Phase 04 — Tests
 
-**Status:** pending · **Depends on:** Phase 03.
+**Status:** done · **Depends on:** Phase 03.
 **File ownership:** `test/features/system/presentation/*`, `test/core/router/*` (create).
 Tester owns test files only — never edits implementation.
+
+**Delivered:** 2026-06-26. 35 tests green (11 AccessDenied + 12 NotFound + 12 wrapper integration). 306 total tests passing (includes 271 regressions). Router nav + CTA flow + i18n + layout all validated. analyze clean.
 
 ## Context links
 - Spec: `plans/260626-1536-f008-system-screens/spec/system-screens/spec.md`

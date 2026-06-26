@@ -233,5 +233,23 @@
   "@kudosDetailFilterDepartment": { "description": "Label for the department filter dropdown on All Kudos screen" },
 
   "kudosDetailFilterAll": "Tất cả",
-  "@kudosDetailFilterAll": { "description": "Option label meaning 'no filter / show all' in filter dropdowns" }
+  "@kudosDetailFilterAll": { "description": "Option label meaning 'no filter / show all' in filter dropdowns" },
+
+  "accessDeniedTitle": "Access Denied",
+  "@accessDeniedTitle": { "description": "Title on the 403 Access Denied screen" },
+
+  "accessDeniedMessage": "Bạn không có quyền truy cập tài nguyên này.",
+  "@accessDeniedMessage": { "description": "Body message on the 403 Access Denied screen" },
+
+  "notFoundTitle": "NOT FOUND",
+  "@notFoundTitle": { "description": "Title on the 404 Not Found screen" },
+
+  "notFoundMessage": "Tài nguyên bạn tìm kiếm không tồn tại hoặc đã bị xóa.",
+  "@notFoundMessage": { "description": "Body message on the 404 Not Found screen" },
+
+  "errorGoHome": "Về trang chủ",
+  "@errorGoHome": { "description": "CTA label for logged-in users on error screens — navigates to home" },
+
+  "errorGoLogin": "Về đăng nhập",
+  "@errorGoLogin": { "description": "CTA label for logged-out users on error screens — navigates to login" }
 }

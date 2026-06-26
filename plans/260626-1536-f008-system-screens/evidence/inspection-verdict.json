@@ -1,0 +1,20 @@
+{
+  "score": 8,
+  "criticalCount": 0,
+  "decision": "SEALED",
+  "acceptanceCovered": [
+    "not found screen renders on an unknown route via the go_router errorBuilder — verified by test/core/router/system_error_routing_test.dart",
+    "access denied screen renders at the /access-denied route — verified by system_error_routing_test.dart",
+    "cta is auth aware: logged in goes home, logged out goes login — verified by system_route_wrappers_test.dart (positive + negative l10n-label assertions after H1 fix)",
+    "flutter analyze clean and the full test suite green — analyze: No issues found; test: 306 passed"
+  ],
+  "regressionChecked": [
+    "full suite 306 tests pass, 0 failures (F001-F008)",
+    "existing auth-guard redirect behavior unchanged (no allow-list exception added)",
+    "l10n gen-l10n clean across vi/en/ja"
+  ],
+  "contractStatus": "OK",
+  "refuted": [],
+  "unproven": [],
+  "reachableRegressions": []
+}

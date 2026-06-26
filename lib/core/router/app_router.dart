@@ -13,6 +13,7 @@ import '../../features/kudos/presentation/kudos_screen.dart';
 import '../../features/kudos/presentation/write_kudo_screen.dart';
 import '../../features/placeholder/presentation/placeholder_screen.dart';
 import 'kudos_route_wrappers.dart';
+import 'system_route_wrappers.dart';
 
 /// All named route paths in the app.
 ///
@@ -66,6 +67,8 @@ final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     initialLocation: Routes.splash,
     refreshListenable: refresh,
+    // FR4: unknown paths render the 404 screen with an auth-aware CTA.
+    errorBuilder: (context, state) => const NotFoundRouteWrapper(),
     redirect: (context, state) {
       final auth = ref.read(authStateProvider);
       final loc = state.matchedLocation;
@@ -194,10 +197,12 @@ final routerProvider = Provider<GoRouter>((ref) {
         ),
       ),
 
+      // FR5: 403 screen. Auth guard (redirect @89) bounces unauthenticated users
+      // to /login before they reach this route — no allow-list exception added
+      // today because no real 403 source exists yet (YAGNI deferral, F008 spec).
       GoRoute(
         path: Routes.accessDenied,
-        builder: (_, __) =>
-            const PlaceholderScreen(title: 'Access Denied'),
+        builder: (_, __) => const AccessDeniedRouteWrapper(),
       ),
     ],
   );

@@ -1,7 +1,9 @@
 # Phase 02 — NotFoundScreen UI (Track A)
 
-**Track:** A (UI) · **Status:** pending · **Depends on:** none · runs parallel to Phase 01.
+**Track:** A (UI) · **Status:** done · **Depends on:** none · runs parallel to Phase 01.
 **File ownership:** `lib/features/system/presentation/not_found_screen.dart` (create).
+
+**Delivered:** 2026-06-26. NotFoundScreen built from Figma; pure widget; wired to go_router errorBuilder.
 
 ## MoMorph refs
 - Not Found (404): https://momorph.ai/files/9ypp4enmFmdK3YAFJLIu6C/screens/sn2mdavs1a

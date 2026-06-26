@@ -4,6 +4,21 @@
 
 ---
 
+## [1.5.0+6] — 2026-06-26
+
+### feat: F008 System/Error screens — Access Denied (403) + Not Found (404)
+
+**Chi tiết:**
+
+- **SCR010 — AccessDeniedScreen:** `/access-denied` — thay `PlaceholderScreen("Access Denied")`. Pure widget; trigger hiện tại: `AccountDisabled` (Supabase). Nguồn 403 thực tế (permission check) deferred.
+- **SCR015 — NotFoundScreen:** không có route cố định — hiện qua `GoRouter.errorBuilder` cho mọi route không hợp lệ. Pure widget.
+- **Auth-aware CTA:** `system_route_wrappers.dart` — logged-in → "Về trang chủ" (`Routes.home`); logged-out → "Về đăng nhập" (`Routes.login`). Widget không tự navigate (dễ test).
+- **i18n:** 6 l10n keys mới (vi/en/ja): `accessDeniedTitle`, `accessDeniedMessage`, `notFoundTitle`, `notFoundMessage`, `errorGoHome`, `errorGoLogin`. JA cần review người bản ngữ.
+- **Tồn đọng:** Illustration assets (robot mascot + lock) chưa export S3 từ MoMorph — đang dùng Material icon fallback. Nguồn 403 thực tế chưa tích hợp.
+- **Tests:** 35 mới, tổng suite 306, 0 failed.
+
+---
+
 ## [1.4.0+5] — 2026-06-26
 
 ### feat: F004 Kudos follow-up — 5 remaining screens + functional recipient search & feed filters (local stub); Secret Box carved out as F005

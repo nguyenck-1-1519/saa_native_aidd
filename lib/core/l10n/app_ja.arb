@@ -195,5 +195,23 @@
   "@kudosDetailFilterDepartment": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
 
   "kudosDetailFilterAll": "すべて",
-  "@kudosDetailFilterAll": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" }
+  "@kudosDetailFilterAll": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "accessDeniedTitle": "Access Denied",
+  "@accessDeniedTitle": { "description": "Brand term — kept in English" },
+
+  "accessDeniedMessage": "このリソースにアクセスする権限がありません。",
+  "@accessDeniedMessage": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "notFoundTitle": "NOT FOUND",
+  "@notFoundTitle": { "description": "Brand term — kept in English" },
+
+  "notFoundMessage": "お探しのリソースは存在しないか、削除されました。",
+  "@notFoundMessage": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "errorGoHome": "ホームへ戻る",
+  "@errorGoHome": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "errorGoLogin": "ログイン画面へ戻る",
+  "@errorGoLogin": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" }
 }

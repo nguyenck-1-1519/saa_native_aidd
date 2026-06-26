@@ -93,5 +93,12 @@
   "kudosDetailAnonymousSender": "Anonymous",
   "kudosDetailFilterHashtag": "Hashtag",
   "kudosDetailFilterDepartment": "Department",
-  "kudosDetailFilterAll": "All"
+  "kudosDetailFilterAll": "All",
+
+  "accessDeniedTitle": "Access Denied",
+  "accessDeniedMessage": "You don't have permission to access this resource.",
+  "notFoundTitle": "NOT FOUND",
+  "notFoundMessage": "The resource you're looking for doesn't exist or has been removed.",
+  "errorGoHome": "Go to Home",
+  "errorGoLogin": "Go to Login"
 }

@@ -1,9 +1,11 @@
 # Phase 03 — Routing wiring + i18n (Track B / Integration)
 
-**Track:** B (logic) — this IS the integration. **Status:** pending.
+**Track:** B (logic) — this IS the integration. **Status:** done.
 **Depends on:** Phase 01, Phase 02 (consumes both widgets).
 **File ownership:** `lib/core/router/app_router.dart`, `lib/core/l10n/app_vi.arb`,
 `lib/core/l10n/app_en.arb`, `lib/core/l10n/app_ja.arb`.
+
+**Delivered:** 2026-06-26. go_router errorBuilder→NotFoundScreen wired; /access-denied→AccessDeniedScreen; system_route_wrappers.dart adds auth-aware CTA; 6 ARB keys (vi/en/ja) added; gen-l10n run.
 
 ## Context links
 - Router: `lib/core/router/app_router.dart` (Routes.accessDenied @43; placeholder wiring @197-201; no errorBuilder yet)

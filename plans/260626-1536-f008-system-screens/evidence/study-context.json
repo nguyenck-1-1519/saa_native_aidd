@@ -1,0 +1,28 @@
+{
+  "task": "F008 System screens: build iOS Access Denied (403) and Not Found (404) static screens and wire go_router errorBuilder + /access-denied with auth-aware CTAs.",
+  "mode": "auto",
+  "acceptanceCriteria": [
+    "not found screen renders on an unknown route via the go_router errorBuilder",
+    "access denied screen renders at the /access-denied route",
+    "cta is auth aware: logged in goes home, logged out goes login",
+    "flutter analyze clean and the full test suite green"
+  ],
+  "touchpoints": [
+    "lib/features/system/presentation/access_denied_screen.dart",
+    "lib/features/system/presentation/widgets/access_denied_parts.dart",
+    "lib/features/system/presentation/not_found_screen.dart",
+    "lib/core/router/system_route_wrappers.dart",
+    "lib/core/router/app_router.dart",
+    "lib/core/l10n/app_vi.arb"
+  ],
+  "blastRadius": [
+    "go_router error handling and /access-denied route",
+    "auth-state-driven CTA navigation",
+    "l10n keys across vi/en/ja"
+  ],
+  "contracts": [
+    "GoRouter errorBuilder -> NotFoundScreen",
+    "Routes.accessDenied -> AccessDeniedScreen",
+    "AccessDeniedScreen/NotFoundScreen pure widgets ({primaryLabel, onPrimaryAction})"
+  ]
+}
