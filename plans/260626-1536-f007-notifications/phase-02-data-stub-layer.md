@@ -6,8 +6,9 @@
 - Standards: `docs/code-standards.md` §1 (data implements domain interface; no Flutter widgets)
 
 ## Overview
-- **Priority:** P1 · **Status:** pending
-- Stub repository + mock data implementing `NotificationFeedRepository`, plus a Fake for tests. Mock copy/types sourced from MoMorph design — never invented.
+- **Priority:** P1 · **Status:** done
+- Stub repository + mock data implementing `NotificationFeedRepository`, plus a Fake for tests. Mock copy/types sourced from MoMorph design.
+- **Delivered:** StubNotificationFeedRepository + FakeNotificationFeedRepository + NotificationsMockData with mixed read/unread types + deep-link routes.
 
 ## Key Insights
 - Mirror the proven trio: `Stub*Repository` (behavior enum `data|empty|error` + delay) for dev/QA; `Fake*Repository` (named ctors `data|empty|error|loading`) for tests; `*MockData` static const from design.

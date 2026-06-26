@@ -13,7 +13,8 @@ import 'package:saa_2025/features/home/presentation/providers/home_providers.dar
 import 'package:saa_2025/features/home/domain/entities/countdown_state.dart';
 import 'package:saa_2025/features/home/domain/entities/award_card.dart';
 import 'package:saa_2025/features/home/domain/repositories/awards_repository.dart';
-import 'package:saa_2025/features/home/domain/repositories/notification_repository.dart';
+import 'package:saa_2025/features/notifications/data/repositories/fake_notification_feed_repository.dart';
+import 'package:saa_2025/features/notifications/presentation/providers/notifications_providers.dart';
 
 /// Test double countdown controller — always returns elapsed state, no timer
 class _ElapsedCountdownController extends CountdownController {
@@ -25,12 +26,6 @@ class _ElapsedCountdownController extends CountdownController {
 class _TestAwardsRepository implements AwardsRepository {
   @override
   Future<List<AwardCard>> getAwards() async => const [];
-}
-
-/// Notification repository that emits once and completes — no dangling timer.
-class _TestNotificationRepository implements NotificationRepository {
-  @override
-  Stream<int> watchUnreadCount() => Stream.value(0);
 }
 
 /// Test app wrapper that displays router
@@ -64,8 +59,8 @@ void main() {
         awardsRepositoryProvider.overrideWithValue(
           _TestAwardsRepository(), // Empty awards to avoid asset loading
         ),
-        notificationRepositoryProvider.overrideWithValue(
-          _TestNotificationRepository(), // Avoids 365-day dangling timer
+        notificationFeedRepositoryProvider.overrideWithValue(
+          FakeNotificationFeedRepository.empty(),
         ),
         countdownControllerProvider.overrideWith(
           () => _ElapsedCountdownController(),

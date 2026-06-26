@@ -107,5 +107,15 @@
   "secretBoxOpening": "Opening...",
   "secretBoxRevealedTitle": "Congratulations!",
   "secretBoxUnopenedLabel": "Unopened secret boxes ",
-  "secretBoxNoneLeft": "You have no secret boxes left."
+  "secretBoxNoneLeft": "You have no secret boxes left.",
+
+  "notificationsTitle": "Notifications",
+  "notificationsMarkAllRead": "Mark all as read",
+  "notificationsEmpty": "No notifications yet.",
+  "notificationsError": "Could not load notifications.",
+  "notificationsRetry": "Retry",
+  "notificationTypeKudos": "Kudos",
+  "notificationTypeAward": "Award",
+  "notificationTypeSecretBox": "Secret Box",
+  "notificationTypeSystem": "System"
 }

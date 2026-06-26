@@ -4,6 +4,23 @@
 
 ---
 
+## [1.7.0+8] — 2026-06-26
+
+### feat: F007 Notifications list + real bell badge (iOS)
+
+**Chi tiết:**
+
+- **SCR017 — NotificationsScreen:** `/notifications` — thay `PlaceholderScreen("Notifications")`. Pure widget (props-driven); `NotificationsRouteWrapper` bind providers + xử lý loading/error/deep-link.
+- **Domain:** `AppNotification` + `NotificationType{kudos,award,secretBox,system}` + `NotificationFeedRepository` interface + 3 usecases (`GetNotifications`, `MarkNotificationRead`, `MarkAllNotificationsRead`). Local stub (`StubNotificationFeedRepository`, in-memory).
+- **NotificationsController** (`AsyncNotifier`): `refresh()`, `markRead(id)`, `markAllRead()`. `notificationsUnreadCountProvider` (`Provider<int>`) dẫn xuất từ controller state.
+- **Deep-link:** kudos + target → push `/kudos/detail/:id`; award → `selectedAwardIdProvider` + `go('/awards')`; secretBox → push `/secret-box`; system → no-op.
+- **Bell badge migration:** xóa hardcoded stub 3-unread cũ (3 files). `unreadCountProvider` (`StreamProvider`) nay re-emit `notificationsUnreadCountProvider` — single source of truth. Home + Awards badge phản ánh đúng unread thực tế.
+- **i18n:** 5 l10n keys mới (vi/en/ja). Relative-time label dùng hardcoded vi — i18n đúng deferred.
+- **Tests:** 41 mới, tổng suite 412, 0 failed.
+- **Tồn đọng:** Real push backend/FCM, read-state persistence, relative-time i18n, pagination.
+
+---
+
 ## [1.6.0+7] — 2026-06-26
 
 ### feat: F005 Secret Box — reveal flow (local stub; iOS)

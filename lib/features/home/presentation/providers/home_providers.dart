@@ -4,14 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/repositories/stub_awards_repository.dart';
 import '../../data/repositories/stub_kudos_config_repository.dart';
-import '../../data/repositories/stub_notification_repository.dart';
 import '../../domain/entities/award_card.dart';
 import '../../domain/repositories/awards_repository.dart';
 import '../../domain/repositories/kudos_config_repository.dart';
-import '../../domain/repositories/notification_repository.dart';
 import '../../domain/usecases/get_awards.dart';
 import '../../domain/usecases/get_kudos_availability.dart';
-import '../../domain/usecases/watch_unread_count.dart';
+import '../../../../features/notifications/presentation/providers/notifications_providers.dart';
 
 // ---------------------------------------------------------------------------
 // Repository DI — override in tests with Fake* variants
@@ -19,10 +17,6 @@ import '../../domain/usecases/watch_unread_count.dart';
 
 final awardsRepositoryProvider = Provider<AwardsRepository>(
   (_) => StubAwardsRepository(),
-);
-
-final notificationRepositoryProvider = Provider<NotificationRepository>(
-  (_) => StubNotificationRepository(),
 );
 
 final kudosConfigRepositoryProvider = Provider<KudosConfigRepository>(
@@ -35,10 +29,6 @@ final kudosConfigRepositoryProvider = Provider<KudosConfigRepository>(
 
 final getAwardsProvider = Provider<GetAwards>(
   (ref) => GetAwards(ref.watch(awardsRepositoryProvider)),
-);
-
-final watchUnreadCountProvider = Provider<WatchUnreadCount>(
-  (ref) => WatchUnreadCount(ref.watch(notificationRepositoryProvider)),
 );
 
 final getKudosAvailabilityProvider = Provider<GetKudosAvailability>(
@@ -70,13 +60,22 @@ final awardsControllerProvider =
 );
 
 // ---------------------------------------------------------------------------
-// Notification badge stream
+// Notification badge stream — migrated to F007 notifications feature (P3)
+//
+// Shape kept as StreamProvider<int> so call sites in home_screen.dart (L176)
+// and awards_screen.dart (L29) continue to use `.valueOrNull ?? 0` with zero
+// edits. The stream is derived from notificationsUnreadCountProvider (a plain
+// Provider<int>) by emitting its value as a one-shot async* stream and
+// re-emitting whenever the upstream Provider recomputes.
 // ---------------------------------------------------------------------------
 
 /// Streams the unread notification count. Badge shown when value > 0 (FR6).
-final unreadCountProvider = StreamProvider<int>(
-  (ref) => ref.watch(watchUnreadCountProvider).call(),
-);
+///
+/// Delegates to [notificationsUnreadCountProvider] — the F007 notifications
+/// controller is the single source of truth for the unread count.
+final unreadCountProvider = StreamProvider<int>((ref) async* {
+  yield ref.watch(notificationsUnreadCountProvider);
+});
 
 // ---------------------------------------------------------------------------
 // Kudos feature flag

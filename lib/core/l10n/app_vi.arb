@@ -269,5 +269,32 @@
   "@secretBoxUnopenedLabel": { "description": "Prefix label before the count of unopened boxes on the closed state panel" },
 
   "secretBoxNoneLeft": "Bạn không còn secret box nào.",
-  "@secretBoxNoneLeft": { "description": "Message shown when the user has no boxes left to open (FR8)" }
+  "@secretBoxNoneLeft": { "description": "Message shown when the user has no boxes left to open (FR8)" },
+
+  "notificationsTitle": "Thông báo",
+  "@notificationsTitle": { "description": "App-bar / page title for the Notifications screen" },
+
+  "notificationsMarkAllRead": "Đánh dấu tất cả đã đọc",
+  "@notificationsMarkAllRead": { "description": "CTA to mark all notifications as read" },
+
+  "notificationsEmpty": "Chưa có thông báo nào.",
+  "@notificationsEmpty": { "description": "Empty state message on the Notifications screen" },
+
+  "notificationsError": "Không tải được thông báo.",
+  "@notificationsError": { "description": "Error message shown when notifications fail to load" },
+
+  "notificationsRetry": "Thử lại",
+  "@notificationsRetry": { "description": "Retry button label on the Notifications error state" },
+
+  "notificationTypeKudos": "Kudos",
+  "@notificationTypeKudos": { "description": "Label for the kudos notification type" },
+
+  "notificationTypeAward": "Giải thưởng",
+  "@notificationTypeAward": { "description": "Label for the award notification type" },
+
+  "notificationTypeSecretBox": "Secret Box",
+  "@notificationTypeSecretBox": { "description": "Label for the secret-box notification type (brand term)" },
+
+  "notificationTypeSystem": "Hệ thống",
+  "@notificationTypeSystem": { "description": "Label for the system notification type" }
 }

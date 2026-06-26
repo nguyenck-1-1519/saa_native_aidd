@@ -1,6 +1,6 @@
 # Roadmap phát triển — SAA 2025
 
-Cập nhật: 2026-06-26
+Cập nhật: 2026-06-26 (F007 Notifications)
 
 ## Trạng thái tổng quan
 
@@ -13,8 +13,9 @@ Cập nhật: 2026-06-26
 | 10b | F004 Kudos follow-up: 5 screens + functional search/filters (local stub) | ✅ Hoàn thành |
 | 10c | F008 System/Error screens — Access Denied (403) + Not Found (404) | ✅ Hoàn thành |
 | 11 | F005 Secret Box reveal flow (local stub) | ✅ Hoàn thành |
+| 11b | F007 Notifications list + real bell badge (iOS) | ✅ Hoàn thành |
 | 12 | Android — Google OAuth | Chưa bắt đầu |
-| 13+ | API thật (kudos submit/feed/search), Search/Notifications/Profile screens, Android Home | Chưa xác định |
+| 13+ | API thật (kudos submit/feed/search), Search/Profile screens, Android Home | Chưa xác định |
 
 ---
 
@@ -203,6 +204,31 @@ Cập nhật: 2026-06-26
 
 ---
 
+## Phase 11b — F007 Notifications list + real bell badge (iOS) ✅
+
+**Hoàn thành:** 2026-06-26
+
+### Đã thực hiện
+
+- **Feature F007 — NotificationsScreen** (`/notifications`, push ngoài shell): thay `PlaceholderScreen("Notifications")`. Pure widget (props-driven); `NotificationsRouteWrapper` bind providers + xử lý loading/error/deep-link.
+- Domain: `AppNotification` + `NotificationType{kudos,award,secretBox,system}` + repo interface + 3 usecases. Local stub (in-memory).
+- `NotificationsController` (`AsyncNotifier`): refresh/markRead/markAllRead. `notificationsUnreadCountProvider` dẫn xuất.
+- Deep-link: kudos→`/kudos/detail/:id`, award→`selectedAwardIdProvider`+`/awards`, secretBox→`/secret-box`, system→no-op.
+- Bell badge migration: xóa hardcoded stub 3-unread (3 files). `unreadCountProvider` nay re-emit `notificationsUnreadCountProvider` — single source of truth cho Home + Awards badge.
+- i18n vi/en/ja (5 keys). JA cần review người bản ngữ.
+- **Tests:** 41 mới, tổng suite 412, 0 failed.
+- **Tồn đọng:** Real push backend/FCM, read-state persistence, relative-time i18n, pagination.
+
+### Số liệu
+
+| Chỉ số | Giá trị |
+|--------|---------|
+| Tổng số tests | 412 |
+| `fvm flutter analyze` | No issues |
+| Platform | iOS-only |
+
+---
+
 ## Phase 12 — Android (Google OAuth) — Chưa bắt đầu
 
 **Điều kiện tiên quyết:** Phase 01–10 ✅
@@ -224,7 +250,7 @@ Cập nhật: 2026-06-26
 Ưu tiên tiếp theo (thứ tự gợi ý):
 
 1. Tích hợp API thật cho Kudos: submit kudo (F004 Gửi đi stub), kudos feed/stats, recipient search, filters.
-2. Thay `PlaceholderScreen` bằng màn thật: Profile, Search, Notifications.
+2. Thay `PlaceholderScreen` bằng màn thật: Profile, Search.
 3. Android Home + OAuth (tương đương Phase 12 iOS nhưng cho Home + F002–F004).
 4. JA copy review người bản ngữ + re-upload asset tồn đọng (Award_BG_3, Kudos_Background, badge/icon F003, spotlight icons F004).
 5. Xác nhận Signature-Creator dual-prize logic.
@@ -237,7 +263,7 @@ Kiến trúc hiện tại (`features/{slug}/domain|data|presentation`) sẵn sà
 
 - Real Google OAuth Client ID/Secret cho môi trường staging/production chưa được cung cấp.
 - Android phase chưa có timeline cụ thể.
-- API thật cho awards / notifications / kudos submit+feed+search+filters / Kudos feature flag chưa có spec.
+- API thật cho awards / kudos submit+feed+search+filters / Kudos feature flag chưa có spec.
 - 2 asset stand-in (Award_BG_3, Kudos_Background) + FAB icon fallbacks chờ design re-upload.
 - Badge/icon asset cho F003 Awards chờ design re-upload.
 - Spotlight icons cho F004 Kudos chờ design re-upload.
@@ -245,3 +271,4 @@ Kiến trúc hiện tại (`features/{slug}/domain|data|presentation`) sẵn sà
 - JA copy cần review người bản ngữ.
 - F004 Gửi đi (submit kudos) là UI stub — cần real API endpoint.
 - F005 Secret Box: real backend persistence + server reward allocation + sharing flow + art asset S3 export — deferred (local stub shipped).
+- F007 Notifications: real push backend/FCM, read-state persistence (in-memory only), relative-time i18n (vi hardcoded), pagination — all deferred (local stub shipped).

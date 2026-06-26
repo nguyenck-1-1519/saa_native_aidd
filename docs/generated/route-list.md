@@ -13,7 +13,7 @@ Auth redirect guard fires on every navigation event (driven by `authStateProvide
 | 1 | `/` | `Routes.splash` | `_SplashScreen` | No | Loading spinner shown while `authStateProvider` resolves initial session. Redirect clears this immediately once auth state is known. |
 | 2 | `/login` | `Routes.login` | `LoginScreen` | No (auth exit point) | Google sign-in, language selector. Authenticated users are redirected away to `/home`. |
 | 3 | `/search` | `Routes.search` | `PlaceholderScreen("Search")` | Yes (indirect) | Placeholder — feature not yet built. |
-| 4 | `/notifications` | `Routes.notifications` | `PlaceholderScreen("Notifications")` | Yes (indirect) | Placeholder — feature not yet built. |
+| 4 | `/notifications` | `Routes.notifications` | `NotificationsRouteWrapper` → `NotificationsScreen` | Yes (indirect) | F007 — notifications list; mark-read/mark-all; deep-links to kudos detail, awards tab, or secret-box. Push navigation (outside shell). |
 | 5 | `/write-kudo` | `Routes.writeKudo` | `WriteKudoScreen` | Yes (indirect) | F004 — full-screen New Kudo form; recipient/title/message/hashtag/image/anonymous; local validation; stub submit. Push navigation (outside shell). |
 | 6 | `/access-denied` | `Routes.accessDenied` | `AccessDeniedRouteWrapper` → `AccessDeniedScreen` | No (error destination) | F008 — 403 Access Denied. Shown when `AccountDisabled` failure occurs. Auth-aware CTA: logged-in→Home, logged-out→Login. |
 | 7 | `/kudos/all` | `Routes.allKudos` | `AllKudosRouteWrapper` → `AllKudosScreen` | Yes (indirect) | F004 — all kudos list with functional hashtag + department filters (local stub). Entry: KudosScreen "View all Kudos". Push navigation (outside shell). |

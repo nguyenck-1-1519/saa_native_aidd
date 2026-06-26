@@ -6,8 +6,9 @@
 - Standards: `docs/code-standards.md` §1 (domain = pure Dart, no Flutter/Riverpod/Supabase imports)
 
 ## Overview
-- **Priority:** P1 (foundation) · **Status:** pending
-- Define the framework-free domain contracts for notifications: entity, type enum, repository interface, usecases. No Flutter imports.
+- **Priority:** P1 (foundation) · **Status:** done
+- Domain contracts for notifications: entity, type enum, repository interface, usecases. No Flutter imports.
+- **Delivered:** AppNotification + NotificationType + NotificationFeedRepository interface + 3 usecases (GetNotifications, MarkNotificationRead, MarkAllNotificationsRead), pure Dart, no Flutter deps.
 
 ## Key Insights
 - Domain must stay pure Dart (standards §1). `AppNotification` carries no widget/IconData — UI maps `type → icon`.

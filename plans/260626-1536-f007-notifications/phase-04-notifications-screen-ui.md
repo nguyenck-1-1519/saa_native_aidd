@@ -5,7 +5,8 @@
 - fileKey `9ypp4enmFmdK3YAFJLIu6C` · Clarifications: none (decisions in plan.md + spec draft)
 
 ## Goal
-Code the presentational `NotificationsScreen` (list of notification rows) from the Figma design — props-only, no providers. Use Figma content as mock-data source; do NOT invent data.
+NotificationsScreen implemented from Figma design — list of notification rows, props-only, no providers. Figma content as mock-data source.
+- **Delivered:** NotificationsScreen + NotificationRow widget, loading/empty/error states, type icons (Material), relative timestamps, read/unread visual treatment. Files <200 lines.
 
 ## Integration contract (props the screen exposes for P5 wiring)
 - `notifications: List<AppNotification>`, `isLoading`, `hasError`, `onRetry`

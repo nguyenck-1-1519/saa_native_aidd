@@ -10,9 +10,10 @@ import 'package:saa_2025/features/auth/domain/entities/auth_user.dart';
 import 'package:saa_2025/features/auth/presentation/providers/auth_providers.dart';
 import 'package:saa_2025/features/home/presentation/providers/home_providers.dart';
 import 'package:saa_2025/features/home/domain/repositories/kudos_config_repository.dart';
-import 'package:saa_2025/features/home/domain/repositories/notification_repository.dart';
 import 'package:saa_2025/features/home/presentation/providers/countdown_controller.dart';
 import 'package:saa_2025/features/home/domain/entities/countdown_state.dart';
+import 'package:saa_2025/features/notifications/data/repositories/fake_notification_feed_repository.dart';
+import 'package:saa_2025/features/notifications/presentation/providers/notifications_providers.dart';
 
 // ---------------------------------------------------------------------------
 // Test doubles
@@ -21,13 +22,6 @@ import 'package:saa_2025/features/home/domain/entities/countdown_state.dart';
 class _ElapsedCountdownController extends CountdownController {
   @override
   CountdownState build() => CountdownState.elapsed;
-}
-
-class _TestNotificationRepository implements NotificationRepository {
-  const _TestNotificationRepository();
-
-  @override
-  Stream<int> watchUnreadCount() => Stream.value(0);
 }
 
 class _FakeKudosConfigRepository implements KudosConfigRepository {
@@ -52,8 +46,8 @@ Widget _buildApp({
   return ProviderScope(
     overrides: [
       authRepositoryProvider.overrideWithValue(authRepo),
-      notificationRepositoryProvider.overrideWithValue(
-        const _TestNotificationRepository(),
+      notificationFeedRepositoryProvider.overrideWithValue(
+        FakeNotificationFeedRepository.empty(),
       ),
       kudosConfigRepositoryProvider.overrideWithValue(
         const _FakeKudosConfigRepository(),

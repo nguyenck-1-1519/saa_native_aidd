@@ -6,8 +6,9 @@
 - Standards: `docs/code-standards.md` §4 (Riverpod: AsyncNotifier for action w/ loading/error; no StateProvider for business logic)
 
 ## Overview
-- **Priority:** P1 · **Status:** pending
-- Wire DI + a `NotificationsController` (AsyncNotifier) with `refresh`/`markRead`/`markAllRead`, expose a derived unread-count provider, and **migrate the header bell badge** off the hardcoded home stub onto this real source.
+- **Priority:** P1 · **Status:** done
+- DI + NotificationsController (AsyncNotifier) with refresh/markRead/markAllRead, derived unread-count provider, migrated header bell badge from hardcoded home stub to real source.
+- **Delivered:** notificationFeedRepositoryProvider + NotificationsController + notificationsUnreadCountProvider (StreamProvider); home+awards call sites unchanged; old home notification stub (3 files) deleted.
 
 ## Key Insights
 - **CRITICAL migration:** today `unreadCountProvider` (in `features/home/.../home_providers.dart` L77) wraps `watchUnreadCountProvider` → `StubNotificationRepository` (hardcoded `3`). Both `home_screen.dart` (L176) and `awards_screen.dart` (L29) read it. F007 makes the badge reflect the real list and decrement on mark-read.

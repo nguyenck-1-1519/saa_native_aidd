@@ -15,19 +15,12 @@ import 'package:saa_2025/features/awards/presentation/widgets/award_highlight_he
 import 'package:saa_2025/features/home/data/repositories/fake_awards_repository.dart';
 import 'package:saa_2025/features/home/presentation/providers/home_providers.dart';
 import 'package:saa_2025/features/home/domain/repositories/kudos_config_repository.dart';
-import 'package:saa_2025/features/home/domain/repositories/notification_repository.dart';
+import 'package:saa_2025/features/notifications/data/repositories/fake_notification_feed_repository.dart';
+import 'package:saa_2025/features/notifications/presentation/providers/notifications_providers.dart';
 
 // ---------------------------------------------------------------------------
 // Test doubles
 // ---------------------------------------------------------------------------
-
-class _TestNotificationRepository implements NotificationRepository {
-  final int count;
-  const _TestNotificationRepository({this.count = 0});
-
-  @override
-  Stream<int> watchUnreadCount() => Stream.value(count);
-}
 
 class _FakeKudosConfigRepository implements KudosConfigRepository {
   const _FakeKudosConfigRepository({required this.isKudosAvailable});
@@ -51,8 +44,8 @@ Widget _buildAwardsApp(List<Override> overrides) {
       authRepositoryProvider.overrideWithValue(
         FakeAuthRepository(initialUser: _loggedInUser),
       ),
-      notificationRepositoryProvider.overrideWithValue(
-        const _TestNotificationRepository(count: 0),
+      notificationFeedRepositoryProvider.overrideWithValue(
+        FakeNotificationFeedRepository.empty(),
       ),
       kudosConfigRepositoryProvider.overrideWithValue(
         const _FakeKudosConfigRepository(isKudosAvailable: true),

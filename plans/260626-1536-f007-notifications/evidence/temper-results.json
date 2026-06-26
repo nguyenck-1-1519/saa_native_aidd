@@ -1,0 +1,18 @@
+{
+  "commands": [
+    {
+      "command": "fvm flutter analyze",
+      "exitCode": 0,
+      "status": "pass",
+      "summary": "No issues found! — analyzer clean after H1/H2/M1/M2/overflow fixes",
+      "ts": "2026-06-26T18:10:00.000Z"
+    },
+    {
+      "command": "fvm flutter test",
+      "exitCode": 0,
+      "status": "pass",
+      "summary": "All tests passed! — 412 tests green incl. notifications deep-link regression + mark-all no-overflow + home/awards badge-migration tests",
+      "ts": "2026-06-26T18:10:30.000Z"
+    }
+  ]
+}

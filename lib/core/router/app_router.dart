@@ -13,6 +13,7 @@ import '../../features/kudos/presentation/kudos_screen.dart';
 import '../../features/kudos/presentation/write_kudo_screen.dart';
 import '../../features/placeholder/presentation/placeholder_screen.dart';
 import 'kudos_route_wrappers.dart';
+import 'notifications_route_wrapper.dart';
 import 'secret_box_route_wrapper.dart';
 import 'system_route_wrappers.dart';
 
@@ -156,8 +157,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: Routes.notifications,
-        builder: (_, __) =>
-            const PlaceholderScreen(title: 'Notifications'),
+        builder: (_, __) => const NotificationsRouteWrapper(),
       ),
       // /write-kudo — full-screen push, outside shell so back returns to caller.
       GoRoute(

@@ -1,0 +1,31 @@
+{
+  "task": "F007 Notifications: build the iOS notifications list screen, mark-read/mark-all, deep-links, and migrate the header bell badge off the hardcoded home stub onto a real controller-derived unread count (local stub data).",
+  "mode": "auto",
+  "acceptanceCriteria": [
+    "notifications list renders with read and unread items",
+    "mark read decrements the unread badge and mark all clears it",
+    "tapping a notification deep-links to the correct screen",
+    "header bell badge derives from the notifications controller as a single source",
+    "flutter analyze clean and the full test suite green"
+  ],
+  "touchpoints": [
+    "lib/features/notifications/domain/entities/app_notification.dart",
+    "lib/features/notifications/data/sources/notifications_mock_data.dart",
+    "lib/features/notifications/presentation/providers/notifications_providers.dart",
+    "lib/features/notifications/presentation/notifications_screen.dart",
+    "lib/core/router/notifications_route_wrapper.dart",
+    "lib/core/router/app_router.dart",
+    "lib/features/home/presentation/providers/home_providers.dart"
+  ],
+  "blastRadius": [
+    "header bell badge unread count on Home and Awards (migrated unreadCountProvider)",
+    "go_router /notifications route + deep-link navigation",
+    "deleted home notification stub scaffold (3 files)",
+    "l10n keys vi/en/ja"
+  ],
+  "contracts": [
+    "Routes.notifications -> NotificationsScreen via NotificationsRouteWrapper",
+    "NotificationsController refresh/markRead/markAllRead; notificationsUnreadCountProvider",
+    "unreadCountProvider stays StreamProvider<int> deriving from the controller (home/awards call sites unchanged)"
+  ]
+}

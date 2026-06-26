@@ -11,11 +11,12 @@ import 'package:saa_2025/features/auth/presentation/providers/auth_providers.dar
 import 'package:saa_2025/features/home/data/repositories/fake_awards_repository.dart';
 import 'package:saa_2025/features/home/domain/entities/countdown_state.dart';
 import 'package:saa_2025/features/home/domain/repositories/kudos_config_repository.dart';
-import 'package:saa_2025/features/home/domain/repositories/notification_repository.dart';
 import 'package:saa_2025/features/home/presentation/providers/countdown_controller.dart';
 import 'package:saa_2025/features/home/presentation/providers/home_providers.dart';
 import 'package:saa_2025/features/home/presentation/widgets/awards_carousel.dart';
 import 'package:saa_2025/features/home/presentation/widgets/kudos_section.dart';
+import 'package:saa_2025/features/notifications/data/repositories/fake_notification_feed_repository.dart';
+import 'package:saa_2025/features/notifications/presentation/providers/notifications_providers.dart';
 
 // ---------------------------------------------------------------------------
 // Test doubles
@@ -24,14 +25,6 @@ import 'package:saa_2025/features/home/presentation/widgets/kudos_section.dart';
 class _ElapsedCountdownController extends CountdownController {
   @override
   CountdownState build() => CountdownState.elapsed;
-}
-
-class _TestNotificationRepository implements NotificationRepository {
-  final int count;
-  const _TestNotificationRepository({this.count = 0});
-
-  @override
-  Stream<int> watchUnreadCount() => Stream.value(count);
 }
 
 class _FakeKudosConfigRepository implements KudosConfigRepository {
@@ -56,8 +49,8 @@ Widget _buildApp(List<Override> overrides) {
       authRepositoryProvider.overrideWithValue(
         FakeAuthRepository(initialUser: _loggedInUser),
       ),
-      notificationRepositoryProvider.overrideWithValue(
-        const _TestNotificationRepository(count: 0),
+      notificationFeedRepositoryProvider.overrideWithValue(
+        FakeNotificationFeedRepository.empty(),
       ),
       kudosConfigRepositoryProvider.overrideWithValue(
         const _FakeKudosConfigRepository(isKudosAvailable: true),
@@ -290,8 +283,9 @@ void main() {
 
       await tester.pumpWidget(
         _buildApp([
-          notificationRepositoryProvider.overrideWithValue(
-            const _TestNotificationRepository(count: 5),
+          // data() has 3 unread items → badge should appear
+          notificationFeedRepositoryProvider.overrideWithValue(
+            FakeNotificationFeedRepository.data(),
           ),
         ]),
       );
@@ -318,8 +312,9 @@ void main() {
 
       await tester.pumpWidget(
         _buildApp([
-          notificationRepositoryProvider.overrideWithValue(
-            const _TestNotificationRepository(count: 0),
+          // empty() has no notifications → unread count = 0
+          notificationFeedRepositoryProvider.overrideWithValue(
+            FakeNotificationFeedRepository.empty(),
           ),
         ]),
       );

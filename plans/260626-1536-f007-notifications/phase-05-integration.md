@@ -5,8 +5,9 @@
 - Pattern refs: `lib/core/router/kudos_route_wrappers.dart` (ConsumerWidget wrapper binding providers → presentational screen), `lib/core/router/app_router.dart` (route table)
 
 ## Overview
-- **Priority:** P1 (merge point) · **Status:** pending
-- Join Track A (UI) + Track B (logic): bind `NotificationsScreen` to `notificationsControllerProvider`, replace the `/notifications` placeholder, and wire row taps to mark-read + deep-link.
+- **Priority:** P1 (merge point) · **Status:** done
+- Track A (UI) + Track B (logic) joined: NotificationsScreen bound to notificationsControllerProvider, /notifications route live, row taps → mark-read + deep-link.
+- **Delivered:** NotificationsRouteWrapper (deep-link resolution + mark-read-first pattern), app_router.dart /notifications builder, kudos + awards deep-links wired, overflow regression tests added.
 
 ## Key Insights
 - Follow the established wrapper pattern: a package-private `ConsumerWidget` in a `core/router/*_route_wrappers.dart` file maps `AsyncValue` → loading/error/data and passes props to the presentational screen. Keeps `app_router.dart` <200 lines.

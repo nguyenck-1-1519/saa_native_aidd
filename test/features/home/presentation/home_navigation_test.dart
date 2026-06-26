@@ -13,13 +13,15 @@ import 'package:saa_2025/features/awards/presentation/providers/awards_providers
 import 'package:saa_2025/features/home/data/repositories/fake_awards_repository.dart';
 import 'package:saa_2025/features/home/domain/entities/countdown_state.dart';
 import 'package:saa_2025/features/home/domain/repositories/kudos_config_repository.dart';
-import 'package:saa_2025/features/home/domain/repositories/notification_repository.dart';
 import 'package:saa_2025/features/home/presentation/providers/countdown_controller.dart';
 import 'package:saa_2025/features/home/presentation/providers/home_providers.dart';
+import 'package:saa_2025/features/notifications/data/repositories/fake_notification_feed_repository.dart';
+import 'package:saa_2025/features/notifications/presentation/providers/notifications_providers.dart';
 import 'package:saa_2025/features/kudos/presentation/kudos_screen.dart';
 import 'package:saa_2025/features/kudos/presentation/providers/kudos_providers.dart';
 import 'package:saa_2025/features/kudos/data/repositories/fake_kudos_feed_repository.dart';
 import 'package:saa_2025/features/kudos/data/repositories/fake_kudos_stats_repository.dart';
+import 'package:saa_2025/features/notifications/presentation/notifications_screen.dart';
 import 'package:saa_2025/features/placeholder/presentation/placeholder_screen.dart';
 import 'package:saa_2025/features/secret_box/data/repositories/fake_secret_box_repository.dart';
 import 'package:saa_2025/features/secret_box/presentation/providers/secret_box_providers.dart';
@@ -55,11 +57,6 @@ class _ElapsedCountdownController extends CountdownController {
   CountdownState build() => CountdownState.elapsed;
 }
 
-class _TestNotificationRepository implements NotificationRepository {
-  @override
-  Stream<int> watchUnreadCount() => Stream.value(0);
-}
-
 class _FakeKudosConfigRepository implements KudosConfigRepository {
   @override
   bool get isKudosAvailable => true;
@@ -81,8 +78,9 @@ Widget _buildApp({bool loggedIn = true, List<Override> extra = const []}) {
       authRepositoryProvider.overrideWithValue(
         FakeAuthRepository(initialUser: loggedIn ? _loggedInUser : null),
       ),
-      notificationRepositoryProvider
-          .overrideWithValue(_TestNotificationRepository()),
+      notificationFeedRepositoryProvider.overrideWithValue(
+        FakeNotificationFeedRepository.empty(),
+      ),
       kudosConfigRepositoryProvider
           .overrideWithValue(_FakeKudosConfigRepository()),
       countdownControllerProvider.overrideWith(() => _ElapsedCountdownController()),
@@ -350,7 +348,7 @@ void main() {
           reason: 'Header icon tap should navigate to Search or Notifications');
     });
 
-    testWidgets('bell icon navigates to Notifications placeholder (FUN_020)',
+    testWidgets('bell icon navigates to Notifications screen (FUN_020)',
         (tester) async {
       tester.view.physicalSize = const Size(1170, 2532);
       tester.view.devicePixelRatio = 3;
@@ -358,8 +356,9 @@ void main() {
 
       await tester.pumpWidget(_buildApp(
         extra: [
-          notificationRepositoryProvider
-              .overrideWithValue(_TestNotificationRepository()),
+          notificationFeedRepositoryProvider.overrideWithValue(
+            FakeNotificationFeedRepository.empty(),
+          ),
         ],
       ));
       await _pumpToHome(tester);
@@ -373,17 +372,21 @@ void main() {
         await tester.tap(svgFinder.at(1));
         await tester.pumpAndSettle();
 
-        final placeholders = tester
-            .widgetList<PlaceholderScreen>(find.byType(PlaceholderScreen))
-            .where((p) => p.title == 'Notifications' || p.title == 'Search')
-            .toList();
-        expect(placeholders, isNotEmpty,
-            reason: 'Bell tap should navigate to Notifications placeholder');
+        // /notifications now renders the real NotificationsScreen (F007 INT).
+        expect(
+          find.byType(NotificationsScreen),
+          findsOneWidget,
+          reason: 'Bell tap should navigate to the real Notifications screen',
+        );
       } else {
         // Only one SVG found — tap it and verify we navigated somewhere.
         await tester.tap(svgFinder.first);
         await tester.pumpAndSettle();
-        expect(find.byType(PlaceholderScreen), findsOneWidget);
+        // May land on search placeholder or notifications screen.
+        final navigated = find.byType(PlaceholderScreen).evaluate().isNotEmpty ||
+            find.byType(NotificationsScreen).evaluate().isNotEmpty;
+        expect(navigated, isTrue,
+            reason: 'Single SVG tap should navigate away from Home');
       }
     });
   });

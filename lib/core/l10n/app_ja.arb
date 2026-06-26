@@ -231,5 +231,32 @@
   "@secretBoxUnopenedLabel": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
 
   "secretBoxNoneLeft": "シークレットボックスが残っていません。",
-  "@secretBoxNoneLeft": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" }
+  "@secretBoxNoneLeft": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "notificationsTitle": "通知",
+  "@notificationsTitle": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "notificationsMarkAllRead": "すべて既読にする",
+  "@notificationsMarkAllRead": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "notificationsEmpty": "通知はまだありません。",
+  "@notificationsEmpty": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "notificationsError": "通知を読み込めませんでした。",
+  "@notificationsError": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "notificationsRetry": "再試行",
+  "@notificationsRetry": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "notificationTypeKudos": "クードス",
+  "@notificationTypeKudos": { "description": "NEEDS NATIVE REVIEW: machine-translated, brand term" },
+
+  "notificationTypeAward": "アワード",
+  "@notificationTypeAward": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "notificationTypeSecretBox": "Secret Box",
+  "@notificationTypeSecretBox": { "description": "Brand term — kept in English" },
+
+  "notificationTypeSystem": "システム",
+  "@notificationTypeSystem": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" }
 }

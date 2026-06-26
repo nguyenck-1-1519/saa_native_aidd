@@ -6,8 +6,9 @@
 - Standards: `docs/code-standards.md`; testing = mocktail, Fake repos via provider override.
 
 ## Overview
-- **Priority:** P1 (done-gate) · **Status:** pending
-- Prove the feature with the full test matrix, add VN/EN/JA strings, refresh docs.
+- **Priority:** P1 (done-gate) · **Status:** done
+- Feature proven with full test matrix, i18n VN/EN/JA, docs refreshed.
+- **Delivered:** ~54 tests (unit/widget/integration), 412 total tests green; deep-link H1/H2 tests (entity-id), overflow regression tests, all i18n strings localized (vi/en/ja), no hardcoded copy leaks, changelog + roadmap updated.
 
 ## Requirements
 - Functional: every FR has a test. Non-functional: no-overflow at 375px, i18n complete (no hardcoded VN leaking to JA/EN).

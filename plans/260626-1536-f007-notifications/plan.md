@@ -1,7 +1,7 @@
 ---
 title: "F007 Notifications — list screen + real bell badge"
 description: "Real Notifications list (local stub) replacing the placeholder, with read/unread, deep-links, and a header bell badge wired to the actual list."
-status: pending
+status: completed
 priority: P2
 effort: 7h
 branch: main
@@ -11,6 +11,8 @@ feature_code: F007
 spec_draft: plans/260626-1536-f007-notifications/spec/notifications/
 builds_on: 260625-2309-kudos-remaining-screens
 created: 2026-06-26
+completed: 2026-06-26
+notes: "412 tests green, analyze clean, merged to feat/kudos-remaining-screens"
 ---
 
 # F007 Notifications
@@ -33,12 +35,12 @@ MoMorph development rule; `momorph-implement-design` fills the visual detail at 
 
 | # | Phase | Track | Status | Depends on |
 |---|-------|-------|--------|-----------|
-| P1 | [Domain layer](phase-01-domain-layer.md) | B | pending | — |
-| P2 | [Data / stub layer](phase-02-data-stub-layer.md) | B | pending | P1 |
-| P3 | [Providers + badge migration](phase-03-providers-and-badge.md) | B | pending | P2 |
-| P4 | [NotificationsScreen UI](phase-04-notifications-screen-ui.md) | A | pending | — |
-| P5 | [Integration: routing + bell + deep-links](phase-05-integration.md) | INT | pending | P3, P4 |
-| P6 | [Tests + i18n + docs](phase-06-tests-i18n-docs.md) | TEST | pending | P5 |
+| P1 | [Domain layer](phase-01-domain-layer.md) | B | done | — |
+| P2 | [Data / stub layer](phase-02-data-stub-layer.md) | B | done | P1 |
+| P3 | [Providers + badge migration](phase-03-providers-and-badge.md) | B | done | P2 |
+| P4 | [NotificationsScreen UI](phase-04-notifications-screen-ui.md) | A | done | — |
+| P5 | [Integration: routing + bell + deep-links](phase-05-integration.md) | INT | done | P3, P4 |
+| P6 | [Tests + i18n + docs](phase-06-tests-i18n-docs.md) | TEST | done | P5 |
 
 ## Dependency graph
 
