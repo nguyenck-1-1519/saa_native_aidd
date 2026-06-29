@@ -221,6 +221,12 @@
   "secretBoxOpenCta": "ボックスを開く",
   "@secretBoxOpenCta": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
 
+  "secretBoxDiscoverTitle": "シークレットボックスを開けよう",
+  "@secretBoxDiscoverTitle": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
+  "secretBoxClickToOpen": "ボックスをタップして開く",
+  "@secretBoxClickToOpen": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
+
   "secretBoxOpening": "開いています...",
   "@secretBoxOpening": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
 

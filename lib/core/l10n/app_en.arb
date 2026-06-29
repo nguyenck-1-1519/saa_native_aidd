@@ -104,6 +104,8 @@
 
   "secretBoxTitle": "Secret Box",
   "secretBoxOpenCta": "Open the box",
+  "secretBoxDiscoverTitle": "DISCOVER YOUR SECRET BOX",
+  "secretBoxClickToOpen": "Click the box to open",
   "secretBoxOpening": "Opening...",
   "secretBoxRevealedTitle": "Congratulations!",
   "secretBoxUnopenedLabel": "Unopened secret boxes ",

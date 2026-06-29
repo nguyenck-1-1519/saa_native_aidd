@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/l10n/app_localizations.dart';
+import '../../../../core/theme/app_typography.dart';
 
 /// Content panel for [SecretBoxView.closed].
 ///
@@ -62,14 +63,13 @@ class _Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Title — secretBoxTitle key ("Secret Box")
+        // Heading — "KHÁM PHÁ SECRET BOX CỦA BẠN" (was wrongly the page title)
         Text(
-          l10n.secretBoxTitle.toUpperCase(),
+          l10n.secretBoxDiscoverTitle,
           textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontFamily: 'Montserrat',
+          style: AppTypography.montserrat(
             fontSize: 18,
-            fontWeight: FontWeight.w700,
+            weight: FontWeight.w700,
             color: _gold,
             height: 24 / 18,
           ),
@@ -77,14 +77,13 @@ class _Header extends StatelessWidget {
         const SizedBox(height: 4),
         Container(height: 1, color: _divider),
         const SizedBox(height: 4),
-        // Subtitle — secretBoxOpenCta key
+        // Subtitle — "Click vào box để mở" (was the "Mở hộp quà" CTA string)
         Text(
-          l10n.secretBoxOpenCta,
+          l10n.secretBoxClickToOpen,
           textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontFamily: 'Montserrat',
+          style: AppTypography.montserrat(
             fontSize: 14,
-            fontWeight: FontWeight.w500,
+            weight: FontWeight.w500,
             color: _white,
             height: 20 / 14,
           ),
@@ -136,20 +135,18 @@ class _CountRow extends StatelessWidget {
       children: [
         Text(
           l10n.secretBoxUnopenedLabel,
-          style: const TextStyle(
-            fontFamily: 'Montserrat',
+          style: AppTypography.montserrat(
             fontSize: 12,
-            fontWeight: FontWeight.w400,
+            weight: FontWeight.w400,
             color: _white,
             height: 16 / 12,
           ),
         ),
         Text(
           count.toString().padLeft(2, '0'),
-          style: const TextStyle(
-            fontFamily: 'Montserrat',
+          style: AppTypography.montserrat(
             fontSize: 18,
-            fontWeight: FontWeight.w700,
+            weight: FontWeight.w700,
             color: _gold,
             height: 24 / 18,
           ),
@@ -173,10 +170,9 @@ class _NoneLeftMessage extends StatelessWidget {
     return Text(
       message,
       textAlign: TextAlign.center,
-      style: const TextStyle(
-        fontFamily: 'Montserrat',
+      style: AppTypography.montserrat(
         fontSize: 14,
-        fontWeight: FontWeight.w400,
+        weight: FontWeight.w400,
         color: _white,
         height: 20 / 14,
       ),

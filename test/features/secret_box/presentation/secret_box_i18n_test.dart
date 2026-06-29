@@ -41,10 +41,11 @@ void main() {
       await _pumpWithLocale(tester, const Locale('vi'), SecretBoxView.closed);
       await tester.pumpAndSettle();
 
-      // "Mở hộp quà" is the Vietnamese CTA.
-      expect(find.text('Mở hộp quà', skipOffstage: false), findsWidgets);
+      // "Click vào box để mở" is the Vietnamese closed-state subtitle.
+      expect(
+          find.text('Click vào box để mở', skipOffstage: false), findsWidgets);
 
-      // Title should be "Secret Box" (EN/universal).
+      // App-bar title should be "Secret Box" (EN/universal).
       expect(find.text('Secret Box', skipOffstage: false), findsOneWidget);
 
       // None-left message in Vietnamese.
@@ -60,8 +61,9 @@ void main() {
       await _pumpWithLocale(tester, const Locale('en'), SecretBoxView.closed);
       await tester.pumpAndSettle();
 
-      // EN CTA: "Open the box"
-      expect(find.text('Open the box', skipOffstage: false), findsWidgets);
+      // EN closed-state subtitle: "Click the box to open"
+      expect(
+          find.text('Click the box to open', skipOffstage: false), findsWidgets);
     });
 
     testWidgets('JA locale shows Japanese labels', (tester) async {
@@ -72,8 +74,9 @@ void main() {
       await _pumpWithLocale(tester, const Locale('ja'), SecretBoxView.closed);
       await tester.pumpAndSettle();
 
-      // JA CTA: "ボックスを開く"
-      expect(find.text('ボックスを開く', skipOffstage: false), findsWidgets);
+      // JA closed-state subtitle: "ボックスをタップして開く"
+      expect(
+          find.text('ボックスをタップして開く', skipOffstage: false), findsWidgets);
     });
 
     testWidgets('no Vietnamese leak in EN locale', (tester) async {

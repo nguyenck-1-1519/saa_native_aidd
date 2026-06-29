@@ -259,6 +259,12 @@
   "secretBoxOpenCta": "Mở hộp quà",
   "@secretBoxOpenCta": { "description": "CTA button label to open the secret box" },
 
+  "secretBoxDiscoverTitle": "KHÁM PHÁ SECRET BOX CỦA BẠN",
+  "@secretBoxDiscoverTitle": { "description": "Heading on the closed Secret Box screen" },
+
+  "secretBoxClickToOpen": "Click vào box để mở",
+  "@secretBoxClickToOpen": { "description": "Subtitle prompting the user to tap the box to open it" },
+
   "secretBoxOpening": "Đang mở...",
   "@secretBoxOpening": { "description": "Label shown while the box is opening (opening phase)" },
 
