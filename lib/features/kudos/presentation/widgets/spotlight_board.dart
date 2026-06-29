@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/theme/app_typography.dart';
+
 /// Spotlight Board widget showing the word-cloud style Kudos highlight.
 ///
 /// Design source: MoMorph node B.6. Spotlight board 6885:9099.
@@ -29,7 +31,6 @@ class _SectionHeader extends StatelessWidget {
 
   final String title;
 
-  static const Color _gold = Color(0xFFFFEA9E);
   static const Color _divider = Color(0xFF2E3940);
 
   @override
@@ -40,12 +41,11 @@ class _SectionHeader extends StatelessWidget {
       children: [
         Row(
           children: [
-            const Text(
+            Text(
               'Sun* Annual Awards 2025',
-              style: TextStyle(
-                fontFamily: 'Montserrat',
+              style: AppTypography.montserrat(
                 fontSize: 12,
-                fontWeight: FontWeight.w400,
+                weight: FontWeight.w400,
                 color: Colors.white,
               ),
             ),
@@ -54,13 +54,13 @@ class _SectionHeader extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 4),
+        // White section title per design (was gold).
         Text(
           title,
-          style: const TextStyle(
-            fontFamily: 'Montserrat',
+          style: AppTypography.montserrat(
             fontSize: 22,
-            fontWeight: FontWeight.w500,
-            color: _gold,
+            weight: FontWeight.w600,
+            color: Colors.white,
           ),
         ),
       ],

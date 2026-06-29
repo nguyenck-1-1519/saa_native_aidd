@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_typography.dart';
 import '../../domain/entities/kudo.dart';
 import 'kudos_card.dart';
 
@@ -40,8 +41,9 @@ class KudosPageView extends StatelessWidget {
                 controller: pageController,
                 itemCount: kudos.length,
                 onPageChanged: onPageChanged,
+                // Tighter inter-card gap to match the design (was 20).
                 itemBuilder: (_, i) => Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 6),
                   child: KudosCard(kudo: kudos[i]),
                 ),
               ),
@@ -81,10 +83,9 @@ class KudosPageView extends StatelessWidget {
         const SizedBox(height: 8),
         Text(
           '${currentPage + 1}/${kudos.length}',
-          style: const TextStyle(
-            fontFamily: 'Montserrat',
+          style: AppTypography.montserrat(
             fontSize: 12,
-            fontWeight: FontWeight.w400,
+            weight: FontWeight.w400,
             color: Colors.white,
           ),
           textAlign: TextAlign.center,

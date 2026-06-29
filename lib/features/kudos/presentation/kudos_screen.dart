@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/l10n/app_localizations.dart';
 import '../../../core/router/app_router.dart';
+import '../../../core/theme/app_typography.dart';
 import '../../home/presentation/widgets/home_header.dart';
 import '../../awards/presentation/widgets/kudos_kv_banner.dart';
 import '../domain/entities/kudos_stats.dart';
@@ -59,14 +61,9 @@ class KudosScreen extends ConsumerWidget {
                   ),
                 ),
               ),
-              // Static branding board — independent of feed data.
-              const SliverToBoxAdapter(
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(_hPad, 24, _hPad, 0),
-                  child: SpotlightBoard(),
-                ),
-              ),
               // Data-driven sections: loading / error+retry / data.
+              // Section order (per design): Highlight → Spotlight → All Kudos
+              // (stats) → recent recipients → feed → View all.
               ..._dataSlivers(context, ref, l10n, feedAsync, stats),
             ],
           ),
@@ -127,6 +124,13 @@ class KudosScreen extends ConsumerWidget {
           child: HighlightKudosCarousel(kudos: data.highlights),
         ),
       ),
+      // Spotlight board sits AFTER Highlight Kudos, before All Kudos (design order).
+      const SliverToBoxAdapter(
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(_hPad, 24, _hPad, 0),
+          child: SpotlightBoard(),
+        ),
+      ),
       if (stats != null)
         SliverToBoxAdapter(
           child: Padding(
@@ -182,15 +186,35 @@ class _KeyvisualBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Key-visual occupies the top band and fades into the dark base, matching
+    // the design (the previous full-bleed fitWidth image had a hard seam and
+    // no fade — the reported "background khác design").
     return Positioned(
       top: 0,
       left: 0,
       right: 0,
-      child: Image.asset(
-        'assets/images/home/Keyvisual_BG.png',
-        width: double.infinity,
-        fit: BoxFit.fitWidth,
-        alignment: Alignment.topCenter,
+      child: SizedBox(
+        height: 420,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Image.asset(
+              'assets/images/home/Keyvisual_BG.png',
+              fit: BoxFit.cover,
+              alignment: Alignment.topCenter,
+            ),
+            const DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  stops: [0.35, 1.0],
+                  colors: [Color(0x0000101A), Color(0xFF00101A)],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -233,20 +257,26 @@ class _ViewAllButton extends StatelessWidget {
           height: 32,
           padding: const EdgeInsets.symmetric(horizontal: 16),
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
-          child: const Row(
+          child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 'View all Kudos',
-                style: TextStyle(
-                  fontFamily: 'Montserrat',
+                style: AppTypography.montserrat(
                   fontSize: 14,
-                  fontWeight: FontWeight.w500,
+                  weight: FontWeight.w500,
                   color: Colors.white,
                 ),
               ),
-              SizedBox(width: 4),
-              Icon(Icons.arrow_forward, size: 20, color: Colors.white),
+              const SizedBox(width: 4),
+              // Design diagonal arrow (white), not the Material arrow.
+              SvgPicture.asset(
+                'assets/images/home/icon_arrow.svg',
+                width: 20,
+                height: 20,
+                colorFilter:
+                    const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+              ),
             ],
           ),
         ),

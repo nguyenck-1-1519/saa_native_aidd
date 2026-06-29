@@ -36,33 +36,18 @@ class KudosKvBanner extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          // Group 380 — logo row: Sun* flame mark + KUDOS wordmark.
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // Sun* flame mark only. (Was logo_homepage.png, which bakes in an
-              // extra "Sun* Annual Awards" wordmark next to the flame — redundant
-              // beside the KUDOS wordmark and not in the design.)
-              Image.asset(
-                'assets/images/home/ic_kudos_flame.png',
-                width: 40,
-                height: 38,
-                fit: BoxFit.contain,
-                errorBuilder: (_, __, ___) => const SizedBox(width: 40, height: 38),
-              ),
-              const SizedBox(width: 9),
-              // KUDOS wordmark (163×39) — Logo_Kudos.svg (H1 fix: replaces wrong Logo_RootFuther.png)
-              // SizedBox constrains the SVG to its design dimensions so the Row never overflows.
-              SizedBox(
-                width: 163,
-                height: 39,
-                child: SvgPicture.asset(
-                  'assets/images/home/Logo_Kudos.svg',
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ],
+          // Logo: Logo_Kudos.svg already contains BOTH the Sun* flame and the
+          // "KUDOS" lettering, so no separate flame image is used (a separate one
+          // doubled the flame). Height 38 per design; width follows the 119:22
+          // aspect (~205px, fits the 221px banner).
+          SizedBox(
+            width: 205,
+            height: 38,
+            child: SvgPicture.asset(
+              'assets/images/home/Logo_Kudos.svg',
+              fit: BoxFit.contain,
+              alignment: Alignment.centerLeft,
+            ),
           ),
         ],
       ),

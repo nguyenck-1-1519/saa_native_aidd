@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_typography.dart';
 import '../../domain/entities/kudo_recipient.dart';
 
 /// Displays the 10 most recent gift recipients.
@@ -46,14 +47,13 @@ class _SectionTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text(
+    return Text(
       '10 SUNNER NHẬN QUÀ MỚI NHẤT',
       textAlign: TextAlign.center,
-      style: TextStyle(
-        fontFamily: 'Montserrat',
+      style: AppTypography.montserrat(
         fontSize: 14,
-        fontWeight: FontWeight.w700,
-        color: Color(0xFFFFEA9E),
+        weight: FontWeight.w700,
+        color: const Color(0xFFFFEA9E),
       ),
     );
   }
@@ -141,20 +141,18 @@ class _NameGiftColumn extends StatelessWidget {
         Text(
           name,
           overflow: TextOverflow.ellipsis,
-          style: const TextStyle(
-            fontFamily: 'Montserrat',
+          style: AppTypography.montserrat(
             fontSize: 14,
-            fontWeight: FontWeight.w700,
-            color: Color(0xFFFFEA9E),
+            weight: FontWeight.w700,
+            color: const Color(0xFFFFEA9E),
           ),
         ),
         Text(
           giftDescription,
           overflow: TextOverflow.ellipsis,
-          style: const TextStyle(
-            fontFamily: 'Montserrat',
+          style: AppTypography.montserrat(
             fontSize: 12,
-            fontWeight: FontWeight.w400,
+            weight: FontWeight.w400,
             color: Colors.white,
           ),
         ),

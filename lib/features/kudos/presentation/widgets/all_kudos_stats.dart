@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_typography.dart';
 import '../../domain/entities/kudos_stats.dart';
 
 /// All Kudos Stats widget showing aggregate numbers for the current user.
@@ -77,7 +78,6 @@ class _SectionHeader extends StatelessWidget {
 
   final String title;
 
-  static const Color _gold = Color(0xFFFFEA9E);
   static const Color _divider = Color(0xFF2E3940);
 
   @override
@@ -86,25 +86,24 @@ class _SectionHeader extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Text(
+        Text(
           'Sun* Annual Awards 2025',
-          style: TextStyle(
-            fontFamily: 'Montserrat',
+          style: AppTypography.montserrat(
             fontSize: 12,
-            fontWeight: FontWeight.w400,
+            weight: FontWeight.w400,
             color: Colors.white,
           ),
         ),
         const SizedBox(height: 4),
         Container(height: 1, color: _divider),
         const SizedBox(height: 4),
+        // White section title per design (was gold).
         Text(
           title,
-          style: const TextStyle(
-            fontFamily: 'Montserrat',
+          style: AppTypography.montserrat(
             fontSize: 22,
-            fontWeight: FontWeight.w500,
-            color: _gold,
+            weight: FontWeight.w600,
+            color: Colors.white,
           ),
         ),
       ],
@@ -120,8 +119,6 @@ class _StatRow extends StatelessWidget {
   final String label;
   final String value;
 
-  static const Color _gold = Color(0xFFFFEA9E);
-
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -130,21 +127,20 @@ class _StatRow extends StatelessWidget {
         Expanded(
           child: Text(
             label,
-            style: const TextStyle(
-              fontFamily: 'Montserrat',
+            style: AppTypography.montserrat(
               fontSize: 14,
-              fontWeight: FontWeight.w300,
+              weight: FontWeight.w300,
               color: Colors.white,
             ),
           ),
         ),
+        // Value is white per design (was gold).
         Text(
           value,
-          style: const TextStyle(
-            fontFamily: 'Montserrat',
+          style: AppTypography.montserrat(
             fontSize: 14,
-            fontWeight: FontWeight.w700,
-            color: _gold,
+            weight: FontWeight.w700,
+            color: Colors.white,
           ),
         ),
       ],
@@ -175,10 +171,9 @@ class _StatRowWithBadge extends StatelessWidget {
         Expanded(
           child: Text(
             label,
-            style: const TextStyle(
-              fontFamily: 'Montserrat',
+            style: AppTypography.montserrat(
               fontSize: 14,
-              fontWeight: FontWeight.w300,
+              weight: FontWeight.w300,
               color: Colors.white,
             ),
           ),
@@ -188,11 +183,10 @@ class _StatRowWithBadge extends StatelessWidget {
           children: [
             Text(
               value,
-              style: const TextStyle(
-                fontFamily: 'Montserrat',
+              style: AppTypography.montserrat(
                 fontSize: 14,
-                fontWeight: FontWeight.w700,
-                color: _gold,
+                weight: FontWeight.w700,
+                color: Colors.white,
               ),
             ),
             const SizedBox(width: 6),
@@ -204,10 +198,9 @@ class _StatRowWithBadge extends StatelessWidget {
               ),
               child: Text(
                 badge,
-                style: const TextStyle(
-                  fontFamily: 'Montserrat',
+                style: AppTypography.montserrat(
                   fontSize: 12,
-                  fontWeight: FontWeight.w700,
+                  weight: FontWeight.w700,
                   color: _gold,
                 ),
               ),
@@ -245,14 +238,22 @@ class _OpenSecretBoxButton extends StatelessWidget {
           ),
           padding: EdgeInsets.zero,
         ),
-        child: const Text(
-          'Mở Secret Box',
-          style: TextStyle(
-            fontFamily: 'Montserrat',
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            color: _buttonText,
-          ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Mở Secret Box',
+              style: AppTypography.montserrat(
+                fontSize: 14,
+                weight: FontWeight.w500,
+                color: _buttonText,
+              ),
+            ),
+            const SizedBox(width: 8),
+            // Gift icon per design (was missing).
+            const Icon(Icons.card_giftcard, size: 20, color: _buttonText),
+          ],
         ),
       ),
     );

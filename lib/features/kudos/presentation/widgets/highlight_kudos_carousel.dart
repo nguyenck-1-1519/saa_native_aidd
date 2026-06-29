@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/theme/app_typography.dart';
 import '../../domain/entities/kudo.dart';
 import '../providers/kudos_filter_providers.dart';
 import 'kudos_page_view.dart';
@@ -39,7 +40,7 @@ class _HighlightKudosCarouselState
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(viewportFraction: 0.88);
+    _pageController = PageController(viewportFraction: 0.92);
   }
 
   @override
@@ -151,7 +152,6 @@ class _HighlightKudosCarouselState
 class _HeaderSection extends StatelessWidget {
   const _HeaderSection();
 
-  static const Color _gold = Color(0xFFFFEA9E);
   static const Color _separator = Color(0xFF2E3940);
 
   @override
@@ -161,12 +161,11 @@ class _HeaderSection extends StatelessWidget {
       children: [
         Row(
           children: [
-            const Text(
+            Text(
               'Sun* Annual Awards 2025',
-              style: TextStyle(
-                fontFamily: 'Montserrat',
+              style: AppTypography.montserrat(
                 fontSize: 12,
-                fontWeight: FontWeight.w400,
+                weight: FontWeight.w400,
                 color: Colors.white,
               ),
             ),
@@ -175,13 +174,14 @@ class _HeaderSection extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 4),
-        const Text(
+        // Section title is white per design (was gold) and rendered at its true
+        // weight via the variable-font helper.
+        Text(
           'HIGHLIGHT KUDOS',
-          style: TextStyle(
-            fontFamily: 'Montserrat',
+          style: AppTypography.montserrat(
             fontSize: 22,
-            fontWeight: FontWeight.w500,
-            color: _gold,
+            weight: FontWeight.w600,
+            color: Colors.white,
           ),
         ),
       ],

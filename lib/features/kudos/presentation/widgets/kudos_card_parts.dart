@@ -20,8 +20,8 @@ class _TraoNhanRow extends StatelessWidget {
           Expanded(child: _InfoColumn(name: senderName, role: senderRole)),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 8),
-            child:
-                Icon(Icons.arrow_forward, size: 16, color: Color(0xFFFFEA9E)),
+            // Dark navy on the cream card (was gold — low contrast).
+            child: Icon(Icons.send, size: 16, color: Color(0xFF00101A)),
           ),
           Expanded(
               child: _InfoColumn(name: recipientName, role: recipientRole)),
@@ -49,22 +49,22 @@ class _InfoColumn extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             name,
-            style: const TextStyle(
-              fontFamily: 'Montserrat',
+            // Dark navy on the cream card (was gold — nearly invisible).
+            style: AppTypography.montserrat(
               fontSize: 14,
-              fontWeight: FontWeight.w700,
-              color: Color(0xFFFFEA9E),
+              weight: FontWeight.w700,
+              color: const Color(0xFF00101A),
             ),
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
           ),
           Text(
             role,
-            style: const TextStyle(
-              fontFamily: 'Montserrat',
+            // Muted grey on the cream card (was white — invisible).
+            style: AppTypography.montserrat(
               fontSize: 12,
-              fontWeight: FontWeight.w400,
-              color: Colors.white,
+              weight: FontWeight.w400,
+              color: const Color(0xFF6E6E6E),
             ),
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
@@ -94,11 +94,11 @@ class _ContentBlock extends StatelessWidget {
   final String timeRange, title, message;
   final List<String> hashtags;
 
-  static const _hashtagStyle = TextStyle(
-    fontFamily: 'Montserrat',
+  // Hashtags are brand red per design (was olive/brown).
+  static final _hashtagStyle = AppTypography.montserrat(
     fontSize: 10,
-    fontWeight: FontWeight.w400,
-    color: Color(0xFF998C5F),
+    weight: FontWeight.w400,
+    color: const Color(0xFFE73928),
   );
 
   @override
@@ -107,30 +107,27 @@ class _ContentBlock extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(timeRange,
-              style: const TextStyle(
-                fontFamily: 'Montserrat',
+              style: AppTypography.montserrat(
                 fontSize: 10,
-                fontWeight: FontWeight.w500,
-                color: Color(0xFF999999),
+                weight: FontWeight.w500,
+                color: const Color(0xFF999999),
               )),
           const SizedBox(height: 2),
           Text(title,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontFamily: 'Montserrat',
-                fontSize: 10,
-                fontWeight: FontWeight.w700,
-                color: Color(0xFF00101A),
+              style: AppTypography.montserrat(
+                fontSize: 12,
+                weight: FontWeight.w700,
+                color: const Color(0xFF00101A),
               )),
           const SizedBox(height: 4),
           Text(message,
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                fontFamily: 'Montserrat',
+              style: AppTypography.montserrat(
                 fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: Color(0xFF00101A),
+                weight: FontWeight.w400,
+                color: const Color(0xFF00101A),
               )),
           if (hashtags.isNotEmpty) ...[
             const SizedBox(height: 4),
@@ -153,26 +150,26 @@ class _ActionRow extends StatelessWidget {
   final int heartCount;
   final VoidCallback? onViewDetail;
 
-  static const _btnTextStyle = TextStyle(
-    fontFamily: 'Montserrat',
+  // Dark navy on the cream card (was white — invisible).
+  static const Color _dark = Color(0xFF00101A);
+  static final _btnTextStyle = AppTypography.montserrat(
     fontSize: 10,
-    fontWeight: FontWeight.w400,
-    color: Colors.white,
+    weight: FontWeight.w400,
+    color: _dark,
   );
 
   @override
   Widget build(BuildContext context) => Row(
         children: [
-          const Icon(Icons.favorite, size: 12, color: Color(0xFFFF6B6B)),
+          const Icon(Icons.favorite, size: 12, color: Color(0xFFE73928)),
           const SizedBox(width: 4),
           Flexible(
             child: Text(
               '$heartCount',
-              style: const TextStyle(
-                fontFamily: 'Montserrat',
+              style: AppTypography.montserrat(
                 fontSize: 10,
-                fontWeight: FontWeight.w500,
-                color: Colors.white,
+                weight: FontWeight.w500,
+                color: _dark,
               ),
               overflow: TextOverflow.ellipsis,
             ),
@@ -180,14 +177,33 @@ class _ActionRow extends StatelessWidget {
           const Spacer(),
           GestureDetector(
             onTap: null,
-            child: const Text('Copy Link', style: _btnTextStyle,
-                overflow: TextOverflow.ellipsis),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Copy Link', style: _btnTextStyle,
+                    overflow: TextOverflow.ellipsis),
+                const SizedBox(width: 2),
+                const Icon(Icons.link, size: 14, color: _dark),
+              ],
+            ),
           ),
           const SizedBox(width: 8),
           GestureDetector(
             onTap: onViewDetail,
-            child: const Text('Xem chi tiết', style: _btnTextStyle,
-                overflow: TextOverflow.ellipsis),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Xem chi tiết', style: _btnTextStyle,
+                    overflow: TextOverflow.ellipsis),
+                const SizedBox(width: 2),
+                SvgPicture.asset(
+                  'assets/images/home/icon_arrow.svg',
+                  width: 14,
+                  height: 14,
+                  colorFilter: const ColorFilter.mode(_dark, BlendMode.srcIn),
+                ),
+              ],
+            ),
           ),
         ],
       );
