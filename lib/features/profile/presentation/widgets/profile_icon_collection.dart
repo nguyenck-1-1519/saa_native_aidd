@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/theme/app_typography.dart';
+
 /// Icon collection section — row of dark circular badge slots + label.
 ///
 /// Design node: mms_2_icon collection (6885:10349)
@@ -40,13 +42,12 @@ class ProfileIconCollection extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         // Label
-        const Text(
+        Text(
           // TODO(l10n): move to arb
           'Bộ sưu tập icon của tôi',
-          style: TextStyle(
-            fontFamily: 'Montserrat',
+          style: AppTypography.montserrat(
             fontSize: 12,
-            fontWeight: FontWeight.w400,
+            weight: FontWeight.w400,
             color: _labelColor,
             height: 16 / 12,
           ),

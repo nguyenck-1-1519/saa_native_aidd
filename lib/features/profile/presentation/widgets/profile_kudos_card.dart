@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/theme/app_typography.dart';
 import '../profile_view_model.dart';
 
 part 'profile_kudos_card_subwidgets.dart';

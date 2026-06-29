@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/theme/app_typography.dart';
+
 /// Profile header — avatar, name, department, hero tag badge.
 /// Design nodes: mms_1.1_member (6885:10339) self · mms_2_member (6885:10401) other.
 /// [isSelf] gates the edit-avatar affordance overlay.
@@ -116,10 +118,9 @@ class _NameRow extends StatelessWidget {
         // Full name — Montserrat 18 Bold #FFEA9E
         Text(
           name,
-          style: const TextStyle(
-            fontFamily: 'Montserrat',
+          style: AppTypography.montserrat(
             fontSize: 18,
-            fontWeight: FontWeight.w700,
+            weight: FontWeight.w700,
             color: _nameColor,
             height: 24 / 18,
           ),
@@ -135,10 +136,9 @@ class _NameRow extends StatelessWidget {
           children: [
             Text(
               department,
-              style: const TextStyle(
-                fontFamily: 'Montserrat',
+              style: AppTypography.montserrat(
                 fontSize: 14,
-                fontWeight: FontWeight.w400,
+                weight: FontWeight.w400,
                 color: _deptColor,
                 letterSpacing: 0.25,
               ),
@@ -187,6 +187,7 @@ class _HeroTagBadge extends StatelessWidget {
           fontFamily: 'Montserrat',
           fontSize: 7.9,
           fontWeight: FontWeight.w700,
+          fontVariations: [FontVariation('wght', 700)],
           color: _text,
           height: 10.5 / 7.9,
           letterSpacing: 0.057,

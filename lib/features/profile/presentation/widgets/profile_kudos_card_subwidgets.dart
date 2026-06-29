@@ -75,10 +75,9 @@ class _PersonColumn extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           name,
-          style: const TextStyle(
-            fontFamily: 'Montserrat',
+          style: AppTypography.montserrat(
             fontSize: 10,
-            fontWeight: FontWeight.w400,
+            weight: FontWeight.w400,
             color: _nameDark,
             height: 16 / 10,
           ),
@@ -90,10 +89,9 @@ class _PersonColumn extends StatelessWidget {
           const SizedBox(height: 2),
           Text(
             heroTag!,
-            style: const TextStyle(
-              fontFamily: 'Montserrat',
+            style: AppTypography.montserrat(
               fontSize: 8,
-              fontWeight: FontWeight.w400,
+              weight: FontWeight.w400,
               color: _nameDark,
               height: 10 / 8,
             ),

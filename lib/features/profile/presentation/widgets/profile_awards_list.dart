@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/l10n/app_localizations.dart';
+import '../../../../core/theme/app_typography.dart';
 import '../profile_view_model.dart';
 
 /// Renders the list of award/badge tiles below the [ProfileAwardsHeader].
@@ -36,10 +37,9 @@ class _EmptyState extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: Text(
         l.profileAwardsEmpty,
-        style: const TextStyle(
-          fontFamily: 'Montserrat',
+        style: AppTypography.montserrat(
           fontSize: 13,
-          fontWeight: FontWeight.w400,
+          weight: FontWeight.w400,
           color: Colors.white54,
         ),
       ),
@@ -76,10 +76,9 @@ class _AwardTile extends StatelessWidget {
             constraints: const BoxConstraints(maxWidth: 120),
             child: Text(
               award.name,
-              style: const TextStyle(
-                fontFamily: 'Montserrat',
+              style: AppTypography.montserrat(
                 fontSize: 12,
-                fontWeight: FontWeight.w500,
+                weight: FontWeight.w500,
                 color: _nameFg,
               ),
               overflow: TextOverflow.ellipsis,

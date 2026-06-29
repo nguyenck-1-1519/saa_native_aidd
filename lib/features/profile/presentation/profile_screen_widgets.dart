@@ -82,10 +82,9 @@ class _SendKudoButton extends StatelessWidget {
               child: Text(
                 // TODO(l10n): move to arb
                 'Gửi lời cảm ơn và ghi nhận tới $shortName...',
-                style: const TextStyle(
-                  fontFamily: 'Montserrat',
+                style: AppTypography.montserrat(
                   fontSize: 14,
-                  fontWeight: FontWeight.w500,
+                  weight: FontWeight.w500,
                   color: Colors.white,
                 ),
                 overflow: TextOverflow.ellipsis,

@@ -42,10 +42,9 @@ class _KudosFilterDropdown extends StatelessWidget {
           children: [
             Text(
               _label,
-              style: const TextStyle(
-                fontFamily: 'Montserrat',
+              style: AppTypography.montserrat(
                 fontSize: 14,
-                fontWeight: FontWeight.w400,
+                weight: FontWeight.w400,
                 color: Colors.white,
                 letterSpacing: 0.25,
               ),
@@ -146,10 +145,9 @@ class _FilterPill extends StatelessWidget {
         child: Text(
           label,
           textAlign: TextAlign.center,
-          style: TextStyle(
-            fontFamily: 'Montserrat',
+          style: AppTypography.montserrat(
             fontSize: 14,
-            fontWeight: FontWeight.w500,
+            weight: FontWeight.w500,
             color: isSelected ? _gold : Colors.white,
           ),
         ),

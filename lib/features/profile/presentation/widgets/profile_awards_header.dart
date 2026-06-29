@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/theme/app_typography.dart';
+
 /// Awards section header — "Sun* Annual Awards 2025" + "KUDOS" tab chip.
 ///
 /// Design node: mms_4_header / mms_6_header (6885:10387 / 6885:10418)
@@ -19,12 +21,11 @@ class ProfileAwardsHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // "Sun* Annual Awards 2025"
-        const Text(
+        Text(
           'Sun* Annual Awards 2025', // TODO(l10n): move to arb
-          style: TextStyle(
-            fontFamily: 'Montserrat',
+          style: AppTypography.montserrat(
             fontSize: 12,
-            fontWeight: FontWeight.w400,
+            weight: FontWeight.w400,
             color: _subtitleColor,
           ),
         ),
@@ -38,12 +39,11 @@ class ProfileAwardsHeader extends StatelessWidget {
             color: _chipBg,
             borderRadius: BorderRadius.circular(4),
           ),
-          child: const Text(
+          child: Text(
             'KUDOS', // TODO(l10n): move to arb
-            style: TextStyle(
-              fontFamily: 'Montserrat',
+            style: AppTypography.montserrat(
               fontSize: 14,
-              fontWeight: FontWeight.w500,
+              weight: FontWeight.w500,
               color: _chipText,
               letterSpacing: 0.5,
             ),

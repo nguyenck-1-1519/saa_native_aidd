@@ -24,10 +24,9 @@ class _ContentBlock extends StatelessWidget {
       children: [
         Text(
           kudo.postedAt,
-          style: const TextStyle(
-            fontFamily: 'Montserrat',
+          style: AppTypography.montserrat(
             fontSize: 10,
-            fontWeight: FontWeight.w500,
+            weight: FontWeight.w500,
             color: _timestamp,
             height: 11.1 / 10,
             letterSpacing: 0.23,
@@ -36,10 +35,9 @@ class _ContentBlock extends StatelessWidget {
         const SizedBox(height: 8),
         Text(
           kudo.title,
-          style: const TextStyle(
-            fontFamily: 'Montserrat',
+          style: AppTypography.montserrat(
             fontSize: 10,
-            fontWeight: FontWeight.w700,
+            weight: FontWeight.w700,
             color: _titleColor,
             height: 11.1 / 10,
             letterSpacing: 0.23,
@@ -57,10 +55,9 @@ class _ContentBlock extends StatelessWidget {
           ),
           child: Text(
             kudo.message,
-            style: const TextStyle(
-              fontFamily: 'Montserrat',
+            style: AppTypography.montserrat(
               fontSize: 10,
-              fontWeight: FontWeight.w400,
+              weight: FontWeight.w400,
               color: _messageText,
               height: 1.4,
             ),
@@ -94,10 +91,9 @@ class _ContentBlock extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             kudo.hashtags.join(' '),
-            style: const TextStyle(
-              fontFamily: 'Montserrat',
+            style: AppTypography.montserrat(
               fontSize: 10,
-              fontWeight: FontWeight.w400,
+              weight: FontWeight.w400,
               color: _hashtagColor,
               height: 11.1 / 10,
               letterSpacing: 0.23,
@@ -143,10 +139,9 @@ class _ActionBar extends StatelessWidget {
           children: [
             Text(
               _formatHearts(heartCount),
-              style: const TextStyle(
-                fontFamily: 'Montserrat',
+              style: AppTypography.montserrat(
                 fontSize: 10,
-                fontWeight: FontWeight.w400,
+                weight: FontWeight.w400,
                 color: _textColor,
                 height: 14.8 / 10,
               ),
@@ -185,10 +180,9 @@ class _ActionButton extends StatelessWidget {
         children: [
           Text(
             label,
-            style: const TextStyle(
-              fontFamily: 'Montserrat',
+            style: AppTypography.montserrat(
               fontSize: 10,
-              fontWeight: FontWeight.w400,
+              weight: FontWeight.w400,
               color: _color,
               height: 12 / 10,
             ),

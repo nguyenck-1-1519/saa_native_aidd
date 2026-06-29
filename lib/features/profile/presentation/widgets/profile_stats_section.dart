@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/l10n/app_localizations.dart';
+import '../../../../core/theme/app_typography.dart';
 
 /// Stats block — shown on self-profile only.
 ///
@@ -99,10 +100,9 @@ class _StatRow extends StatelessWidget {
         Expanded(
           child: Text(
             label,
-            style: const TextStyle(
-              fontFamily: 'Montserrat',
+            style: AppTypography.montserrat(
               fontSize: 14,
-              fontWeight: FontWeight.w400,
+              weight: FontWeight.w400,
               color: _labelColor,
               height: 20 / 14,
               letterSpacing: 0.25,
@@ -112,10 +112,9 @@ class _StatRow extends StatelessWidget {
         const SizedBox(width: 8),
         Text(
           value,
-          style: const TextStyle(
-            fontFamily: 'Montserrat',
+          style: AppTypography.montserrat(
             fontSize: 14,
-            fontWeight: FontWeight.w700,
+            weight: FontWeight.w700,
             color: _valueColor,
             height: 20 / 14,
             letterSpacing: 0.25,
@@ -154,13 +153,12 @@ class _OpenSecretBoxButton extends StatelessWidget {
           ),
           padding: const EdgeInsets.symmetric(horizontal: 12),
         ),
-        child: const Text(
+        child: Text(
           // TODO(l10n): move to arb
           'Mở Secret Box',
-          style: TextStyle(
-            fontFamily: 'Montserrat',
+          style: AppTypography.montserrat(
             fontSize: 14,
-            fontWeight: FontWeight.w500,
+            weight: FontWeight.w500,
             color: _textColor,
           ),
         ),

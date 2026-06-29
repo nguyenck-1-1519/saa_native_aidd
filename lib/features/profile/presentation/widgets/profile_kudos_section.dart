@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/l10n/app_localizations.dart';
+import '../../../../core/theme/app_typography.dart';
 import '../profile_view_model.dart';
 import 'profile_kudos_card.dart';
 
@@ -49,10 +50,9 @@ class _EmptyState extends StatelessWidget {
       child: Center(
         child: Text(
           l.profileKudosEmpty,
-          style: const TextStyle(
-            fontFamily: 'Montserrat',
+          style: AppTypography.montserrat(
             fontSize: 14,
-            fontWeight: FontWeight.w400,
+            weight: FontWeight.w400,
             color: Colors.white54,
           ),
         ),
