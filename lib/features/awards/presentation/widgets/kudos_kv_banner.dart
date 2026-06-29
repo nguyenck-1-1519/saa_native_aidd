@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/l10n/app_localizations.dart';
+import '../../../../core/theme/app_typography.dart';
 
 /// Static "Hệ thống ghi nhận và cảm ơn" + Sun*Kudos logo banner (mms_A_KV Kudos).
 ///
@@ -27,27 +28,28 @@ class KudosKvBanner extends StatelessWidget {
           // Group 424 — subtitle text
           Text(
             l10n.kudosKvTagline,
-            style: const TextStyle(
-              fontFamily: 'Montserrat',
+            style: AppTypography.montserrat(
               fontSize: 14,
-              fontWeight: FontWeight.w500,
+              weight: FontWeight.w500,
               color: _gold,
               height: 20 / 14,
             ),
           ),
           const SizedBox(height: 8),
-          // Group 380 — logo row (fixed total 221px = 49 + 9 + 163)
+          // Group 380 — logo row: Sun* flame mark + KUDOS wordmark.
           Row(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Sun* SAA logo (49×38)
+              // Sun* flame mark only. (Was logo_homepage.png, which bakes in an
+              // extra "Sun* Annual Awards" wordmark next to the flame — redundant
+              // beside the KUDOS wordmark and not in the design.)
               Image.asset(
-                'assets/images/home/logo_homepage.png',
-                width: 49,
+                'assets/images/home/ic_kudos_flame.png',
+                width: 40,
                 height: 38,
                 fit: BoxFit.contain,
-                errorBuilder: (_, __, ___) => const SizedBox(width: 49, height: 38),
+                errorBuilder: (_, __, ___) => const SizedBox(width: 40, height: 38),
               ),
               const SizedBox(width: 9),
               // KUDOS wordmark (163×39) — Logo_Kudos.svg (H1 fix: replaces wrong Logo_RootFuther.png)

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/l10n/app_localizations.dart';
+import '../../../../core/theme/app_typography.dart';
 import '../../domain/entities/award_detail.dart';
 import 'award_dropdown.dart';
 
@@ -40,10 +41,9 @@ class AwardHighlightHeader extends StatelessWidget {
           // "Sun* Annual Awards 2025" label
           Text(
             l10n.awardsSectionLabel,
-            style: const TextStyle(
-              fontFamily: 'Montserrat',
+            style: AppTypography.montserrat(
               fontSize: 12,
-              fontWeight: FontWeight.w400,
+              weight: FontWeight.w400,
               color: _white,
               height: 16 / 12,
             ),
@@ -51,15 +51,15 @@ class AwardHighlightHeader extends StatelessWidget {
           const SizedBox(height: 4),
           const Divider(color: _divider, thickness: 1, height: 1),
           const SizedBox(height: 4),
-          // Main title — 247×56, Montserrat 22 w500 gold, 2 lines
+          // Main title — 247×56, Montserrat 22 w600 gold, 2 lines.
+          // w600 (was w500) so the section header reads clearly bolder per design.
           SizedBox(
             width: 247,
             child: Text(
               l10n.awardsSystemTitle,
-              style: const TextStyle(
-                fontFamily: 'Montserrat',
+              style: AppTypography.montserrat(
                 fontSize: 22,
-                fontWeight: FontWeight.w500,
+                weight: FontWeight.w600,
                 color: _gold,
                 height: 28 / 22,
               ),

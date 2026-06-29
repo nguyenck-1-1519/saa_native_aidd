@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../core/l10n/app_localizations.dart';
+import '../../../../core/theme/app_typography.dart';
 import '../../domain/entities/award_detail.dart';
 import 'award_stat_row.dart';
 
@@ -103,10 +104,9 @@ class AwardDetailBlock extends StatelessWidget {
       return Text(
         award.name.toUpperCase(),
         textAlign: TextAlign.center,
-        style: const TextStyle(
-          fontFamily: 'Montserrat',
+        style: AppTypography.montserrat(
           fontSize: 10,
-          fontWeight: FontWeight.w800,
+          weight: FontWeight.w800,
           color: _gold,
           letterSpacing: 1.0,
         ),
@@ -123,10 +123,9 @@ class AwardDetailBlock extends StatelessWidget {
       errorBuilder: (_, __, ___) => Text(
         award.name.toUpperCase(),
         textAlign: TextAlign.center,
-        style: const TextStyle(
-          fontFamily: 'Montserrat',
+        style: AppTypography.montserrat(
           fontSize: 10,
-          fontWeight: FontWeight.w800,
+          weight: FontWeight.w800,
           color: _gold,
           letterSpacing: 1.0,
         ),
@@ -151,10 +150,9 @@ class AwardDetailBlock extends StatelessWidget {
             Expanded(
               child: Text(
                 award.name,
-                style: const TextStyle(
-                  fontFamily: 'Montserrat',
+                style: AppTypography.montserrat(
                   fontSize: 14,
-                  fontWeight: FontWeight.w700,
+                  weight: FontWeight.w700,
                   color: _gold,
                   height: 20 / 14,
                 ),
@@ -165,10 +163,9 @@ class AwardDetailBlock extends StatelessWidget {
         const SizedBox(height: 12),
         Text(
           award.description,
-          style: const TextStyle(
-            fontFamily: 'Montserrat',
+          style: AppTypography.montserrat(
             fontSize: 14,
-            fontWeight: FontWeight.w300,
+            weight: FontWeight.w300,
             color: _white,
             height: 20 / 14,
             letterSpacing: 0.25,

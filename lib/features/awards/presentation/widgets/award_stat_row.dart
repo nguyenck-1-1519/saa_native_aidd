@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/theme/app_typography.dart';
+
 /// A labelled stat row used in [AwardDetailBlock] for quantity and prize sections.
 ///
 /// Layout (column, gap 12):
@@ -38,10 +40,9 @@ class AwardStatRow extends StatelessWidget {
             Flexible(
               child: Text(
                 label,
-                style: const TextStyle(
-                  fontFamily: 'Montserrat',
+                style: AppTypography.montserrat(
                   fontSize: 14,
-                  fontWeight: FontWeight.w700,
+                  weight: FontWeight.w700,
                   color: _gold,
                   height: 20 / 14,
                 ),
@@ -57,10 +58,9 @@ class AwardStatRow extends StatelessWidget {
           children: [
             Text(
               '$value ',
-              style: const TextStyle(
-                fontFamily: 'Montserrat',
+              style: AppTypography.montserrat(
                 fontSize: 18,
-                fontWeight: FontWeight.w700,
+                weight: FontWeight.w700,
                 color: _white,
                 height: 24 / 18,
                 letterSpacing: 0.5,
@@ -69,10 +69,9 @@ class AwardStatRow extends StatelessWidget {
             Flexible(
               child: Text(
                 unit,
-                style: const TextStyle(
-                  fontFamily: 'Montserrat',
+                style: AppTypography.montserrat(
                   fontSize: 14,
-                  fontWeight: FontWeight.w300,
+                  weight: FontWeight.w300,
                   color: _white,
                   height: 20 / 14,
                   letterSpacing: 0.25,

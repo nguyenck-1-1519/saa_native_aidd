@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../core/theme/app_typography.dart';
 import '../../domain/entities/award_detail.dart';
 
 /// Dropdown button showing the currently selected award name.
@@ -44,10 +45,9 @@ class AwardDropdown extends StatelessWidget {
           children: [
             Text(
               selected.name,
-              style: const TextStyle(
-                fontFamily: 'Montserrat',
+              style: AppTypography.montserrat(
                 fontSize: 14,
-                fontWeight: FontWeight.w400,
+                weight: FontWeight.w400,
                 color: _textColor,
                 height: 20 / 14,
                 letterSpacing: 0.25,
@@ -123,10 +123,9 @@ class _DropdownSheet extends StatelessWidget {
                           Expanded(
                             child: Text(
                               a.name,
-                              style: TextStyle(
-                                fontFamily: 'Montserrat',
+                              style: AppTypography.montserrat(
                                 fontSize: 14,
-                                fontWeight: a.id == selectedId
+                                weight: a.id == selectedId
                                     ? FontWeight.w700
                                     : FontWeight.w400,
                                 color: a.id == selectedId ? _gold : Colors.white,
