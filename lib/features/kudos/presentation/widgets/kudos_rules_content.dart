@@ -1,47 +1,57 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/theme/app_typography.dart';
+
 // ---------------------------------------------------------------------------
-// Design tokens (shared within this file)
+// Design tokens (MoMorph zIuFaHAid4 "[iOS] Thể lệ")
 // ---------------------------------------------------------------------------
 const Color _kGold = Color(0xFFFFEA9E);
-const Color _kDividerLine = Color(0xFF2E3940);
+const Color _kWhite = Colors.white;
 
 // ---------------------------------------------------------------------------
-// Section label — "Sun* Annual Awards 2025 / THỂ LỆ"
+// Header — "Thể lệ" title + "NGƯỜI NHẬN KUDOS…" subtitle + intro paragraph
+// (node mms_4.1)
 // ---------------------------------------------------------------------------
 
-/// Eyebrow + gold title header matching the design's section label pattern.
-class KudosRulesSectionLabel extends StatelessWidget {
-  const KudosRulesSectionLabel({super.key});
+class KudosRulesHeader extends StatelessWidget {
+  const KudosRulesHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            const Text(
-              'Sun* Annual Awards 2025', // TODO(l10n): move to arb
-              style: TextStyle(
-                fontFamily: 'Montserrat',
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: Colors.white,
-              ),
-            ),
-            const SizedBox(width: 8),
-            Expanded(child: Container(height: 1, color: _kDividerLine)),
-          ],
-        ),
-        const SizedBox(height: 4),
-        const Text(
-          'THỂ LỆ', // TODO(l10n): move to arb
-          style: TextStyle(
-            fontFamily: 'Montserrat',
-            fontSize: 22,
-            fontWeight: FontWeight.w500,
+        // "Thể lệ" — 18px w700 gold
+        Text(
+          'Thể lệ',
+          style: AppTypography.montserrat(
+            fontSize: 18,
+            weight: FontWeight.w700,
             color: _kGold,
+            height: 24 / 18,
+          ),
+        ),
+        const SizedBox(height: 16),
+        Text(
+          'NGƯỜI NHẬN KUDOS: HUY HIỆU HERO CHO NHỮNG ẢNH HƯỞNG TÍCH CỰC',
+          style: AppTypography.montserrat(
+            fontSize: 14,
+            weight: FontWeight.w700,
+            color: _kGold,
+            height: 20 / 14,
+            letterSpacing: 0.25,
+          ),
+        ),
+        const SizedBox(height: 16),
+        Text(
+          'Dựa trên số lượng đồng đội gửi trao Kudos, bạn sẽ sở hữu Huy hiệu '
+          'Hero tương ứng, được hiển thị trực tiếp cạnh tên profile',
+          style: AppTypography.montserrat(
+            fontSize: 14,
+            weight: FontWeight.w400,
+            color: _kWhite,
+            height: 20 / 14,
+            letterSpacing: 0.25,
           ),
         ),
       ],
@@ -50,116 +60,130 @@ class KudosRulesSectionLabel extends StatelessWidget {
 }
 
 // ---------------------------------------------------------------------------
-// Rules content card — description + participation steps
+// Hero tiers — New / Rising / Super / Legend Hero (node mms_4.2)
 // ---------------------------------------------------------------------------
 
-/// Card with "Sun* Kudos là gì?" + "Cách tham gia" bullet list.
-class KudosRulesCard extends StatelessWidget {
-  const KudosRulesCard({super.key});
+class _HeroTier {
+  const _HeroTier(this.badgeWord, this.emphasis, this.count, this.description);
+
+  /// First word of the badge ("New", "Rising", …); " Hero" is appended.
+  final String badgeWord;
+
+  /// Whether the badge word is rendered in gold (Rising/Super/Legend) vs white.
+  final bool emphasis;
+  final String count;
+  final String description;
+}
+
+const _kDesc1 =
+    'Hành trình lan tỏa điều tốt đẹp bắt đầu – những lời cảm ơn và ghi nhận '
+    'đầu tiên đã tìm đến bạn.';
+const _kDesc2 =
+    'Bạn đã trở thành biểu tượng được tin tưởng và yêu quý, người luôn sẵn '
+    'sàng hỗ trợ và được nhiều đồng đội nhớ đến.';
+
+const _kTiers = [
+  _HeroTier('New', false, 'Có 1-4 người gửi Kudos cho bạn', _kDesc1),
+  _HeroTier('Rising', true, 'Có 5-9 người gửi Kudos cho bạn', _kDesc1),
+  _HeroTier('Super', true, 'Có 10–20 người gửi Kudos cho bạn', _kDesc2),
+  _HeroTier('Legend', true, 'Có hơn 20 người gửi Kudos cho bạn', _kDesc2),
+];
+
+/// The four Hero achievement tiers. The badge graphics are MoMorph media that
+/// were not exported, so each badge is rendered as a styled pill approximating
+/// the design (dark teal fill, gold rim, two-tone label).
+class KudosHeroTiers extends StatelessWidget {
+  const KudosHeroTiers({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        for (var i = 0; i < _kTiers.length; i++) ...[
+          if (i > 0) const SizedBox(height: 16),
+          _TierBlock(tier: _kTiers[i]),
+        ],
+      ],
+    );
+  }
+}
+
+class _TierBlock extends StatelessWidget {
+  const _TierBlock({required this.tier});
+
+  final _HeroTier tier;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _HeroBadge(word: tier.badgeWord, emphasis: tier.emphasis),
+        const SizedBox(height: 8),
+        Text(
+          tier.count,
+          style: AppTypography.montserrat(
+            fontSize: 14,
+            weight: FontWeight.w700,
+            color: _kWhite,
+            height: 20 / 14,
+            letterSpacing: 0.25,
+          ),
+        ),
+        const SizedBox(height: 6),
+        Text(
+          tier.description,
+          style: AppTypography.montserrat(
+            fontSize: 14,
+            weight: FontWeight.w400,
+            color: _kWhite,
+            height: 20 / 14,
+            letterSpacing: 0.25,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _HeroBadge extends StatelessWidget {
+  const _HeroBadge({required this.word, required this.emphasis});
+
+  final String word;
+  final bool emphasis;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 3),
       decoration: BoxDecoration(
-        color: const Color(0xFF0D1E29),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: _kDividerLine, width: 1),
+        color: const Color(0xCC0A2230), // dark teal, translucent
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: _kGold, width: 0.5),
       ),
-      child: const Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Sun* Kudos là gì?', // TODO(l10n): move to arb
-            style: TextStyle(
-              fontFamily: 'Montserrat',
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-              color: _kGold,
-              height: 22 / 16,
+      child: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: word,
+              style: AppTypography.montserrat(
+                fontSize: 10,
+                weight: FontWeight.w700,
+                color: emphasis ? _kGold : _kWhite,
+              ),
             ),
-          ),
-          SizedBox(height: 12),
-          Text(
-            // TODO(l10n): move to arb
-            'Sun* Kudos là chương trình ghi nhận và tôn vinh những đóng góp '
-            'xuất sắc của các thành viên trong cộng đồng Sun*. Thông qua việc '
-            'gửi Kudos, bạn có thể bày tỏ sự trân trọng và cảm ơn đồng nghiệp '
-            'vì những đóng góp ý nghĩa của họ.',
-            style: TextStyle(
-              fontFamily: 'Montserrat',
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: Colors.white,
-              height: 20 / 14,
-              letterSpacing: 0.25,
+            TextSpan(
+              text: ' Hero',
+              style: AppTypography.montserrat(
+                fontSize: 10,
+                weight: FontWeight.w400,
+                color: _kWhite,
+              ),
             ),
-          ),
-          SizedBox(height: 16),
-          _HorizontalDivider(),
-          SizedBox(height: 16),
-          Text(
-            'Cách tham gia', // TODO(l10n): move to arb
-            style: TextStyle(
-              fontFamily: 'Montserrat',
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-              color: _kGold,
-              height: 22 / 16,
-            ),
-          ),
-          SizedBox(height: 12),
-          _BulletItem('Đăng nhập vào ứng dụng Sun* Annual Awards 2025.'), // TODO(l10n)
-          SizedBox(height: 8),
-          _BulletItem('Chọn "Viết KUDOS" để gửi lời khen đến đồng nghiệp.'), // TODO(l10n)
-          SizedBox(height: 8),
-          _BulletItem('Chọn người nhận, nhập tiêu đề, nội dung và hashtag phù hợp.'), // TODO(l10n)
-          SizedBox(height: 8),
-          _BulletItem('Mỗi thành viên có thể gửi tối đa 5 Kudos mỗi tuần.'), // TODO(l10n)
-          SizedBox(height: 8),
-          _BulletItem('Kudos được gửi sẽ hiển thị trên bảng tin và được tính vào kết quả bình chọn.'), // TODO(l10n)
-        ],
+          ],
+        ),
       ),
-    );
-  }
-}
-
-class _HorizontalDivider extends StatelessWidget {
-  const _HorizontalDivider();
-
-  @override
-  Widget build(BuildContext context) =>
-      Container(height: 1, color: _kDividerLine);
-}
-
-class _BulletItem extends StatelessWidget {
-  const _BulletItem(this.text);
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Padding(
-          padding: EdgeInsets.only(top: 6),
-          child: CircleAvatar(radius: 3, backgroundColor: _kGold),
-        ),
-        const SizedBox(width: 10),
-        Expanded(
-          child: Text(
-            text,
-            style: const TextStyle(
-              fontFamily: 'Montserrat',
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-              color: Colors.white,
-              height: 20 / 14,
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
