@@ -48,7 +48,7 @@ class HomeFab extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _penGroup(),
-          const SizedBox(width: 8),
+          const SizedBox(width: 6),
           _kudosIcon(),
         ],
       ),
@@ -63,31 +63,31 @@ class HomeFab extends StatelessWidget {
     return GestureDetector(
       onTap: onPencil,
       behavior: HitTestBehavior.opaque,
-      child: SizedBox(
-        width: 41,
-        height: 32,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.edit,
-              size: 20,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.edit,
+            size: 20,
+            color: _darkBg,
+          ),
+          const SizedBox(width: 6),
+          // Thin "/" separator — lighter weight + symmetric breathing room so
+          // it reads as a centred divider, not a bold mark glued to the pencil.
+          Text(
+            '/',
+            style: TextStyle(
+              fontFamily: 'Montserrat',
+              fontSize: 18,
+              fontWeight: FontWeight.w300,
+              fontVariations: const [FontVariation('wght', 300)],
               color: _darkBg,
+              height: 1.0,
             ),
-            Text(
-              '/',
-              style: TextStyle(
-                fontFamily: 'Montserrat',
-                fontSize: 20,
-                fontWeight: FontWeight.w400,
-                color: _darkBg,
-                height: 1.0,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -100,10 +100,15 @@ class HomeFab extends StatelessWidget {
     return GestureDetector(
       onTap: onKudos,
       behavior: HitTestBehavior.opaque,
-      child: Icon(
-        Icons.star_outline,
-        size: 24,
-        color: _darkBg,
+      // Sun* Kudos flame mark (design node MM_MEDIA_IC_Kudos Logo) — replaces
+      // the placeholder Material star. The asset is the flame centred on a
+      // square transparent canvas, so a square box + BoxFit.contain keeps it
+      // optically centred (it previously hugged the top-left corner).
+      child: Image.asset(
+        'assets/images/home/ic_kudos_flame.png',
+        width: 20,
+        height: 20,
+        fit: BoxFit.contain,
       ),
     );
   }

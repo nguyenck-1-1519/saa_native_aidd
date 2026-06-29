@@ -85,38 +85,27 @@ class KudosSection extends StatelessWidget {
     return SizedBox(
       width: 335,
       height: 145,
+      // The banner PNG already has the "Sun* KUDOS" logo baked in (matches the
+      // MoMorph export 6885:9041). Do NOT overlay Logo_Kudos.svg on top — that
+      // produced a duplicated/offset logo that deviated from the design.
       child: ClipRRect(
         borderRadius: BorderRadius.circular(4.65),
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            Image.asset(
-              'assets/images/home/Sunkudos_banner.png',
-              width: 335,
-              height: 145,
-              fit: BoxFit.cover,
-              errorBuilder: (ctx, e, st) => Container(
-                width: 335,
-                height: 145,
-                color: const Color(0xFF0F0F0F),
-                child: const Center(
-                  child: Icon(
-                    Icons.image_not_supported,
-                    color: Colors.white54,
-                  ),
-                ),
+        child: Image.asset(
+          'assets/images/home/Sunkudos_banner.png',
+          width: 335,
+          height: 145,
+          fit: BoxFit.cover,
+          errorBuilder: (ctx, e, st) => Container(
+            width: 335,
+            height: 145,
+            color: const Color(0xFF0F0F0F),
+            child: const Center(
+              child: Icon(
+                Icons.image_not_supported,
+                color: Colors.white54,
               ),
             ),
-            Positioned(
-              bottom: 10,
-              right: 10,
-              child: SvgPicture.asset(
-                'assets/images/home/Logo_Kudos.svg',
-                width: 118,
-                height: 21,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -199,6 +188,9 @@ class KudosSection extends StatelessWidget {
       fontFamily: 'Montserrat',
       fontSize: fontSize,
       fontWeight: weight,
+      // Montserrat.ttf is a variable font (default master = Thin); pin the
+      // wght axis so the true designed weight renders instead of a thin/faux one.
+      fontVariations: [FontVariation('wght', (weight.index + 1) * 100.0)],
       color: color,
       height: height,
       letterSpacing: letterSpacing,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/theme/app_typography.dart';
+
 /// Presentational description block for the Home screen theme (node 6885:9028).
 ///
 /// Layout: 335×240 px, starts at y=637.
@@ -31,10 +33,9 @@ class ThemeDescription extends StatelessWidget {
       height: _height,
       child: Text(
         _text,
-        style: const TextStyle(
-          fontFamily: 'Montserrat',
+        style: AppTypography.montserrat(
           fontSize: _fontSize,
-          fontWeight: FontWeight.w300,
+          weight: FontWeight.w300,
           height: _lineHeight / _fontSize,
           letterSpacing: _letterSpacing,
           color: _textColor,

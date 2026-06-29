@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/l10n/app_localizations.dart';
+import '../../../../core/theme/app_typography.dart';
 import '../../../../features/home/domain/entities/award_card.dart';
 
 /// Presentational awards carousel for the Home screen (node 6885:9030).
@@ -32,9 +33,9 @@ class AwardsCarousel extends StatelessWidget {
   static const double _cardWidth = 160;
   static const double _cardItemExtent = 176; // 160 card + 16 gap
   // Design card is 160×298, but the rendered column (image + name line metrics
-  // + description box + detail button) needs ~308px; give it headroom so the
-  // card Column never overflows.
-  static const double _listHeight = 310;
+  // + description box + detail button) needs ~305px; give it headroom so the
+  // card Column never overflows and the "Chi tiết" button is never clipped.
+  static const double _listHeight = 318;
   static const Color _accentColor = Color(0xFFFFEA9E);
 
   @override
@@ -71,10 +72,9 @@ class AwardsCarousel extends StatelessWidget {
             children: [
               Text(
                 l10n.homeAwardsError,
-                style: const TextStyle(
-                  fontFamily: 'Montserrat',
+                style: AppTypography.montserrat(
                   fontSize: 14,
-                  fontWeight: FontWeight.w400,
+                  weight: FontWeight.w400,
                   color: Colors.white,
                 ),
               ),
@@ -126,10 +126,9 @@ class _SectionHeader extends StatelessWidget {
         children: [
           Text(
             l10n.homeAwardsSectionTitle,
-            style: const TextStyle(
-              fontFamily: 'Montserrat',
+            style: AppTypography.montserrat(
               fontSize: 12,
-              fontWeight: FontWeight.w400,
+              weight: FontWeight.w400,
               color: Colors.white,
             ),
           ),
@@ -142,11 +141,10 @@ class _SectionHeader extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             l10n.homeAwardsSectionSubtitle,
-            style: const TextStyle(
-              fontFamily: 'Montserrat',
+            style: AppTypography.montserrat(
               fontSize: 22,
-              fontWeight: FontWeight.w500,
-              color: Color(0xFFFFEA9E),
+              weight: FontWeight.w500,
+              color: const Color(0xFFFFEA9E),
             ),
           ),
         ],
@@ -234,10 +232,9 @@ class _AwardCardItem extends StatelessWidget {
           award.name,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: const TextStyle(
-            fontFamily: 'Montserrat',
+          style: AppTypography.montserrat(
             fontSize: 14,
-            fontWeight: FontWeight.w500,
+            weight: FontWeight.w500,
             color: _accentColor,
           ),
         ),
@@ -251,10 +248,9 @@ class _AwardCardItem extends StatelessWidget {
             award.description,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              fontFamily: 'Montserrat',
+            style: AppTypography.montserrat(
               fontSize: 14,
-              fontWeight: FontWeight.w300,
+              weight: FontWeight.w300,
               height: 20 / 14,
               letterSpacing: 0.25,
               color: Colors.white,
@@ -264,34 +260,39 @@ class _AwardCardItem extends StatelessWidget {
 
         const SizedBox(height: _cardGap),
 
-        // "Chi tiết" button
+        // "Chi tiết" button — the 24px arrow + label is centred in a 32px-high
+        // row. (The previous SizedBox(32) + vertical:10 padding forced 44px of
+        // content into 32px, clipping the button.)
         GestureDetector(
           onTap: () => onDetail?.call(award.id),
           behavior: HitTestBehavior.opaque,
           child: SizedBox(
             height: 32,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    l10n.homeAwardsDetail,
-                    style: const TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white,
-                    ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  l10n.homeAwardsDetail,
+                  style: AppTypography.montserrat(
+                    fontSize: 14,
+                    weight: FontWeight.w500,
+                    color: Colors.white,
                   ),
-                  const SizedBox(width: 8),
-                  SvgPicture.asset(
-                    'assets/images/home/icon_arrow.svg',
-                    width: 24,
-                    height: 24,
+                ),
+                const SizedBox(width: 8),
+                // Arrow tinted white to match the white "Chi tiết" label (the
+                // SVG ships with a dark #00101A fill).
+                SvgPicture.asset(
+                  'assets/images/home/icon_arrow.svg',
+                  width: 24,
+                  height: 24,
+                  colorFilter: const ColorFilter.mode(
+                    Colors.white,
+                    BlendMode.srcIn,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

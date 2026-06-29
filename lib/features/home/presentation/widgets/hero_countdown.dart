@@ -220,7 +220,7 @@ class HeroCountdown extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: _montserrat(
-                  fontSize: 14,
+                  fontSize: 13,
                   weight: FontWeight.w500,
                   color: _darkBg,
                 ),
@@ -244,7 +244,10 @@ class HeroCountdown extends StatelessWidget {
       child: Container(
         width: 159,
         height: 40,
-        padding: const EdgeInsets.all(10),
+        // Horizontal-only padding: the previous EdgeInsets.all(10) added 20px of
+        // vertical padding that squeezed the 24px arrow down to ~20px, making it
+        // visibly smaller than the About Award arrow.
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
           color: const Color(0x1AFFEA9E), // rgba(255,234,158,0.10)
           border: Border.all(color: _goldBorder),
@@ -259,17 +262,20 @@ class HeroCountdown extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: _montserrat(
-                  fontSize: 14,
+                  fontSize: 13,
                   weight: FontWeight.w500,
                   color: _white,
                 ),
               ),
             ),
             const SizedBox(width: 4),
+            // Arrow tinted white to match the white label (the SVG ships with a
+            // dark #00101A fill, correct only on the gold About Award button).
             SvgPicture.asset(
               'assets/images/home/icon_arrow.svg',
               width: 24,
               height: 24,
+              colorFilter: const ColorFilter.mode(_white, BlendMode.srcIn),
             ),
           ],
         ),
@@ -294,6 +300,9 @@ class HeroCountdown extends StatelessWidget {
       fontFamily: 'Montserrat',
       fontSize: fontSize,
       fontWeight: weight,
+      // Montserrat.ttf is a variable font (default master = Thin); pin the
+      // wght axis so the true designed weight renders instead of a thin/faux one.
+      fontVariations: [FontVariation('wght', (weight.index + 1) * 100.0)],
       color: color,
       height: height,
       letterSpacing: letterSpacing,
