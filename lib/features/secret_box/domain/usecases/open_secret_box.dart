@@ -1,7 +1,7 @@
-import '../entities/secret_box_reward.dart';
 import '../repositories/secret_box_repository.dart';
+import '../usecases/draw_secret_box_reward.dart';
 
-/// Opens one Secret Box and returns the revealed [SecretBoxReward].
+/// Opens one Secret Box and returns the [DrawResult] (new state + reward).
 ///
 /// Throws [UnknownFailure] (via the repository) when no boxes remain.
 class OpenSecretBox {
@@ -9,5 +9,5 @@ class OpenSecretBox {
 
   final SecretBoxRepository _repo;
 
-  Future<SecretBoxReward> call() => _repo.open();
+  Future<DrawResult> call() => _repo.draw();
 }

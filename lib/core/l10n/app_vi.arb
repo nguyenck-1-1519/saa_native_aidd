@@ -277,6 +277,9 @@
   "secretBoxNoneLeft": "Bạn không còn secret box nào.",
   "@secretBoxNoneLeft": { "description": "Message shown when the user has no boxes left to open (FR8)" },
 
+  "secretBoxGiftCongrats": "Chúc mừng bạn đã nhận được phần quà từ BTC SAA 2025",
+  "@secretBoxGiftCongrats": { "description": "Congratulations message shown on the gift reveal screen when the user completes the full set of 6 collectible icons" },
+
   "notificationsTitle": "Thông báo",
   "@notificationsTitle": { "description": "App-bar / page title for the Notifications screen" },
 

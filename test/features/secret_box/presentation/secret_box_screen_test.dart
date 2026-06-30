@@ -24,6 +24,11 @@ void main() {
     VoidCallback? onClose,
     VoidCallback? onOpeningComplete,
   }) async {
+    // iPhone X logical viewport (375×812) — the design reference frame.
+    tester.view.physicalSize = const Size(1170, 2532);
+    tester.view.devicePixelRatio = 3;
+    addTearDown(tester.view.reset);
+
     await tester.pumpWidget(
       MaterialApp(
         localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -40,244 +45,131 @@ void main() {
         ),
       ),
     );
+    await tester.pumpAndSettle();
   }
 
   group('SecretBoxScreen', () {
     group('closed view', () {
-      testWidgets('renders box and open CTA at 375×812', (tester) async {
-        tester.view.physicalSize = const Size(1170, 2532);
-        tester.view.devicePixelRatio = 3;
-        addTearDown(tester.view.reset);
-
-        await pumpSecretBoxScreen(
-          tester,
-          view: SecretBoxView.closed,
-          unopenedCount: 3,
-        );
-        await tester.pumpAndSettle();
-
-        // Should not overflow.
-        expect(find.byType(LayoutBuilder), findsWidgets);
-      });
-
-      testWidgets('displays unopenedCount', (tester) async {
-        tester.view.physicalSize = const Size(1170, 2532);
-        tester.view.devicePixelRatio = 3;
-        addTearDown(tester.view.reset);
-
+      testWidgets('displays unopenedCount as a zero-padded number',
+          (tester) async {
         await pumpSecretBoxScreen(
           tester,
           view: SecretBoxView.closed,
           unopenedCount: 5,
         );
-        await tester.pumpAndSettle();
 
-        // The count should be rendered in the SecretBoxClosedContent
-        // as a zero-padded number. "05" with unopenedCount: 5.
         expect(find.text('05'), findsOneWidget);
       });
 
-      testWidgets('onOpen is called when open CTA is tapped', (tester) async {
-        tester.view.physicalSize = const Size(1170, 2532);
-        tester.view.devicePixelRatio = 3;
-        addTearDown(tester.view.reset);
-
+      testWidgets('onOpen is called when the box is tapped', (tester) async {
         bool openTapped = false;
         await pumpSecretBoxScreen(
           tester,
           view: SecretBoxView.closed,
           unopenedCount: 2,
-          onOpen: () {
-            openTapped = true;
-          },
+          onOpen: () => openTapped = true,
         );
-        await tester.pumpAndSettle();
 
-        // Tap the box image (which is a GestureDetector).
         await tester.tap(find.byType(GestureDetector).first);
         expect(openTapped, isTrue);
       });
 
-      testWidgets('shows none-left message when unopenedCount is 0', (tester) async {
-        tester.view.physicalSize = const Size(1170, 2532);
-        tester.view.devicePixelRatio = 3;
-        addTearDown(tester.view.reset);
-
-        await pumpSecretBoxScreen(
-          tester,
-          view: SecretBoxView.closed,
-          unopenedCount: 0,
-        );
-        await tester.pumpAndSettle();
-
-        // The i18n key should resolve to VI: "Bạn không còn secret box nào."
-        expect(
-          find.byType(Text, skipOffstage: false),
-          findsWidgets,
-        );
-      });
-
-      testWidgets('disables open when unopenedCount is 0', (tester) async {
-        tester.view.physicalSize = const Size(1170, 2532);
-        tester.view.devicePixelRatio = 3;
-        addTearDown(tester.view.reset);
-
+      testWidgets('open is disabled when unopenedCount is 0', (tester) async {
         bool openTapped = false;
         await pumpSecretBoxScreen(
           tester,
           view: SecretBoxView.closed,
           unopenedCount: 0,
-          onOpen: () {
-            openTapped = true;
-          },
+          onOpen: () => openTapped = true,
         );
-        await tester.pumpAndSettle();
 
-        // The box should have onTap: null when unopenedCount <= 0.
+        await tester.tap(find.byType(GestureDetector).first);
         expect(openTapped, isFalse);
       });
     });
 
     group('opening view', () {
-      testWidgets('renders opening animation', (tester) async {
-        tester.view.physicalSize = const Size(1170, 2532);
-        tester.view.devicePixelRatio = 3;
-        addTearDown(tester.view.reset);
-
-        await pumpSecretBoxScreen(
-          tester,
-          view: SecretBoxView.opening,
-        );
-        await tester.pumpAndSettle();
-
-        // Opening animation should be present.
-        expect(find.byType(Image), findsWidgets);
-      });
-
-      testWidgets('calls onOpeningComplete when animation finishes', (tester) async {
-        tester.view.physicalSize = const Size(1170, 2532);
-        tester.view.devicePixelRatio = 3;
-        addTearDown(tester.view.reset);
-
+      testWidgets('calls onOpeningComplete when the animation finishes',
+          (tester) async {
         bool animationCompleted = false;
         await pumpSecretBoxScreen(
           tester,
           view: SecretBoxView.opening,
-          onOpeningComplete: () {
-            animationCompleted = true;
-          },
+          onOpeningComplete: () => animationCompleted = true,
         );
 
-        // Pump the animation duration (animation is ~1.2s in widget).
+        // Pump past the opening animation (~1.2s in the widget).
         await tester.pumpAndSettle(const Duration(seconds: 2));
 
         expect(animationCompleted, isTrue);
       });
     });
 
-    group('revealed view', () {
-      testWidgets('displays reward name', (tester) async {
-        tester.view.physicalSize = const Size(1170, 2532);
-        tester.view.devicePixelRatio = 3;
-        addTearDown(tester.view.reset);
-
+    group('revealedIcon view', () {
+      testWidgets('displays icon name and remaining count', (tester) async {
         await pumpSecretBoxScreen(
           tester,
-          view: SecretBoxView.revealed,
-          rewardName: 'Khăn Root Further',
+          view: SecretBoxView.revealedIcon,
+          rewardName: 'TOUCH OF LIGHT',
+          unopenedCount: 4,
         );
-        await tester.pumpAndSettle();
 
-        expect(find.text('Khăn Root Further'), findsOneWidget);
+        expect(find.text('TOUCH OF LIGHT'), findsWidgets);
+        expect(find.text('04'), findsOneWidget);
       });
 
-      testWidgets('shows placeholder when rewardAssetRef is null', (tester) async {
-        tester.view.physicalSize = const Size(1170, 2532);
-        tester.view.devicePixelRatio = 3;
-        addTearDown(tester.view.reset);
-
-        await pumpSecretBoxScreen(
-          tester,
-          view: SecretBoxView.revealed,
-          rewardName: 'Test Reward',
-          rewardAssetRef: null,
-        );
-        await tester.pumpAndSettle();
-
-        // Placeholder should render without error.
-        expect(find.byType(Container), findsWidgets);
-      });
-
-      testWidgets('displays reward image when assetRef is provided', (tester) async {
-        tester.view.physicalSize = const Size(1170, 2532);
-        tester.view.devicePixelRatio = 3;
-        addTearDown(tester.view.reset);
-
-        await pumpSecretBoxScreen(
-          tester,
-          view: SecretBoxView.revealed,
-          rewardName: 'Test Reward',
-          rewardAssetRef: 'assets/images/secret_box/reward.png',
-        );
-        await tester.pumpAndSettle();
-
-        // Image widget should be present (may fail to load in test, but structure is there).
-        expect(find.byType(Image), findsWidgets);
-      });
-
-      testWidgets('onClose is called when back button is tapped', (tester) async {
-        tester.view.physicalSize = const Size(1170, 2532);
-        tester.view.devicePixelRatio = 3;
-        addTearDown(tester.view.reset);
-
+      testWidgets('onClose is called when the close button is tapped',
+          (tester) async {
         bool closeTapped = false;
         await pumpSecretBoxScreen(
           tester,
-          view: SecretBoxView.revealed,
-          rewardName: 'Test Reward',
-          onClose: () {
-            closeTapped = true;
-          },
+          view: SecretBoxView.revealedIcon,
+          rewardName: 'ROOT FURTHER',
+          unopenedCount: 0,
+          onClose: () => closeTapped = true,
         );
-        await tester.pumpAndSettle();
 
-        // Tap the back button in the AppBar (chevron_left).
-        await tester.tap(find.byIcon(Icons.chevron_left));
+        await tester.tap(find.byType(TextButton).last);
         expect(closeTapped, isTrue);
       });
     });
 
-    group('no overflow at 375×812', () {
-      testWidgets('closed view fits within 375px width', (tester) async {
-        tester.view.physicalSize = const Size(1170, 2532);
-        tester.view.devicePixelRatio = 3;
-        addTearDown(tester.view.reset);
-
+    group('revealedGift view', () {
+      testWidgets('displays gift reward name', (tester) async {
         await pumpSecretBoxScreen(
           tester,
-          view: SecretBoxView.closed,
-          unopenedCount: 10,
+          view: SecretBoxView.revealedGift,
+          rewardName: 'Khăn Root Further',
         );
-        await tester.pumpAndSettle();
 
-        // No overflow errors should be logged.
-        expect(find.byType(Scaffold), findsOneWidget);
+        expect(find.text('Khăn Root Further'), findsOneWidget);
       });
 
-      testWidgets('revealed view fits within 375px width', (tester) async {
-        tester.view.physicalSize = const Size(1170, 2532);
-        tester.view.devicePixelRatio = 3;
-        addTearDown(tester.view.reset);
-
+      testWidgets('renders the reward image when an assetRef is provided',
+          (tester) async {
         await pumpSecretBoxScreen(
           tester,
-          view: SecretBoxView.revealed,
-          rewardName: 'A very long reward name that might cause overflow issues',
-          rewardAssetRef: null,
+          view: SecretBoxView.revealedGift,
+          rewardName: 'Test Gift',
+          rewardAssetRef: 'assets/images/secret_box/reward.png',
         );
-        await tester.pumpAndSettle();
 
-        expect(find.byType(Scaffold), findsOneWidget);
+        // Image may fail to load in test, but the widget must be present.
+        expect(find.byType(Image), findsWidgets);
+      });
+
+      testWidgets('onClose is called when the back button is tapped',
+          (tester) async {
+        bool closeTapped = false;
+        await pumpSecretBoxScreen(
+          tester,
+          view: SecretBoxView.revealedGift,
+          rewardName: 'Test Gift',
+          onClose: () => closeTapped = true,
+        );
+
+        await tester.tap(find.byIcon(Icons.chevron_left));
+        expect(closeTapped, isTrue);
       });
     });
   });

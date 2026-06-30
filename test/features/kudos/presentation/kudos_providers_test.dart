@@ -11,7 +11,7 @@ import 'package:saa_2025/features/secret_box/presentation/providers/secret_box_p
 /// Builds a [ProviderContainer] with feed, stats, and secret-box repos overridden.
 ///
 /// [secretBoxState] controls what the fake secret box repo returns.
-/// Defaults to 1 unopened / 0 opened (FakeSecretBoxRepository.empty()).
+/// Defaults to 7 unopened / 0 opened (FakeSecretBoxRepository.empty()).
 ProviderContainer _container({
   FakeKudosFeedRepository? feed,
   FakeKudosStatsRepository? stats,
@@ -138,7 +138,7 @@ void main() {
     test(
         'merges kudos base stats with secret-box counts from shared repo',
         () async {
-      // FakeSecretBoxRepository.empty() → unopenedCount=1, openedRewards=[].
+      // FakeSecretBoxRepository.empty() → unopenedCount=7, openedRewards=[].
       final container = _container(
         stats: FakeKudosStatsRepository.data(),
       );
@@ -150,8 +150,8 @@ void main() {
       expect(stats.received, equals(KudosMockData.stats.received));
       expect(stats.sent, equals(KudosMockData.stats.sent));
       expect(stats.heartsReceived, equals(KudosMockData.stats.heartsReceived));
-      // Box counts come from the shared secret box repo (fake: 1 unopened, 0 opened).
-      expect(stats.secretBoxUnopened, equals(1));
+      // Box counts come from the shared secret box repo (fake: 7 unopened, 0 opened).
+      expect(stats.secretBoxUnopened, equals(7));
       expect(stats.secretBoxOpened, equals(0));
     });
 

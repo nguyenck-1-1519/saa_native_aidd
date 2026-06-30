@@ -25,7 +25,7 @@ void main() {
     test(
         'kudosStatsProvider merges secret-box unopened/opened counts from shared repo',
         () async {
-      // FakeSecretBoxRepository.empty() → unopenedCount=1, openedRewards=[].
+      // FakeSecretBoxRepository.empty() → unopenedCount=7, openedRewards=[].
       final container = _container(
         stats: FakeKudosStatsRepository.data(),
       );
@@ -34,7 +34,7 @@ void main() {
       final stats = await container.read(kudosStatsProvider.future);
 
       // Secret-box counts should reflect the fake repo's state.
-      expect(stats.secretBoxUnopened, equals(1));
+      expect(stats.secretBoxUnopened, equals(7));
       expect(stats.secretBoxOpened, equals(0));
     });
 

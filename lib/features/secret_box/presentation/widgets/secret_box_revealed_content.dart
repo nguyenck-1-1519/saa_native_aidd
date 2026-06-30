@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/l10n/app_localizations.dart';
+import '../../../../core/theme/app_typography.dart';
 import 'secret_box_reward_image.dart';
 
 /// Content panel for [SecretBoxView.revealed].
@@ -98,16 +99,15 @@ class _RevealedBody extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        // Congrats header — node 6885:9658
+        // Congrats header — gift-specific copy (B3 l10n key secretBoxGiftCongrats)
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Text(
-            l10n.secretBoxRevealedTitle,
+            l10n.secretBoxGiftCongrats,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontFamily: 'Montserrat',
+            style: AppTypography.montserrat(
               fontSize: 18,
-              fontWeight: FontWeight.w700,
+              weight: FontWeight.w700,
               color: _gold,
               height: 24 / 18,
             ),
@@ -125,10 +125,9 @@ class _RevealedBody extends StatelessWidget {
           child: Text(
             rewardName ?? '',
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontFamily: 'Montserrat',
+            style: AppTypography.montserrat(
               fontSize: 14,
-              fontWeight: FontWeight.w400,
+              weight: FontWeight.w400,
               color: _gold,
               height: 20 / 14,
               letterSpacing: 0.25,

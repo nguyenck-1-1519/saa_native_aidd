@@ -1,8 +1,26 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:saa_2025/features/home/domain/entities/countdown_state.dart';
 import 'package:saa_2025/features/home/domain/usecases/compute_countdown.dart';
+import 'package:saa_2025/features/home/presentation/providers/countdown_controller.dart';
 
 void main() {
+  group('CountdownController mock (no event API)', () {
+    test('build() anchors to ~24h remaining on every app open', () {
+      final container = ProviderContainer();
+      addTearDown(container.dispose);
+
+      final state = container.read(countdownControllerProvider);
+
+      // Mock re-anchors target to now + 24h, so the first frame reads exactly
+      // 1 day / 0h / 0m and is never the elapsed/event-ended state.
+      expect(state.isElapsed, isFalse);
+      expect(state.days, 1);
+      expect(state.hours, 0);
+      expect(state.minutes, 0);
+    });
+  });
+
   group('CountdownController', () {
     test('build() returns valid countdown state', () {
       // The countdown state should always have non-negative values

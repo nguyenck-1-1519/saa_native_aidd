@@ -15,6 +15,15 @@ ProviderContainer _container({
   );
 }
 
+/// Helper: drive the full open → animation-complete flow.
+///
+/// open() is now synchronous (sets phase to opening); the draw happens in
+/// onOpeningComplete() once the animation fires.
+Future<void> _openAndComplete(SecretBoxController ctrl) async {
+  ctrl.open();
+  await ctrl.onOpeningComplete();
+}
+
 void main() {
   group('SecretBoxController', () {
     group('state machine', () {
@@ -29,49 +38,63 @@ void main() {
         expect(state.errorMessage, isNull);
       });
 
-      test('transitions closed → opening → revealed on open()', () async {
+      test('open() transitions closed → opening synchronously', () {
         final container = _container();
         addTearDown(container.dispose);
 
         final controller =
             container.read(secretBoxControllerProvider.notifier);
 
-        // Before open.
+        // Seed the count so open() does not guard against 0.
+        container.read(secretBoxControllerProvider.notifier)
+            // ignore: invalid_use_of_protected_member
+            .state = container
+                .read(secretBoxControllerProvider)
+                .copyWith(unopenedCount: 7);
+
+        controller.open();
+
         expect(
           container.read(secretBoxControllerProvider).phase,
-          equals(SecretBoxPhase.closed),
+          equals(SecretBoxPhase.opening),
         );
+      });
 
-        // Start open (should transition to opening immediately).
-        final openFuture = controller.open();
+      test('onOpeningComplete() advances opening → revealed', () async {
+        final container = _container();
+        addTearDown(container.dispose);
 
-        // FakeSecretBoxRepository resolves immediately, so the state
-        // will be revealed before we can check the "opening" phase.
-        // What matters is that open() completes and the state is revealed.
-        await openFuture;
+        final controller =
+            container.read(secretBoxControllerProvider.notifier);
+
+        // Ensure count is seeded before opening.
+        await Future<void>.delayed(const Duration(milliseconds: 10));
+
+        await _openAndComplete(controller);
 
         final finalState = container.read(secretBoxControllerProvider);
         expect(finalState.phase, equals(SecretBoxPhase.revealed));
         expect(finalState.reward, isNotNull);
-        expect(finalState.reward!.id, equals('fake-reward-1'));
       });
 
-      test('includes reward name and descriptor in revealed state', () async {
+      test('revealed state contains reward with name and kind', () async {
         final container = _container();
         addTearDown(container.dispose);
 
-        await container
-            .read(secretBoxControllerProvider.notifier)
-            .open();
+        final controller =
+            container.read(secretBoxControllerProvider.notifier);
+
+        await Future<void>.delayed(const Duration(milliseconds: 10));
+        await _openAndComplete(controller);
 
         final state = container.read(secretBoxControllerProvider);
-        expect(state.reward!.name, equals('Test Reward'));
-        expect(state.reward!.descriptor, equals('Test descriptor'));
+        expect(state.reward!.name, isNotEmpty);
+        expect(state.reward!.kind, isNotNull);
       });
     });
 
     group('error handling', () {
-      test('returns to closed with errorMessage on open() failure', () async {
+      test('onOpeningComplete() error → closed with errorMessage', () async {
         final container = _container(
           secretBox: FakeSecretBoxRepository.none(),
         );
@@ -80,7 +103,12 @@ void main() {
         final controller =
             container.read(secretBoxControllerProvider.notifier);
 
-        await controller.open();
+        // Force phase to opening so onOpeningComplete acts.
+        // ignore: invalid_use_of_protected_member
+        controller.state =
+            controller.state.copyWith(phase: SecretBoxPhase.opening);
+
+        await controller.onOpeningComplete();
 
         final state = container.read(secretBoxControllerProvider);
         expect(state.phase, equals(SecretBoxPhase.closed));
@@ -88,10 +116,7 @@ void main() {
         expect(state.reward, isNull);
       });
 
-      test('returns to closed with errorMessage when repo throws a Dart Error',
-          () async {
-        // H1 regression: a non-Exception throwable (StateError / LateInitializationError)
-        // must NOT leave phase stuck in `opening`, which would lock the double-tap guard.
+      test('Dart Error in repo resets phase → closed', () async {
         final container = _container(
           secretBox: FakeSecretBoxRepository.throwingError(),
         );
@@ -100,7 +125,11 @@ void main() {
         final controller =
             container.read(secretBoxControllerProvider.notifier);
 
-        await controller.open();
+        // ignore: invalid_use_of_protected_member
+        controller.state =
+            controller.state.copyWith(phase: SecretBoxPhase.opening);
+
+        await controller.onOpeningComplete();
 
         final state = container.read(secretBoxControllerProvider);
         expect(state.phase, equals(SecretBoxPhase.closed),
@@ -110,9 +139,9 @@ void main() {
         expect(state.reward, isNull);
       });
 
-      test('clears errorMessage on next successful open()', () async {
+      test('error clears on next successful open', () async {
         // Start with error.
-        var container = ProviderContainer(
+        final container = ProviderContainer(
           overrides: [
             secretBoxRepositoryProvider
                 .overrideWithValue(FakeSecretBoxRepository.none()),
@@ -120,9 +149,10 @@ void main() {
         );
         addTearDown(container.dispose);
 
-        await container
-            .read(secretBoxControllerProvider.notifier)
-            .open();
+        final ctrl = container.read(secretBoxControllerProvider.notifier);
+        // ignore: invalid_use_of_protected_member
+        ctrl.state = ctrl.state.copyWith(phase: SecretBoxPhase.opening);
+        await ctrl.onOpeningComplete();
 
         expect(
           container.read(secretBoxControllerProvider).errorMessage,
@@ -135,9 +165,14 @@ void main() {
               .overrideWithValue(FakeSecretBoxRepository.empty()),
         ]);
 
-        await container
-            .read(secretBoxControllerProvider.notifier)
-            .open();
+        // Re-read notifier after override switch; clear the error and seed phase.
+        final ctrl2 = container.read(secretBoxControllerProvider.notifier);
+        // ignore: invalid_use_of_protected_member
+        ctrl2.state = SecretBoxUiState(
+          phase: SecretBoxPhase.opening,
+          unopenedCount: 7,
+        );
+        await ctrl2.onOpeningComplete();
 
         final state = container.read(secretBoxControllerProvider);
         expect(state.phase, equals(SecretBoxPhase.revealed));
@@ -147,7 +182,7 @@ void main() {
     });
 
     group('double-tap guard', () {
-      test('ignores second open() call while opening is in flight', () async {
+      test('open() is ignored while opening phase is active', () {
         final container = _container(
           secretBox: FakeSecretBoxRepository.loading(),
         );
@@ -156,17 +191,19 @@ void main() {
         final controller =
             container.read(secretBoxControllerProvider.notifier);
 
-        // Start first open — never completes.
-        controller.open();
-        await Future<void>.delayed(const Duration(milliseconds: 1));
+        // Seed count manually so the guard for count<=0 does not fire.
+        // ignore: invalid_use_of_protected_member
+        controller.state =
+            controller.state.copyWith(unopenedCount: 7);
+
+        controller.open(); // → opening
 
         expect(
           container.read(secretBoxControllerProvider).phase,
           equals(SecretBoxPhase.opening),
         );
 
-        // Try second open — should be ignored (phase stays opening).
-        controller.open();
+        controller.open(); // second tap — should be ignored
 
         expect(
           container.read(secretBoxControllerProvider).phase,
@@ -175,7 +212,7 @@ void main() {
       });
     });
 
-    group('reset()', () {
+    group('close()', () {
       test('transitions any phase to closed, clears reward and error', () async {
         final container = _container();
         addTearDown(container.dispose);
@@ -183,20 +220,39 @@ void main() {
         final controller =
             container.read(secretBoxControllerProvider.notifier);
 
-        // Reach revealed state.
-        await controller.open();
+        await Future<void>.delayed(const Duration(milliseconds: 10));
+        await _openAndComplete(controller);
+
         expect(
           container.read(secretBoxControllerProvider).phase,
           equals(SecretBoxPhase.revealed),
         );
 
-        // Reset.
-        controller.reset();
+        controller.close();
 
         final state = container.read(secretBoxControllerProvider);
         expect(state.phase, equals(SecretBoxPhase.closed));
         expect(state.reward, isNull);
         expect(state.errorMessage, isNull);
+      });
+    });
+
+    group('reset() alias', () {
+      test('reset() behaves identically to close()', () async {
+        final container = _container();
+        addTearDown(container.dispose);
+
+        final controller =
+            container.read(secretBoxControllerProvider.notifier);
+
+        await Future<void>.delayed(const Duration(milliseconds: 10));
+        await _openAndComplete(controller);
+
+        controller.reset();
+
+        final state = container.read(secretBoxControllerProvider);
+        expect(state.phase, equals(SecretBoxPhase.closed));
+        expect(state.reward, isNull);
       });
     });
   });

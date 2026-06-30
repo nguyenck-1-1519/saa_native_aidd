@@ -110,6 +110,7 @@
   "secretBoxRevealedTitle": "Congratulations!",
   "secretBoxUnopenedLabel": "Unopened secret boxes ",
   "secretBoxNoneLeft": "You have no secret boxes left.",
+  "secretBoxGiftCongrats": "Congratulations! You received a gift from the SAA 2025 organizers",
 
   "notificationsTitle": "Notifications",
   "notificationsMarkAllRead": "Mark all as read",

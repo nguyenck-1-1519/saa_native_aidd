@@ -75,10 +75,13 @@ dùng `get_figma_image`. KHÔNG tự vẽ.
 ## 5. Yêu cầu chức năng (FR)
 - FR1: Hiển thị Home đúng layout design (header cố định trên? — theo design header nằm
   đầu nội dung cuộn; bottom nav + FAB cố định). Cuộn dọc toàn trang.
-- FR2: Countdown real-time tới 26/12/2025, cập nhật mỗi giây (DAYS/HOURS/MINUTES).
-- FR3: Trước sự kiện: hiện "Coming soon"; **sau 26/12/2025: ẩn "Coming soon" + trạng thái
-  đã kết thúc** (NOTE: hiện tại đã quá ngày — phải xử lý elapsed: hiển thị 0/đã kết thúc,
-  không lỗi/âm).
+- FR2: Countdown real-time tới ngày sự kiện, cập nhật mỗi giây (DAYS/HOURS/MINUTES).
+  **MOCK (chưa có API):** ngày thật 26/12/2025 đã ở quá khứ. Cho tới khi có nguồn API/remote-config,
+  countdown re-anchor về `now + 24h` mỗi lần mở app → mỗi launch bắt đầu lại ở ~24h và đếm lùi.
+  Thay `CountdownController._resolveTarget()` bằng giá trị API khi có; phần còn lại giữ nguyên.
+- FR3: Trạng thái elapsed (`isElapsed=true` → ẩn "Coming soon", hiển thị "đã kết thúc", days/hours/
+  minutes = 0, không lỗi/âm) vẫn được giữ + test đầy đủ. Với mock 24h hiện tại nó không kích hoạt
+  trong runtime bình thường, nhưng là path bắt buộc khi target thật (từ API) đã qua.
 - FR4: Awards list — trạng thái loading / empty / error(+Retry) / data; cuộn ngang; "Chi tiết"
   → Award Detail (placeholder). Dữ liệu từ mock/stub repository (API thật defer).
 - FR5: Kudos section feature-flag: `isKudosAvailable=true` → hiện; false → **ẩn hẳn** (không

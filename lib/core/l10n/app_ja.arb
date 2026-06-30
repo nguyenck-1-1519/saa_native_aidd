@@ -239,6 +239,9 @@
   "secretBoxNoneLeft": "シークレットボックスが残っていません。",
   "@secretBoxNoneLeft": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
 
+  "secretBoxGiftCongrats": "SAA 2025運営委員会からのプレゼントをおめでとうございます",
+  "@secretBoxGiftCongrats": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese. Congratulations message for gift reveal when all 6 icons collected." },
+
   "notificationsTitle": "通知",
   "@notificationsTitle": { "description": "NEEDS NATIVE REVIEW: machine-translated from Vietnamese" },
 

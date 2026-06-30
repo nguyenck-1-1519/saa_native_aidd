@@ -13,7 +13,8 @@ void main() {
       final state = await usecase.call();
 
       expect(state, isA<SecretBoxState>());
-      expect(state.unopenedCount, equals(1));
+      // empty() initialState has 7 boxes (enough to reach the gift in one session).
+      expect(state.unopenedCount, equals(7));
       expect(state.openedRewards, isEmpty);
     });
 
